@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="tesis"/>
+  <table-filter match-name="expedientes"/>
+  <table-filter match-name="areas"/>
+  <table-filter match-name="sedes"/>
+  <table-filter match-name="estados"/>
+  <table-filter match-name="comprobantes_comida_alojamientos"/>
+  <table-filter match-name="comprobantes_traslados"/>
+  <table-filter match-name="departamentos_academicos"/>
+  <table-filter match-name="usuarios"/>
+  <table-filter match-name="liquidaciones"/>
+  <table-filter match-name="docentes"/>
+  <table-filter match-name="registros_unicos"/>
+  <table-filter match-name="actividad_docentes"/>
+  <table-filter match-name="comprobantes"/>
+  <table-filter match-name="expedientes_solicitudes"/>
+  <table-filter match-name="solicitudes"/>
+  <table-filter match-name="designaciones"/>
+</hibernate-reverse-engineering>

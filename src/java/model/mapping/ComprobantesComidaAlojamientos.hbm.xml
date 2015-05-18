@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.ComprobantesComidaAlojamientos" optimistic-lock="version" schema="public" table="comprobantes_comida_alojamientos">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Comprobantes" fetch="select" name="comprobantes">
+      <column name="id_comprobante" not-null="true"/>
+    </many-to-one>
+    <property name="tipo" type="short">
+      <column name="tipo" not-null="true">
+        <comment>1 = comida 2 = alojamiento</comment>
+      </column>
+    </property>
+    <property name="descripcion" type="string">
+      <column name="descripcion"/>
+    </property>
+  </class>
+</hibernate-mapping>

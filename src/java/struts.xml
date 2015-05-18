@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.configuration.xml.reload" value="true" />
+    
+    <package name="tesis" extends="struts-default" >
+        <action name="index">
+            <result>/menu.jsp</result>
+        </action>
+        <action name="Administrativo"  >
+            <result type="redirect">/Administrativo/menu.jsp</result>
+        </action>
+    </package>
+    
+    <package name="Admin" extends="struts-default" namespace="/Administrativo">
+        <action name="IniciarSolicitudForm" class="controller.SolicitudesController">
+            <result>/Administrativo/IniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="SolicitudPreparar" class="controller.SolicitudesController" method="prepared" >
+            <result type="redirectAction">
+                <param name="actionName">DatosDocentesForm</param>
+                <param name="parse">false</param>
+            </result>
+            <result name="input">/Administrativo/IniciarSolicitud.jsp</result>
+            <result name="error">/Administrativo/IniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="DatosDocentesForm" class="controller.DocentesController" >
+            <result>/Administrativo/DocentesIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="DatosDocentesPreparar" class="controller.DocentesController" method="prepared" >
+            <result>/Administrativo/TrasladoIniciarSolicitud.jsp</result>
+            <result name="input">/Administrativo/DocentesIniciarSolicitud.jsp</result>
+            <result name="error">/Administrativo/DocentesIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="DatosTrasladoPreparar" class="controller.ComprobantesTrasladosController" method="prepared" >
+            <result type="redirectAction">RegistroUnicoForm</result>
+            <result name="input">/Administrativo/TrasladoIniciarSolicitud.jsp</result>
+            <result name="error">/Administrativo/TrasladoIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="AlojamientoForm" class="controller.ComprobantesComidaAlojamientoController" method="setTipo">
+            <result>/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="DatosAlojamientoPreparar" class="controller.ComprobantesComidaAlojamientoController" method="prepared" >
+            <result type="redirectAction">RegistroUnicoForm</result>
+            <result name="input">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
+            <result name="error">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="RegistroUnicoForm" class="controller.RegistrosUnicosController" >
+            <result >/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="RegistroUnicoPrepare" class="controller.RegistrosUnicosController" method="crear">
+            <result>/Administrativo/ConfirmarSolicitud.jsp</result>
+            <result name="input">/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
+            <result name="error">/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
+        </action>
+        
+        <action name="IniciarSolcitud" class="action.IniciarSolicitud">
+            <result>/Administrativo/menu.jsp</result>
+            <result name="error">/Administrativo/error.jsp</result>
+        </action>
+    </package>
+</struts>

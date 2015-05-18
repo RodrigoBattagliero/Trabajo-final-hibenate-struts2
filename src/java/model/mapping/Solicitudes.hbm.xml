@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Solicitudes" optimistic-lock="version" schema="public" table="solicitudes">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Sedes" fetch="select" name="sedes">
+      <column name="id_sede"/>
+    </many-to-one>
+    <property name="tipo" type="short">
+      <column name="tipo" not-null="true">
+        <comment>1 = capital 2 = interior</comment>
+      </column>
+    </property>
+    <property name="fechaAlta" type="date">
+      <column length="13" name="fecha_alta"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+    <property name="numeroSolicitud" type="int">
+      <column name="numero_solicitud" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="designacioneses" table="designaciones">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Designaciones"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="comprobanteses" table="comprobantes">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Comprobantes"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="docenteses" table="docentes">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Docentes"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="liquidacioneses" table="liquidaciones">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Liquidaciones"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="registrosUnicoses" table="registros_unicos">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.RegistrosUnicos"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="expedientesSolicitudeses" table="expedientes_solicitudes">
+      <key>
+        <column name="id_solicitud" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ExpedientesSolicitudes"/>
+    </set>
+  </class>
+</hibernate-mapping>

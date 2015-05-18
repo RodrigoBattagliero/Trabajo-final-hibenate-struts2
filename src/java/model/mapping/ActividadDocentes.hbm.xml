@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.ActividadDocentes" optimistic-lock="version" schema="public" table="actividad_docentes">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Designaciones" fetch="select" name="designaciones">
+      <column name="id_designacion" not-null="true"/>
+    </many-to-one>
+    <property name="fecha" type="date">
+      <column length="13" name="fecha"/>
+    </property>
+    <property name="asignatura" type="string">
+      <column name="asignatura"/>
+    </property>
+    <property name="visadoBedelia" type="java.lang.Boolean">
+      <column name="visado_bedelia"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+    <property name="idUnidadAcademica" type="string">
+      <column length="10" name="id_unidad_academica"/>
+    </property>
+    <property name="idMateria" type="string">
+      <column length="10" name="id_materia"/>
+    </property>
+    <property name="carrera" type="string">
+      <column length="100" name="carrera"/>
+    </property>
+    <property name="idComision" type="string">
+      <column length="10" name="id_comision"/>
+    </property>
+  </class>
+</hibernate-mapping>

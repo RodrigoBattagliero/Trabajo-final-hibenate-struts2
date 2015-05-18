@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Docentes" optimistic-lock="version" schema="public" table="docentes">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.DepartamentosAcademicos" fetch="select" name="departamentosAcademicos">
+      <column name="id_departamento_academico" not-null="true"/>
+    </many-to-one>
+    <many-to-one class="model.entities.Solicitudes" fetch="select" name="solicitudes">
+      <column name="id_solicitud" not-null="true"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column name="nombre"/>
+    </property>
+    <property name="apellido" type="string">
+      <column name="apellido"/>
+    </property>
+    <property name="dni" type="string">
+      <column name="dni"/>
+    </property>
+    <property name="telefono" type="string">
+      <column name="telefono"/>
+    </property>
+    <property name="email" type="string">
+      <column name="email"/>
+    </property>
+    <property name="lugarResidencia" type="string">
+      <column name="lugar_residencia"/>
+    </property>
+    <property name="motivoComision" type="string">
+      <column name="motivo_comision"/>
+    </property>
+    <property name="fechaInicio" type="timestamp">
+      <column length="29" name="fecha_inicio"/>
+    </property>
+    <property name="fechaFinalizacion" type="timestamp">
+      <column length="29" name="fecha_finalizacion"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+  </class>
+</hibernate-mapping>

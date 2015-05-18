@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Comprobantes" optimistic-lock="version" schema="public" table="comprobantes">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Solicitudes" fetch="select" name="solicitudes">
+      <column name="id_solicitud" not-null="true"/>
+    </many-to-one>
+    <property name="importe" type="float">
+      <column name="importe" not-null="true" precision="8" scale="8"/>
+    </property>
+    <property name="numeroComprobante" type="string">
+      <column name="numero_comprobante"/>
+    </property>
+    <property name="proveedor" type="string">
+      <column name="proveedor"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="comprobantesTrasladoses" table="comprobantes_traslados">
+      <key>
+        <column name="id_comprobante" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ComprobantesTraslados"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="true" name="comprobantesComidaAlojamientoses" table="comprobantes_comida_alojamientos">
+      <key>
+        <column name="id_comprobante" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ComprobantesComidaAlojamientos"/>
+    </set>
+  </class>
+</hibernate-mapping>

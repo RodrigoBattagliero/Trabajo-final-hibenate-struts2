@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/tesis</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">123</property>
+    <property name="show_sql">true</property>
+    <mapping resource="model/mapping/ComprobantesTraslados.hbm.xml"/>
+    <mapping resource="model/mapping/RegistrosUnicos.hbm.xml"/>
+    <mapping resource="model/mapping/DepartamentosAcademicos.hbm.xml"/>
+    <mapping resource="model/mapping/Estados.hbm.xml"/>
+    <mapping resource="model/mapping/Solicitudes.hbm.xml"/>
+    <mapping resource="model/mapping/ExpedientesSolicitudes.hbm.xml"/>
+    <mapping resource="model/mapping/ActividadDocentes.hbm.xml"/>
+    <mapping resource="model/mapping/Sedes.hbm.xml"/>
+    <mapping resource="model/mapping/Designaciones.hbm.xml"/>
+    <mapping resource="model/mapping/Comprobantes.hbm.xml"/>
+    <mapping resource="model/mapping/Docentes.hbm.xml"/>
+    <mapping resource="model/mapping/Areas.hbm.xml"/>
+    <mapping resource="model/mapping/Liquidaciones.hbm.xml"/>
+    <mapping resource="model/mapping/Expedientes.hbm.xml"/>
+    <mapping resource="model/mapping/Usuarios.hbm.xml"/>
+    <mapping resource="model/mapping/ComprobantesComidaAlojamientos.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Liquidaciones" optimistic-lock="version" schema="public" table="liquidaciones">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Solicitudes" fetch="select" name="solicitudes">
+      <column name="id_solicitud" not-null="true"/>
+    </many-to-one>
+    <property name="reconocimientoGastoComida" type="java.lang.Float">
+      <column name="reconocimiento_gasto_comida" precision="8" scale="8"/>
+    </property>
+    <property name="reconocimientoGastoAlojamiento" type="java.lang.Float">
+      <column name="reconocimiento_gasto_alojamiento" precision="8" scale="8"/>
+    </property>
+    <property name="reconocimientoGastoCombustible" type="java.lang.Float">
+      <column name="reconocimiento_gasto_combustible" precision="8" scale="8"/>
+    </property>
+    <property name="importeDeclarado" type="java.lang.Float">
+      <column name="importe_declarado" precision="8" scale="8"/>
+    </property>
+    <property name="reconocimientoImporteTotal" type="java.lang.Float">
+      <column name="reconocimiento_importe_total" precision="8" scale="8"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+  </class>
+</hibernate-mapping>

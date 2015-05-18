@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Usuarios" optimistic-lock="version" schema="public" table="usuarios">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Areas" fetch="select" name="areas">
+      <column name="id_area" not-null="true"/>
+    </many-to-one>
+    <property name="nombre" type="string">
+      <column name="nombre"/>
+    </property>
+    <property name="password" type="string">
+      <column name="password"/>
+    </property>
+    <property name="user" type="string">
+      <column name="user"/>
+    </property>
+  </class>
+</hibernate-mapping>
