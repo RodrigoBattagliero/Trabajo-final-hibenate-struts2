@@ -41,12 +41,35 @@ public abstract class Controller<Object> extends ActionSupport {
         return res;
     }
     
+    public String selectRelated(int id){
+        String res = SUCCESS;
+        dao.iniciaOperacion();
+        entities = (List) dao.selectRelated(id);
+        dao.cerrarSession();
+        return res;
+    }
+    
     public String save(){   
         String res = ERROR;
         dao.iniciaOperacion();
         id = dao.create(entity);
         dao.cerrarSession();
         if(id > 0)
+            res = SUCCESS;
+        return res; 
+    }
+    
+    public String update(){
+        String res = ERROR;
+        boolean b = false;
+        try{
+//            this.dao.iniciaOperacion();
+            b = dao.update(entity);
+//            dao.cerrarSession();
+        }catch(NullPointerException e){
+            System.out.println(e);
+        }
+        if(b)
             res = SUCCESS;
         return res; 
     }

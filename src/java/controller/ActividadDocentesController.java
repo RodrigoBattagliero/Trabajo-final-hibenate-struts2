@@ -27,5 +27,9 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> {
         this.dao = dao;
     }
     
+    public String prepared(){
+        return SUCCESS;
+    }
+    
     
 }

@@ -14,7 +14,7 @@
     </head>
     
         <h1>Registro único</h1>
-        <s:form action="RegistroUnicoPrepare" >
+        <s:form action="RegistroUnicoPrepare">
             <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" />
             <tr>
                 <td><label for="RegistroUnicoPrepare_idAreaSelected">Area</label></td>

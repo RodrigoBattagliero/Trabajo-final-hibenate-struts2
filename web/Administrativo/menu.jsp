@@ -16,5 +16,8 @@
         <h1>Administrativo</h1>
         <hr>
         <s:a action="IniciarSolicitudForm">Iniciar solicitud</s:a>
+        <s:a action="DatosCompletarCapitalForm">Completar Datos Capital</s:a>
+        <s:a action="ConfirmarSolicitudesForm">Confirmar solicitudes</s:a>
+        <s:a action="SolicitudesIniciadasSedeInteriorForm">Confirmar solicitudes</s:a>
     </body>
 </html>

@@ -8,6 +8,7 @@ package model.dao;
 import conexion.HibernateUtil;
 import interfaces.IQueries;
 import java.util.List;
+import model.entities.Areas;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -76,8 +77,8 @@ public abstract class DAO implements IQueries<Object>{
     public boolean update(Object c) {
         boolean b = false;
         try{
-            iniciaOperacion();
-//            sesion.update(c);
+//            iniciaOperacion();
+            sesion.update(c);
             tx.commit();
             b = true;
         }catch(HibernateException he){
@@ -119,11 +120,16 @@ public abstract class DAO implements IQueries<Object>{
         String idStr = String.valueOf(key);
         try{
 //            iniciaOperacion();
-            list = sesion.createQuery("FROM " + tableName + " WHERE id_solicitud = " + idStr).list();
+            String sql = "FROM " + tableName + " WHERE id_solicitud = " + (int) key;
+            list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();
         }
         return list;
+    }
+
+    public Areas proxima(Areas area) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

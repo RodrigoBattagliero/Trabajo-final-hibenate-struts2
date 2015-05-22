@@ -27,7 +27,11 @@ public class AreasController extends Controller<Areas> {
         this.dao = dao;
     }
     
-    
+    public void proximaArea(Areas area){
+        dao.iniciaOperacion();
+        this.entity = dao.proxima(area);
+        dao.cerrarSession();
+    }
     
     /*
     AreasDAO areasDAO;

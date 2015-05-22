@@ -24,7 +24,7 @@ public class DesignacionesDAO extends DAO {
     public void cerrarSession(){
         super.cerrarSession();
     }
-    
+  
     
     
 }
