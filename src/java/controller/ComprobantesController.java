@@ -40,7 +40,7 @@ public class ComprobantesController extends Controller<Comprobantes> implements 
     public void setTipoComprobante(int tipoCompronbante) {
         this.tipoComprobante = tipoCompronbante;
     }
-
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

@@ -7,10 +7,12 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import controller.RegistrosUnicosController;
+import controller.SolicitudesController;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.entities.RegistrosUnicos;
+import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
@@ -25,6 +27,8 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
     @Override
     public String execute(){
         String res = SUCCESS;
+        
+        
         List<RegistrosUnicos> registros = (List<RegistrosUnicos>) sesion.getAttribute("RegistrosConfirmarForm");
         List<RegistrosUnicos> registrosProx = (List<RegistrosUnicos>) sesion.getAttribute("RegistrosNuevosForm");
         RegistrosUnicosController regController;
@@ -35,9 +39,11 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
             regController.getDao().iniciaOperacion();
             if(!regController.getDao().update(registros.get(i)))
                 res = ERROR;
+            regController.getDao().cerrarSession();
+            registrosProx.get(i).setSolicitudes(regController.getEntity().getSolicitudes());
             regController.setEntity(registrosProx.get(i));
-            regController.save();
-            
+            regController.getDao().iniciaOperacion();
+            regController.getDao().create(registrosProx.get(i));
             regController.getDao().cerrarSession();
         }
         return res;

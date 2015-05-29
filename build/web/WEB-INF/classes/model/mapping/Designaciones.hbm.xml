@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.Designaciones" optimistic-lock="version" schema="public" table="designaciones">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="model.entities.Solicitudes" fetch="select" name="solicitudes">
+      <column name="id_solicitud" not-null="true"/>
+    </many-to-one>
+    <property name="numeroResolucion" type="string">
+      <column name="numero_resolucion"/>
+    </property>
+    <property name="categoria" type="string">
+      <column name="categoria"/>
+    </property>
+    <property name="desde" type="date">
+      <column length="13" name="desde"/>
+    </property>
+    <property name="hasta" type="date">
+      <column length="13" name="hasta"/>
+    </property>
+    <property name="dedicacion" type="string">
+      <column name="dedicacion"/>
+    </property>
+    <property name="observaciones" type="string">
+      <column name="observaciones"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="actividadDocenteses" table="actividad_docentes">
+      <key>
+        <column name="id_designacion" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ActividadDocentes"/>
+    </set>
+  </class>
+</hibernate-mapping>

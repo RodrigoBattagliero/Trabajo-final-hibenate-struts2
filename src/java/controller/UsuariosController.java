@@ -15,7 +15,7 @@ import model.entities.Usuarios;
 public class UsuariosController extends Controller<Usuarios> {
 
     public UsuariosController() {
-        dao = (UsuariosDAO) new UsuariosDAO();
+        this.dao = (UsuariosDAO) new UsuariosDAO();
     }
     
     @Override
@@ -25,6 +25,26 @@ public class UsuariosController extends Controller<Usuarios> {
 
     public void setDao(UsuariosDAO dao) {
         this.dao = dao;
+    }
+    
+    public boolean login(String user, String pass){
+        boolean b = false;
+        this.dao = (UsuariosDAO) new UsuariosDAO();
+        this.entity = new Usuarios();
+        this.dao.iniciaOperacion();
+        this.entities = dao.login(user,pass);
+        this.dao.cerrarSession();
+        if(this.entities.size() == 1){
+            b = true;
+            //this.entity = this.entities.get(0);
+            this.entity.setAreas(this.entities.get(0).getAreas());
+            this.entity.setId(this.entities.get(0).getId());
+            this.entity.setNombre(this.entities.get(0).getNombre());
+            this.entity.setPassword(this.entities.get(0).getPassword());
+            this.entity.setUser(this.entities.get(0).getUser());
+        }
+        
+        return b;
     }
     
 }

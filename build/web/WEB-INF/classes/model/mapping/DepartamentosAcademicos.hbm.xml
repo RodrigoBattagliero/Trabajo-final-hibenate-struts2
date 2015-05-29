@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 5, 2015 4:56:27 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.DepartamentosAcademicos" optimistic-lock="version" schema="public" table="departamentos_academicos">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="nombre" type="string">
+      <column name="nombre" not-null="true"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="docenteses" table="docentes">
+      <key>
+        <column name="id_departamento_academico" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Docentes"/>
+    </set>
+  </class>
+</hibernate-mapping>

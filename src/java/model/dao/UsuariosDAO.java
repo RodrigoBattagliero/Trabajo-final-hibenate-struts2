@@ -5,6 +5,10 @@
  */
 package model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.entities.Usuarios;
+
 /**
  *
  * @author rodrigo
@@ -23,6 +27,14 @@ public class UsuariosDAO extends DAO {
     @Override
     public void cerrarSession(){
         super.cerrarSession();
+    }
+    
+    @Override
+    public List<Usuarios> login(String user, String pass){
+        List<Usuarios> users;
+        String sql = "FROM "+tableName+" AS u INNER JOIN FETCH u.areas WHERE u.user = '"+user+"' AND u.password = '"+pass+"'";
+        users = sesion.createQuery(sql).list();
+        return users;
     }
     
 }

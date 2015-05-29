@@ -43,6 +43,21 @@ public class RegistrosUnicosDAO extends DAO {
         return a;
     }
     
+    public Object selectOneWithSolicitud(Object key) {
+        RegistrosUnicos a;
+        List<RegistrosUnicos> list;
+        try{
+//            iniciaOperacion();
+            list =  sesion.createQuery(
+                    "FROM " + tableName + " AS ru INNER JOIN FETCH ru.solicitudes WHERE ru = " + (int) key
+                ).list();
+            a = list.get(0);
+        }finally{
+//            sesion.close();
+        }
+        return a;
+    }
+    
     public List<Solicitudes> selectACompletar(Areas area) {
         List<Solicitudes> list = null;
         try{

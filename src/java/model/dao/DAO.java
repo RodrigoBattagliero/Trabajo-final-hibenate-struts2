@@ -9,6 +9,7 @@ import conexion.HibernateUtil;
 import interfaces.IQueries;
 import java.util.List;
 import model.entities.Areas;
+import model.entities.Usuarios;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -129,6 +130,10 @@ public abstract class DAO implements IQueries<Object>{
     }
 
     public Areas proxima(Areas area) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Usuarios> login(String user, String pass) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

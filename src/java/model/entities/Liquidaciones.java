@@ -14,6 +14,7 @@ public class Liquidaciones  implements java.io.Serializable {
      private Float reconocimientoGastoComida;
      private Float reconocimientoGastoAlojamiento;
      private Float reconocimientoGastoCombustible;
+     private Float reconocimientoGastoPasajes;
      private Float importeDeclarado;
      private Float reconocimientoImporteTotal;
      private String observaciones;
@@ -72,6 +73,15 @@ public class Liquidaciones  implements java.io.Serializable {
     public void setReconocimientoGastoCombustible(Float reconocimientoGastoCombustible) {
         this.reconocimientoGastoCombustible = reconocimientoGastoCombustible;
     }
+
+    public Float getReconocimientoGastoPasajes() {
+        return reconocimientoGastoPasajes;
+    }
+
+    public void setReconocimientoGastoPasajes(Float reconocimientoGastoPasajes) {
+        this.reconocimientoGastoPasajes = reconocimientoGastoPasajes;
+    }
+    
     public Float getImporteDeclarado() {
         return this.importeDeclarado;
     }

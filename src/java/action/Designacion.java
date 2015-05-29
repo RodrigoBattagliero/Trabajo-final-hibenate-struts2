@@ -56,6 +56,20 @@ public class Designacion extends ActionSupport implements ServletRequestAware {
         if(!reg1.getDao().update(registroUnico1))
             res = ERROR;
         reg1.getDao().cerrarSession();
+//        
+//        RegistrosUnicosController reg2 = new RegistrosUnicosController();
+//        RegistrosUnicos registroUnico2 = new RegistrosUnicos();
+//        registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistrosNuevosForm");
+//        registroUnico2.setSolicitudes(solicitud);
+//        reg2.setEntity(registroUnico2);
+//        try{
+//            reg2.getDao().iniciaOperacion();
+//            int id = reg2.getDao().create(registroUnico2);
+//            if(id == 0)
+//                res = ERROR;
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
         
         
         return res;

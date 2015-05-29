@@ -5,6 +5,8 @@
  */
 package model.dao;
 
+import model.entities.Designaciones;
+
 /**
  *
  * @author rodrigo
@@ -25,6 +27,16 @@ public class DesignacionesDAO extends DAO {
         super.cerrarSession();
     }
   
-    
+    @Override
+    public Object selectOne(Object key) {
+        Designaciones a = null;
+        try{
+//            iniciaOperacion();
+            a = (Designaciones) sesion.get(Designaciones.class, (int) key);
+        }finally{
+//            sesion.close();
+        }
+        return a;
+    }
     
 }

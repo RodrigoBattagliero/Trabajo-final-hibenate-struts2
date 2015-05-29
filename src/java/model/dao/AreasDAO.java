@@ -46,12 +46,15 @@ public class AreasDAO extends DAO{
         return a;
     }
     
+    @Override
     public Areas proxima(Areas area){
         Areas a = null;
         int orden = area.getOrden();
         orden++;
+        orden = 5;
         try{
-            a = (Areas) sesion.createQuery("FROM Areas WHERE orden = " + orden);
+            List<Areas> as = sesion.createQuery("FROM Areas WHERE orden = " + orden).list();
+            a = (Areas) as.get(0);
         }catch(Exception e){
             a = null;
         }

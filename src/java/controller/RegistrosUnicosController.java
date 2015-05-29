@@ -17,6 +17,7 @@ import model.entities.Areas;
 import model.entities.Estados;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
+import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
@@ -101,12 +102,22 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public void setAreaLogueada(){
-        AreasController ar = new AreasController();
-        ar.selectOne(1);
-        areaLogueada = ar.getEntity();
+        Usuarios us = (Usuarios) this.sesion.getAttribute("user");
+        areaLogueada = us.getAreas();
     }
     
     public String setAdministrarRegistroUnicoForm(){
+        setAreaLogueada();
+        selectEstados();
+        dao.iniciaOperacion();
+        String idSol = String.valueOf(sesion.getAttribute("idSolicitudSelected"));
+        this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
+        this.entity.setFechaSalida(new Date());
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setAdministrarRegistroUnicoActividadDocente(){
         setAreaLogueada();
         selectEstados();
         dao.iniciaOperacion();
@@ -167,16 +178,35 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setFechaSalida(new Date());
         this.entity.setObservaciones(AdministrarObservaciones);
         
-        this.idEstadoSelected = 1;
-                this.entity = new RegistrosUnicos();
-                this.entity.setAreas(getProximaArea());
-                this.entity.setConfirmado(Boolean.FALSE);
-                this.entity.setEstados(getEstado());
-                this.entity.setFechaEntrada(new Date());
-                this.entity.setFechaSalida(null);
-                List<RegistrosUnicos> listRegistros = new ArrayList();
-                listRegistros.add(this.entity);
-        sesion.setAttribute("RegistrosNuevosForm", listRegistros);      
+//        this.idEstadoSelected = 1;
+//        RegistrosUnicos rNuevo = new RegistrosUnicos();
+//        rNuevo.setAreas(getProximaArea());
+//        rNuevo.setConfirmado(Boolean.FALSE);
+//        rNuevo.setEstados(getEstado());
+//        rNuevo.setFechaEntrada(new Date());
+//        rNuevo.setFechaSalida(null);
+//        sesion.setAttribute("RegistrosNuevosForm", rNuevo);      
+        sesion.setAttribute("RegistroUnicoForm", this.entity);
+        return SUCCESS;
+    }
+    
+    public String preparedActividadDocente(){
+        setAreaLogueada();
+        setAdministrarRegistroUnicoForm();
+        this.entity.setAreas(getAreaLogueada());
+        this.entity.setEstados(getEstado());
+        this.entity.setConfirmado(false);
+        this.entity.setFechaSalida(new Date());
+        this.entity.setObservaciones(AdministrarObservaciones);
+//        
+//        this.idEstadoSelected = 1;
+//        RegistrosUnicos rNuevo = new RegistrosUnicos();
+//        rNuevo.setAreas(getProximaArea());
+//        rNuevo.setConfirmado(Boolean.FALSE);
+//        rNuevo.setEstados(getEstado());
+//        rNuevo.setFechaEntrada(new Date());
+//        rNuevo.setFechaSalida(null);
+//        sesion.setAttribute("RegistrosNuevosForm", rNuevo);      
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
@@ -193,19 +223,19 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
             String value[] = parametros.get(key);
             if(value[0].equals("true")){
                 this.dao.iniciaOperacion();
-                this.entity = (RegistrosUnicos) this.dao.selectOne(Integer.parseInt(key));
+                this.entity = (RegistrosUnicos) this.dao.selectOneWithSolicitud(Integer.parseInt(key));
                 this.dao.cerrarSession();
                 this.entity.setConfirmado(Boolean.TRUE);
                 this.entities.add(this.entity);
                 
                 this.idEstadoSelected = 1;
-                this.entity = new RegistrosUnicos();
-                this.entity.setAreas(getProximaArea());
-                this.entity.setConfirmado(Boolean.FALSE);
-                this.entity.setEstados(getEstado());
-                this.entity.setFechaEntrada(new Date());
-                this.entity.setFechaSalida(null);
-                listRegistros.add(this.entity);
+                RegistrosUnicos rNuevo = new RegistrosUnicos();
+                rNuevo.setAreas(getProximaArea());
+                rNuevo.setConfirmado(Boolean.FALSE);
+                rNuevo.setEstados(getEstado());
+                rNuevo.setFechaEntrada(new Date());
+                rNuevo.setFechaSalida(null);
+                listRegistros.add(rNuevo);
             }
                 
         }
@@ -233,6 +263,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     
     private Areas getProximaArea(){
         AreasController ar = new AreasController();
+        setAreaLogueada();
         ar.proximaArea(getAreaLogueada());
         return ar.getEntity();
         
