@@ -105,16 +105,20 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         registroUnico1 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoForm");
         registroUnico1.setSolicitudes(solicitud);
         reg1.setEntity(registroUnico1);
-        if(reg1.save().equals("error"))
+        reg1.getDao().iniciaOperacion();
+        if(reg1.getDao().create(registroUnico1) > 0)
             res = ERROR;
+        reg1.getDao().cerrarSession();
         
         RegistrosUnicosController reg2 = new RegistrosUnicosController();
         RegistrosUnicos registroUnico2 = new RegistrosUnicos();
         registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoProximo");
         registroUnico2.setSolicitudes(solicitud);
         reg2.setEntity(registroUnico2);
-        if(reg2.save().equals("error"))
+        reg2.getDao().iniciaOperacion();
+        if(reg2.getDao().create(registroUnico2) > 0)
             res = ERROR;
+        reg2.getDao().cerrarSession();
         
         return res;
     }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    <package name="Ogagtd" extends="struts-default" namespace="/Administrativo/SedeCapital">
+         <interceptors> 
+            <interceptor name="authenticationInterceptor" class="interceptor.AuthenticationInterceptor" />
+            <interceptor name="rolesInterceptor" class="interceptor.RolesInterceptor" />
+            
+            <interceptor-stack name="defaultSecurityInterceptor">
+                <interceptor-ref name="defaultStack" />                
+                <interceptor-ref name="authenticationInterceptor">
+                    <param name="excludeActions">LoginAction</param>
+                </interceptor-ref>
+                <interceptor-ref name="rolesInterceptor">
+                    <param name="roleActions">
+                        administrador:index,SolicitudesIniciadasSedeInteriorForm,GenerarExpedienteForm,GenerarExpediente,Guardar,ListarExpedientes,ExpedienteDetalle;
+                        oficina de gestión de gasto de traslado docente: index,SolicitudesIniciadasSedeInteriorForm,GenerarExpedienteForm,GenerarExpediente,Guardar,ListarExpedientes,ExpedienteDetalle;
+                    </param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="defaultSecurityInterceptor" />
+        
+        <global-results>
+            <result name="authentication_required">/LoginRequired.jsp</result>
+            <result name="authorization_required">/Denied.jsp</result>
+        </global-results>
+        
+        <!-- Solicitudes inicadas en sede interior -->
+        <action name="SolicitudesIniciadasSedeInteriorForm" class="controller.RegistrosUnicosController" method="setSolicitudesInciadasSedeInterior">
+            <result>/Administrativo/ListadoSolicitudesACompletar.jsp</result>
+        </action>
+        
+        <!-- Expedientes -->
+        <action name="GenerarExpedienteForm" class="controller.RegistrosUnicosController" method="setRegistrosExpediente">
+            <result>/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
+        </action>
+        <action name="GenerarExpediente" class="controller.ExpedientesController" method="prepared">
+            <result type="redirectAction">Guardar</result>
+        </action>
+        <action name="Guardar" class="action.ExpedientesAction" >
+            <result type="redirectAction">index</result>
+        </action>
+        
+        <!-- Listar Expedientes -->
+        <action name="ListarExpedientes" class="controller.ExpedientesController" method="listarExpedientes">
+            <result>/Administrativo/SedeCapital/ListarExpedientes.jsp</result>
+        </action>
+        <action name="ExpedienteDetalle" class="controller.ExpedientesSolicitudesController" method="detalle">
+            <result>/Administrativo/SedeCapital/ExpedienteDetalle.jsp</result>
+        </action>
+        
+        <!--  -->
+    </package>
+</struts>

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.dao.ActividadDocentesDAO;
 import model.dao.DesignacionesDAO;
 import model.entities.Designaciones;
 import model.entities.Solicitudes;
@@ -128,5 +129,12 @@ public class DesignacionesController extends Controller<Designaciones> implement
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
         this.sesion = this.request.getSession();
+    }
+
+    public void selectRelatedAll(int idSol) {
+        DesignacionesDAO dao = new DesignacionesDAO();
+        dao.iniciaOperacion();
+        this.entities = dao.selectRelatedAll(idSol);
+        dao.cerrarSession();
     }
 }

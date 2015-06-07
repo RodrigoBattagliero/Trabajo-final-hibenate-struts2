@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Usuario sin permiso.</h1>
+        <h1>Usuario sin permiso</h1>
     </body>
 </html>

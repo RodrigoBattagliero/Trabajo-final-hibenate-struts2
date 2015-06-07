@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.List;
 import model.entities.Docentes;
 
 /**
@@ -29,6 +30,16 @@ public class DocentesDAO extends DAO {
         return a;
     }
     
+    public List<Docentes> selectRelatedWithDepto(Object key) {
+        List<Docentes> list;
+        try{
+            String sql = "FROM " + tableName + " t INNER JOIN FETCH t.departamentosAcademicos WHERE t.solicitudes = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }catch(Exception e){
+            list = null;
+        }
+        return list;
+    }
     
     
 }

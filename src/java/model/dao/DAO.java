@@ -17,6 +17,7 @@ import org.hibernate.Transaction;
 /**
  *
  * @author rodrigo
+ * @param <TipoObject>
  */
 public abstract class DAO implements IQueries<Object>{
     protected Session sesion;
@@ -121,7 +122,7 @@ public abstract class DAO implements IQueries<Object>{
         String idStr = String.valueOf(key);
         try{
 //            iniciaOperacion();
-            String sql = "FROM " + tableName + " WHERE id_solicitud = " + (int) key;
+            String sql = "FROM " + tableName + " t WHERE t.solicitudes = " + (int) key;
             list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();

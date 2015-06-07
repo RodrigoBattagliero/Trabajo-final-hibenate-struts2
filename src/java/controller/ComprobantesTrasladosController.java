@@ -35,7 +35,7 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     private String[] trasladoComprobantesObservaciones;
     
     public ComprobantesTrasladosController() {
-        dao = (ComprobantesTrasladosDAO) new ComprobantesTrasladosDAO();
+        ComprobantesTrasladosDAO dao = (ComprobantesTrasladosDAO) new ComprobantesTrasladosDAO();
         entity = new ComprobantesTraslados();
     }
 
@@ -75,7 +75,17 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     public ComprobantesTrasladosDAO getDao() {
         return (ComprobantesTrasladosDAO) dao;
     }
-
+    
+    @Override
+    public String selectRelated(int id){
+        String res = SUCCESS;
+        dao = new ComprobantesTrasladosDAO();
+        dao.iniciaOperacion();
+        entities = (List) dao.selectRelated(id);
+        dao.cerrarSession();
+        return res;
+    }
+    
     public void setDao(ComprobantesTrasladosDAO dao) {
         this.dao = dao;
     }

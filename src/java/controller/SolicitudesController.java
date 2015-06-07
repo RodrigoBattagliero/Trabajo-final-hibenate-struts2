@@ -25,6 +25,7 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     private int idSelectedSede;
     private Sedes sede = null;
     private HttpServletRequest request;
+    private HttpSession sesion;
     
     public SolicitudesController() {
         dao = (SolicitudesDAO) new SolicitudesDAO();
@@ -82,15 +83,34 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     
     public String prepared(){
         this.entity.setSedes(selectSedes(idSelectedSede));
-        HttpSession sesion = request.getSession();
+        
         // validar
         sesion.setAttribute("SolicitudesForm", this.entity);
         return SUCCESS;
     }
     
+    public String updatePrepared(){
+        String idSolStr = String.valueOf(this.request.getParameter("idSolicitudSelected"));
+        this.sesion.setAttribute("idSolicitudSelected",idSolStr);
+        this.selectOne(Integer.parseInt(idSolStr));
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        this.entity.setId(Integer.parseInt(idSolStr));
+        this.entity.setSedes(selectSedes(idSelectedSede));
+        this.dao.iniciaOperacion();
+        String res = super.update();
+        this.dao.cerrarSession();
+        return res;
+    }
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
+        this.sesion = request.getSession();
     }
 
 }

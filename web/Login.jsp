@@ -19,7 +19,7 @@
         <s:actionerror />
         <s:form action="LoginAction">
             <s:textfield name="user" label="Usuario" />
-            <s:textfield name="password" label="Password" />
+            <s:password name="password" label="Password" />
             <s:submit value="Ingresar" />
         </s:form>
     </body>

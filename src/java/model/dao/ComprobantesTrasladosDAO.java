@@ -33,7 +33,7 @@ public class ComprobantesTrasladosDAO extends DAO {
         String idStr = String.valueOf(key);
         try{
 //            iniciaOperacion();
-            String sql = "FROM " + tableName + " WHERE comprobantes = " + (int) key;
+            String sql = "FROM " + tableName + " AS t INNER JOIN FETCH t.comprobantes WHERE t.comprobantes = " + (int) key;
             list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();

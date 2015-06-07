@@ -5,6 +5,9 @@
  */
 package model.dao;
 
+import java.util.List;
+import model.entities.ExpedientesSolicitudes;
+
 /**
  *
  * @author rodrigo
@@ -12,7 +15,7 @@ package model.dao;
 public class ExpedientesSolicitudesDAO extends DAO {
 
     public ExpedientesSolicitudesDAO() {
-        tableName = "Expedientes_solicitudes";
+        tableName = "ExpedientesSolicitudes";
     }
     
     @Override
@@ -25,4 +28,15 @@ public class ExpedientesSolicitudesDAO extends DAO {
         super.cerrarSession();
     }
     
+    public List<ExpedientesSolicitudes> selectDetalle(int idExpediente) {
+        List<ExpedientesSolicitudes> list = null;
+        try{
+//            iniciaOperacion();
+            String sql = "FROM " + tableName + " AS es,Docentes AS d INNER JOIN FETCH es.solicitudes AS ess WHERE es.expedientes = " + (int) idExpediente + " AND d.solicitudes = ess";
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
 }

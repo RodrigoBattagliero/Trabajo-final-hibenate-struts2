@@ -5,16 +5,22 @@
  */
 package controller;
 
-import model.dao.AreasDAO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import model.dao.ExpedientesSolicitudesDAO;
 import model.entities.ExpedientesSolicitudes;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
  *
  * @author rodrigo
  */
-public class ExpedientesSolicitudesController extends Controller<ExpedientesSolicitudes> {
-
+public class ExpedientesSolicitudesController extends Controller<ExpedientesSolicitudes> implements ServletRequestAware {
+    
+    private HttpServletRequest request;
+    private HttpSession sesion;
+    private ExpedientesSolicitudesDAO dao;
+    
     public ExpedientesSolicitudesController() {
         dao = (ExpedientesSolicitudesDAO) new ExpedientesSolicitudesDAO();
     }
@@ -26,6 +32,21 @@ public class ExpedientesSolicitudesController extends Controller<ExpedientesSoli
 
     public void setDao(ExpedientesSolicitudesDAO dao) {
         this.dao = dao;
+    }
+    
+    public String detalle(){
+        String res = SUCCESS;
+        String idExp = this.request.getParameter("idExpedienteSelected");
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.selectDetalle(Integer.parseInt(idExp));
+        this.dao.cerrarSession();
+        return res;
+    }
+    
+    @Override
+    public void setServletRequest(HttpServletRequest hsr) {
+        this.request = hsr;
+        this.sesion = this.request.getSession();
     }
     
 }

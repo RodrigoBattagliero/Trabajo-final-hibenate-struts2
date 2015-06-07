@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.dao.ActividadDocentesDAO;
 import model.dao.ComprobantesComidaAlojamientoDAO;
 import model.entities.Comprobantes;
 import model.entities.ComprobantesComidaAlojamientos;
@@ -77,6 +78,16 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
     @Override
     public ComprobantesComidaAlojamientoDAO getDao() {
         return (ComprobantesComidaAlojamientoDAO) dao;
+    }
+    
+    @Override
+    public String selectRelated(int id){
+        String res = SUCCESS;
+        dao = new ComprobantesComidaAlojamientoDAO();
+        dao.iniciaOperacion();
+        entities = (List) dao.selectRelated(id);
+        dao.cerrarSession();
+        return res;
     }
 
     public void setDao(ComprobantesComidaAlojamientoDAO dao) {

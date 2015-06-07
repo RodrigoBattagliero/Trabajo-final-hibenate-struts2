@@ -51,7 +51,6 @@ public class AreasDAO extends DAO{
         Areas a = null;
         int orden = area.getOrden();
         orden++;
-        orden = 5;
         try{
             List<Areas> as = sesion.createQuery("FROM Areas WHERE orden = " + orden).list();
             a = (Areas) as.get(0);

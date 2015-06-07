@@ -15,9 +15,7 @@
     <body>
         <h1>Administrar registro único</h1>
         <hr />
-        <!--administrarRegistroUnico -->
-        <!--administrarRegistroUnicoActividad-->
-        <s:form action="administrarRegistroUnicoLiquidacion">
+        <s:form action="AdministrarRegistroUnico">
             <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
             <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
             <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />

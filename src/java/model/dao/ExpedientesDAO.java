@@ -5,6 +5,9 @@
  */
 package model.dao;
 
+import java.util.List;
+import model.entities.Expedientes;
+
 /**
  *
  * @author rodrigo
@@ -23,6 +26,29 @@ public class ExpedientesDAO extends DAO {
     @Override
     public void cerrarSession(){
         super.cerrarSession();
+    }
+    
+    @Override
+    public Object selectOne(Object key) {
+        Expedientes a = null;
+        try{
+//            iniciaOperacion();
+            a = (Expedientes) sesion.get(Expedientes.class, (int) key);
+        }finally{
+//            sesion.close();
+        }
+        return a;
+    }
+    
+    public List<Expedientes> selectExpedientes() {
+        List<Expedientes> list = null;
+        try{
+//            iniciaOperacion();
+            list = sesion.createQuery("FROM " + tableName).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
     }
     
 }

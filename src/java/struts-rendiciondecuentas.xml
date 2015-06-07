@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    <package name="RendicionDeCuentas" extends="struts-default" namespace="/RendicionDeCuentas">
+         <interceptors> 
+            <interceptor name="authenticationInterceptor" class="interceptor.AuthenticationInterceptor" />
+            <interceptor name="rolesInterceptor" class="interceptor.RolesInterceptor" />
+            
+            <interceptor-stack name="defaultSecurityInterceptor">
+                <interceptor-ref name="defaultStack" />                
+                <interceptor-ref name="authenticationInterceptor">
+                    <param name="excludeActions">LoginAction</param>
+                </interceptor-ref>
+                <interceptor-ref name="rolesInterceptor">
+                    <param name="roleActions">
+                        administrador:index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        rendición de cuentas: index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                    </param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="defaultSecurityInterceptor" />
+        
+        <global-results>
+            <result name="authentication_required">/LoginRequired.jsp</result>
+            <result name="authorization_required">/Denied.jsp</result>
+        </global-results>
+        
+        <action name="index">
+            <result>/RendicionDeCuentas/index.jsp</result>
+        </action>
+        
+        <!-- Rendición de cuentas -->
+        <action name="RendicionDeCuentasForm" class="controller.RegistrosUnicosController" method="setSolicitudesACompletar">
+            <result >/RendicionDeCuentas/ListadoSolicitudesACompletar.jsp</result>
+        </action>
+        <action name="RendicionDeCuentasSolicitudForm" class="controller.LiquidacionesController" method="setSolicitud">
+            <result >/RendicionDeCuentas/Liquidaciones.jsp</result>
+        </action>
+        <action name="LiquidacionesPrepared" class="controller.LiquidacionesController" method="prepared">
+            <result type="redirectAction">AdministrarRegistroUnicoForm</result>
+        </action>
+        <action name="AdministrarRegistroUnicoForm" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoActividadDocente">
+            <result>/RendicionDeCuentas/AdministrarRegistroUnico.jsp</result>
+        </action>
+        <action name="administrarRegistroUnicoLiquidacion" class="controller.RegistrosUnicosController" method="prepared" >
+            <result type="redirectAction">Liquidacion</result>
+        </action>
+        <action name="Liquidacion" class="action.LiquidacionesAction" >
+            <result>/RendicionDeCuentas/index.jsp</result>
+        </action>
+
+         <!-- Confirmar solicitudes -->
+        <action name="ConfirmarSolicitudesForm" class="controller.RegistrosUnicosController" method="setRegistrosAConfirmar">
+            <result>/RendicionDeCuentas/ListadoSolicitudesAConfirmar.jsp</result>
+        </action>
+        <action name="ConfirmarSolicitudesPrepared" class="controller.RegistrosUnicosController" method="ConfirmarSolicitudesPrepared">
+            <result type="redirectAction">ConfirmarSolicitudesAction</result>
+            <result name="input">/RendicionDeCuentas/ListadoSolicitudesAConfirmar.jsp</result>
+        </action>
+        <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
+            <result>/RendicionDeCuentas/index.jsp</result>
+        </action>
+    </package>
+</struts>

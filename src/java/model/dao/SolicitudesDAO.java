@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.List;
 import model.entities.Solicitudes;
 
 /**
@@ -22,11 +23,13 @@ public class SolicitudesDAO extends DAO {
     @Override
     public Object selectOne(Object key) {
         Solicitudes a = null;
+        List<Solicitudes> l;
         try{
-//            iniciaOperacion();
-            a = (Solicitudes) sesion.get(Solicitudes.class, (int) key);
-        }finally{
-//            sesion.close();
+            String sql = "FROM " + tableName + " AS t INNER JOIN FETCH t.sedes WHERE t = " + (int) key;
+            l = sesion.createQuery(sql).list();
+            a = l.get(0);
+        }catch(Exception e){
+            a = null;
         }
         return a;
     }

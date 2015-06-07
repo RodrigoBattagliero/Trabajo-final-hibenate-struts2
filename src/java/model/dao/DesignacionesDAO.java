@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.List;
 import model.entities.Designaciones;
 
 /**
@@ -39,4 +40,15 @@ public class DesignacionesDAO extends DAO {
         return a;
     }
     
+    
+    public List<Designaciones> selectRelatedAll(Object key) {
+        List<Designaciones> list;
+        try{
+            String sql = "FROM " + tableName + " AS de INNER JOIN FETCH de.actividadDocenteses AS act WHERE de.solicitudes = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }catch(Exception e){
+            list = null;
+        }
+        return list;
+    }
 }

@@ -6,7 +6,7 @@
 package interceptor;
 
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.interceptor.Interceptor;
+import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.TextParseUtil;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,17 +18,18 @@ import java.util.StringTokenizer;
  *
  * @author rodrigo
  */
-public class RolesInterceptor implements Interceptor {
+public class RolesInterceptor extends AbstractInterceptor {
     
     public static final String roleSessionField = "role";
     private Map<String, Set> roleActions = Collections.EMPTY_MAP;
     private static final String AuthorizationRequiredResult = "authorization_required";
 	
+
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
     	final String actionName = invocation.getProxy().getActionName();
 	Map session = invocation.getInvocationContext().getSession();
-		
+        
 	Object userRole = session.get(RolesInterceptor.roleSessionField);
         
 	if(hasSufficientRole(userRole, actionName)) {
@@ -73,14 +74,5 @@ public class RolesInterceptor implements Interceptor {
 	public String getRoleSessionField() {
 		return roleSessionField;
 	}
-    
-    @Override
-    public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void init() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
 }

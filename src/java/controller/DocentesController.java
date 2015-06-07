@@ -26,9 +26,10 @@ public class DocentesController extends Controller<Docentes> implements ServletR
     private int idDeptoAcademico;
     private ServletContext application;
     private HttpServletRequest request;
+    private HttpSession sesion;
     
     public DocentesController() {
-        dao = (DocentesDAO) new DocentesDAO();
+        this.dao = (DocentesDAO) new DocentesDAO();
         entity = new Docentes();
         setMotivoComision();
         setDeptosAcademicos();
@@ -77,17 +78,51 @@ public class DocentesController extends Controller<Docentes> implements ServletR
     
     public String prepared(){
         entity.setDepartamentosAcademicos(deptoAcademico());
-        HttpSession sesion = request.getSession();
         // Validar
 //        sesion.setAttribute("SolicitudesControllerForm",sesion.getAttribute("SolicitudesControllerForm") );
         sesion.setAttribute("DocentesForm", this.entity);
         return SUCCESS;
+    }
+    
+    public String updatePrepared(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        this.selectRelated(Integer.parseInt(idSolStr));
+        try{
+            this.entity = this.entities.get(0);
+            this.sesion.setAttribute("idDocente", this.entity.getId());
+        }catch(NullPointerException | IndexOutOfBoundsException e){
+            this.entity = new Docentes();
+        }
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String idDocStr = String.valueOf(this.sesion.getAttribute("idDocente"));
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        SolicitudesController solCont = new SolicitudesController();
+        solCont.selectOne(Integer.parseInt(idSolStr));
+        this.entity.setSolicitudes(solCont.getEntity());
+        this.entity.setId(Integer.parseInt(idDocStr));
+        this.entity.setDepartamentosAcademicos(deptoAcademico());
+        this.dao.iniciaOperacion();
+        String res = super.update();
+        this.dao.cerrarSession();
+        return res;
+    }
+    
+    public void selectRelatedWithDepto(int idSol){
+        DocentesDAO dao = new DocentesDAO();
+        dao.iniciaOperacion();
+        entities = dao.selectRelatedWithDepto(idSol);
+        dao.cerrarSession();
     }
 
 
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
+        sesion = request.getSession();
     }
 
 }

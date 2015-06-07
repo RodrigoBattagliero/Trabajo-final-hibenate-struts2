@@ -40,11 +40,16 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
             if(!regController.getDao().update(registros.get(i)))
                 res = ERROR;
             regController.getDao().cerrarSession();
-            registrosProx.get(i).setSolicitudes(regController.getEntity().getSolicitudes());
-            regController.setEntity(registrosProx.get(i));
-            regController.getDao().iniciaOperacion();
-            regController.getDao().create(registrosProx.get(i));
-            regController.getDao().cerrarSession();
+            try{
+                registrosProx.get(i).setSolicitudes(regController.getEntity().getSolicitudes());
+                regController.setEntity(registrosProx.get(i));
+            
+                regController.getDao().iniciaOperacion();
+                regController.getDao().create(registrosProx.get(i));
+                regController.getDao().cerrarSession();
+            }catch(IndexOutOfBoundsException e){
+                
+            }
         }
         return res;
     }

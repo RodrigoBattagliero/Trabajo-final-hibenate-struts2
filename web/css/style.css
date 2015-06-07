@@ -8,5 +8,18 @@ and open the template in the editor.
     Author     : rodrigo
 */
 input{
-    width: 100px;
+    width: 150px;
+}
+
+table{
+    width: 500px;
+    margin:0px auto;
+}
+
+table.ta tbody tr:nth-child(odd){
+    background-color: #ccc;
+}
+
+.asas{
+    background-color: #aaa;
 }

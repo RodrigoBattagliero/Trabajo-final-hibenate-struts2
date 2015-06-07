@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.RegistrosUnicosDAO;
 import model.entities.Areas;
+import model.entities.Comprobantes;
+import model.entities.ComprobantesComidaAlojamientos;
+import model.entities.ComprobantesTraslados;
 import model.entities.Estados;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
@@ -40,6 +43,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     private boolean[] confirmado;
     private int[] idRegistro;
     private Map<String, String[]> parametros;
+    
+    // Variables para consultar registro
+    private String nombreDocente;
+    private String apellidoDocente;
+    private Date fechaDePresentacion;
     
     public RegistrosUnicosController() {
         dao = (RegistrosUnicosDAO) new RegistrosUnicosDAO();
@@ -92,6 +100,30 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public void setIdRegistro(int[] idRegistro) {
         this.idRegistro = idRegistro;
     }
+
+    public String getNombreDocente() {
+        return nombreDocente;
+    }
+
+    public void setNombreDocente(String nombreDocente) {
+        this.nombreDocente = nombreDocente;
+    }
+
+    public String getApellidoDocente() {
+        return apellidoDocente;
+    }
+
+    public void setApellidoDocente(String apellidoDocente) {
+        this.apellidoDocente = apellidoDocente;
+    }
+
+    public Date getFechaDePresentacion() {
+        return fechaDePresentacion;
+    }
+
+    public void setFechaDePresentacion(Date fechaDePresentacion) {
+        this.fechaDePresentacion = fechaDePresentacion;
+    }
     
     public String setSolicitudesACompletar(){
         setAreaLogueada();
@@ -107,10 +139,12 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setAdministrarRegistroUnicoForm(){
+        String idSol;
         setAreaLogueada();
         selectEstados();
         dao.iniciaOperacion();
-        String idSol = String.valueOf(sesion.getAttribute("idSolicitudSelected"));
+        idSol = String.valueOf(sesion.getAttribute("idSolicitudSelected"));
+        
         this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
         this.entity.setFechaSalida(new Date());
         dao.cerrarSession();
@@ -138,6 +172,16 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         return res;
     }
     
+    public String setRegistrosExpediente(){
+        String res = SUCCESS;
+        setAreaLogueada();
+        this.dao.iniciaOperacion();
+        this.entities = (List<RegistrosUnicos>) this.dao.selectExpedientes(getAreaLogueada());
+        sesion.setAttribute("RegistrosAConfirmar", this.entities);
+        this.dao.cerrarSession();
+        return res;
+    }
+    
     public String setSolicitudesInciadasSedeInterior(){
         dao.iniciaOperacion();
         listSolicitudesACompletar = (List) this.dao.selectIniciadaSedeInterior();
@@ -152,10 +196,104 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         return SUCCESS;
     }
     
+    public String setAdministrarRegistroUnicoSAFForm(){
+        //Usuarios user = (Usuarios) sesion.getAttribute("user");
+        String idSol = String.valueOf(this.request.getParameter("idSolicitudSelected"));
+        sesion.setAttribute("idSolicitudSelected",idSol );
+        
+        setAreaLogueada();
+        selectEstados();
+        dao.iniciaOperacion();
+        
+        this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
+        this.entity.setFechaSalida(new Date());
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setHistorialSolicutdes(){
+        
+        setAreaLogueada();
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.selectHistorial(getAreaLogueada());
+        this.dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String consultarRegistro(){
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.consultarRegistro(this.nombreDocente,this.apellidoDocente,this.fechaDePresentacion);
+        this.dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String consultarDetalle(){
+        String idSolstr = this.request.getParameter("idSolicitudSelected");
+        int idSol = Integer.parseInt(idSolstr);
+        // Solicitud
+        SolicitudesController solController = new SolicitudesController();
+        solController.selectOne(idSol);
+        // Sedes
+        SedesController sedController = new SedesController();
+        sedController.selectOne(solController.getEntity().getSedes().getId());
+        // RegistroUnico
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.select(idSol);
+        this.dao.cerrarSession();
+        // Docente
+        DocentesController docController = new DocentesController();
+        docController.selectRelatedWithDepto(idSol);
+        // Comprobantes
+        ComprobantesController comController = new ComprobantesController();
+        comController.selectRelated(idSol);
+        // Traslado 
+        ComprobantesTrasladosController trasController;
+        // Alojamiento
+        ComprobantesComidaAlojamientoController alojController;
+        // Lista de comprobantes
+        List<ComprobantesTraslados> comTraslado = new ArrayList();
+        List<ComprobantesComidaAlojamientos> comAloja = new ArrayList();
+        for(Comprobantes c : comController.getEntities() ){
+            trasController = new ComprobantesTrasladosController();
+            trasController.selectRelated(c.getId());
+            if(trasController.getEntities() != null && !trasController.getEntities().isEmpty()){
+                comTraslado.add(trasController.getEntities().get(0));
+            }else{
+                alojController = new ComprobantesComidaAlojamientoController();
+                alojController.selectRelated(c.getId());
+                if(alojController.getEntities() != null && !alojController.getEntities().isEmpty())
+                    comAloja.add(alojController.getEntities().get(0));
+            }
+        }
+        // Designaciones y actividades docentes
+        DesignacionesController degController = new DesignacionesController();
+        degController.selectRelatedAll(idSol);
+        // Liquidacion
+        LiquidacionesController liqController = new LiquidacionesController();
+        liqController.selectRelated(idSol);
+        this.sesion.setAttribute("Solicitudes", solController.getEntity());
+        this.sesion.setAttribute("Sedes", sedController.getEntity());
+        this.sesion.setAttribute("Docentes", docController.getEntities());
+        this.sesion.setAttribute("Traslados", comTraslado);
+        this.sesion.setAttribute("Alojamientos", comAloja);
+        this.sesion.setAttribute("Designaciones", degController.getEntities());
+        this.sesion.setAttribute("Liquidaciones", liqController.getEntities());
+        this.sesion.setAttribute("RegistroUnico", this.entities);
+        return SUCCESS;
+    }
+    
+    public String crearPrepared(){
+        Solicitudes sl = (Solicitudes) sesion.getAttribute("SolicitudesForm");
+        this.entity.setFechaEntrada(sl.getFechaAlta());
+        return SUCCESS;
+    }
+    
     public String crear(){
+        
         this.entity.setEstados(getEstado());
         this.entity.setAreas(getArea());
         this.entity.setConfirmado(true);
+        this.entity.setFechaSalida(this.entity.getFechaEntrada());
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         this.idAreaSelected = 1;
         RegistrosUnicos re = new RegistrosUnicos();
@@ -177,15 +315,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setConfirmado(false);
         this.entity.setFechaSalida(new Date());
         this.entity.setObservaciones(AdministrarObservaciones);
-        
-//        this.idEstadoSelected = 1;
-//        RegistrosUnicos rNuevo = new RegistrosUnicos();
-//        rNuevo.setAreas(getProximaArea());
-//        rNuevo.setConfirmado(Boolean.FALSE);
-//        rNuevo.setEstados(getEstado());
-//        rNuevo.setFechaEntrada(new Date());
-//        rNuevo.setFechaSalida(null);
-//        sesion.setAttribute("RegistrosNuevosForm", rNuevo);      
+
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
@@ -198,21 +328,14 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setConfirmado(false);
         this.entity.setFechaSalida(new Date());
         this.entity.setObservaciones(AdministrarObservaciones);
-//        
-//        this.idEstadoSelected = 1;
-//        RegistrosUnicos rNuevo = new RegistrosUnicos();
-//        rNuevo.setAreas(getProximaArea());
-//        rNuevo.setConfirmado(Boolean.FALSE);
-//        rNuevo.setEstados(getEstado());
-//        rNuevo.setFechaEntrada(new Date());
-//        rNuevo.setFechaSalida(null);
-//        sesion.setAttribute("RegistrosNuevosForm", rNuevo);      
+ 
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
     
     public String ConfirmarSolicitudesPrepared(){
         String res = SUCCESS;
+        Usuarios user = (Usuarios) sesion.getAttribute("user");
         int cant = parametros.size();
         Iterator it = parametros.keySet().iterator();
         this.entities = new ArrayList();
@@ -228,14 +351,17 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
                 this.entity.setConfirmado(Boolean.TRUE);
                 this.entities.add(this.entity);
                 
-                this.idEstadoSelected = 1;
-                RegistrosUnicos rNuevo = new RegistrosUnicos();
-                rNuevo.setAreas(getProximaArea());
-                rNuevo.setConfirmado(Boolean.FALSE);
-                rNuevo.setEstados(getEstado());
-                rNuevo.setFechaEntrada(new Date());
-                rNuevo.setFechaSalida(null);
-                listRegistros.add(rNuevo);
+                // Si es distinto de SAF agrega el registro para el area siguiente. Sino no, porque tiene qeu conformarse el expediente.
+                if(user.getAreas().getId() != 6){
+                    this.idEstadoSelected = 1;
+                    RegistrosUnicos rNuevo = new RegistrosUnicos();
+                    rNuevo.setAreas(getProximaArea());
+                    rNuevo.setConfirmado(Boolean.FALSE);
+                    rNuevo.setEstados(getEstado());
+                    rNuevo.setFechaEntrada(new Date());
+                    rNuevo.setFechaSalida(null);
+                    listRegistros.add(rNuevo);
+                }
             }
                 
         }

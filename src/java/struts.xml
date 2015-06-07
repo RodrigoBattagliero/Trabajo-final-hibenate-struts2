@@ -25,9 +25,10 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        *: AdministrarRegistroUnicoForm;
-                        ogagtd:DatosCompletarCapitalForm,CompletarDatosCapital;
-                        rendiciondecuentas:RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,administrarRegistroUnicoLiquidacion,Liquidacion;
+                        *: LoginAction;
+                        administrador:Administrativo;
+                        oficina de gestión de gasto de traslado docente:Administrativo;
+                        sede interior:Administrativo;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -52,150 +53,16 @@ and open the template in the editor.
         </action>
         
         <action name="Administrativo"  >
-            <result type="redirect">/Administrativo/menu.jsp</result>
-        </action>
-        <action name="DatosCompletarCapitalForm" class="controller.RegistrosUnicosController" method="setSolicitudesACompletar">
-            <result>/ListadoSolicitudesACompletar.jsp</result>
-        </action>
-        <action name="CompletarDatosCapital" class="controller.RegistrosUnicosController" method="CompletarDatosCapital">
-            <result>/Administrativo/SedeCapital/Designaciones.jsp</result>
-        </action>
-        <action name="AdministrarRegistroUnicoForm" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoForm">
-            <result>/AdministrarRegistroUnico.jsp</result>
-        </action>
-        <action name="designacionPrepared" class="controller.DesignacionesController" method="prepared" >
-            <result type="redirectAction">AdministrarRegistroUnicoForm</result>
-            <result name="input" >/Administrativo/SedeCapital/Designaciones.jsp</result>
-        </action>
-        <action name="administrarRegistroUnico" class="controller.RegistrosUnicosController" method="prepared">
-            <result type="redirectAction">DesignacionGuardarAction</result>
-            <result name="input">/AdministrarRegistroUnico.jsp</result>
-        </action>
-        <action name="DesignacionGuardarAction" class="action.Designacion">
-            <result type="redirectAction">DatosCompletarCapitalForm</result>
-        </action>
-        <action name="ConfirmarSolicitudesForm" class="controller.RegistrosUnicosController" method="setRegistrosAConfirmar">
-            <result>/ListadoSolicitudesAConfirmar.jsp</result>
-        </action>
-        <action name="ConfirmarSolicitudesPrepared" class="controller.RegistrosUnicosController" method="ConfirmarSolicitudesPrepared">
-            <result type="redirectAction">ConfirmarSolicitudesAction</result>
-            <result name="input">/ListadoSolicitudesAConfirmar.jsp</result>
-        </action>
-        <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
-            <result>/Administrativo/menu.jsp</result>
-        </action>
-        
-        <action name="SolicitudesIniciadasSedeInteriorForm" class="controller.RegistrosUnicosController" method="setSolicitudesInciadasSedeInterior">
-            <result>/ListadoSolicitudesACompletar.jsp</result>
-        </action>
-        
-        <!-- Actividad docente -->
-        <action name="SolicitudesActividadDocenteForm" class="controller.RegistrosUnicosController" method="setSolicitudesActividadDocente">
-            <result>/ListadoSolicitudesActividadDocente.jsp</result>
-        </action>
-        <action name="DesignacionesActividadForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud" >
-            <result>/DesignacionesSolicitudForm.jsp</result>
-        </action>
-        <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
-            <result >/ActividadEfectivaDocente.jsp</result>
-        </action>
-        <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
-            <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
-            <result name="error">/ActividadEfectivaDocente.jsp</result>
-            <result name="input">/ActividadEfectivaDocente.jsp</result>
-        </action>
-        <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
-            <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
-            <result name="input">/AdministrarRegistroUnico.jsp</result>
-        </action>
-        <action name="AdministrarRegistroUnicoActividadDocente" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoActividadDocente">
-            <result>/AdministrarRegistroUnico.jsp</result>
-        </action>
-        <action name="administrarRegistroUnicoActividad" class="controller.RegistrosUnicosController" method="preparedActividadDocente" >
-            <result type="redirectAction">ActividadDocenteGuardar</result>
-        </action>
-        <action name="ActividadDocenteGuardar" class="action.ActividadDocente">
-            <result type="redirectAction">SolicitudesActividadDocenteForm</result>
-        </action>
-        
-        <!-- Rendición de cuentas -->
-        <action name="RendicionDeCuentasForm" class="controller.RegistrosUnicosController" method="setSolicitudesACompletar">
-            <result >/ListadoSolicitudesACompletar.jsp</result>
-        </action>
-        <action name="RendicionDeCuentasSolicitudForm" class="controller.LiquidacionesController" method="setSolicitud">
-            <result >/Liquidaciones.jsp</result>
-        </action>
-        <action name="LiquidacionesPrepared" class="controller.LiquidacionesController" method="prepared">
-            <result type="redirectAction">AdministrarRegistroUnicoForm</result>
-        </action>
-        <action name="administrarRegistroUnicoLiquidacion" class="controller.RegistrosUnicosController" method="prepared" >
-            <result type="redirectAction">Liquidacion</result>
-        </action>
-        <action name="Liquidacion" class="action.LiquidacionesAction" >
-            <result>/Administrativo/menu.jsp</result>
+            <result type="redirect">/Administrativo/index.jsp</result>
         </action>
         
     </package>
     
-    <package name="Admin" extends="struts-default" namespace="/Administrativo">
-        
-        <!-- Iniciar solicitud -->
-        <action name="IniciarSolicitudForm" class="controller.SolicitudesController">
-            <result>/Administrativo/IniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="SolicitudPreparar" class="controller.SolicitudesController" method="prepared" >
-            <result type="redirectAction">
-                <param name="actionName">DatosDocentesForm</param>
-                <param name="parse">false</param>
-            </result>
-            <result name="input">/Administrativo/IniciarSolicitud.jsp</result>
-            <result name="error">/Administrativo/IniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="DatosDocentesForm" class="controller.DocentesController" >
-            <result>/Administrativo/DocentesIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="DatosDocentesPreparar" class="controller.DocentesController" method="prepared" >
-            <result>/Administrativo/TrasladoIniciarSolicitud.jsp</result>
-            <result name="input">/Administrativo/DocentesIniciarSolicitud.jsp</result>
-            <result name="error">/Administrativo/DocentesIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="DatosTrasladoPreparar" class="controller.ComprobantesTrasladosController" method="prepared" >
-            <result type="redirectAction">RegistroUnicoForm</result>
-            <result name="input">/Administrativo/TrasladoIniciarS olicitud.jsp</result>
-            <result name="error">/Administrativo/TrasladoIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="AlojamientoForm" class="controller.ComprobantesComidaAlojamientoController" method="setTipo">
-            <result>/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="DatosAlojamientoPreparar" class="controller.ComprobantesComidaAlojamientoController" method="prepared" >
-            <result type="redirectAction">RegistroUnicoForm</result>
-            <result name="input">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
-            <result name="error">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="RegistroUnicoForm" class="controller.RegistrosUnicosController" >
-            <result >/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="RegistroUnicoPrepare" class="controller.RegistrosUnicosController" method="crear">
-            <result>/Administrativo/ConfirmarSolicitud.jsp</result>
-            <result name="input">/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
-            <result name="error">/Administrativo/RegistroUnicoIniciarSolicitud.jsp</result>
-        </action>
-        
-        <action name="IniciarSolcitud" class="action.IniciarSolicitud">
-            <result>/Administrativo/menu.jsp</result>
-            <result name="error">/Administrativo/error.jsp</result>
-        </action>
-        <!-- Fin iniciar solicitud -->
-        
-        
-    </package>
+    <include file="struts-administrativo.xml" />
+    <include file="struts-ogagtd.xml" />
+    <include file="struts-sedeinterior.xml" />
+    <include file="struts-bedel.xml" />
+    <include file="struts-rendiciondecuentas.xml" />
+    <include file="struts-secretariaadministrativofinanciera.xml" />
     
 </struts>

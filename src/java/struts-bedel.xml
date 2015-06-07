@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    
+    <package name="Bedel" extends="struts-default" namespace="/Bedel">
+         <interceptors> 
+            <interceptor name="authenticationInterceptor" class="interceptor.AuthenticationInterceptor" />
+            <interceptor name="rolesInterceptor" class="interceptor.RolesInterceptor" />
+            
+            <interceptor-stack name="defaultSecurityInterceptor">
+                <interceptor-ref name="defaultStack" />                
+                <interceptor-ref name="authenticationInterceptor">
+                    <param name="excludeActions">LoginAction</param>
+                </interceptor-ref>
+                <interceptor-ref name="rolesInterceptor">
+                    <param name="roleActions">
+                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                    </param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="defaultSecurityInterceptor" />
+        
+        <global-results>
+            <result name="authentication_required">/LoginRequired.jsp</result>
+            <result name="authorization_required">/Denied.jsp</result>
+        </global-results>
+        
+        <action name="index">
+            <result>/Bedel/index.jsp</result>
+        </action>
+         
+         <!-- Actividad docente -->
+        <action name="SolicitudesActividadDocenteForm" class="controller.RegistrosUnicosController" method="setSolicitudesActividadDocente">
+            <result>/Bedel/ListadoSolicitudesActividadDocente.jsp</result>
+        </action>
+        <action name="DesignacionesActividadForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud" >
+            <result>/Bedel/DesignacionesSolicitudForm.jsp</result>
+        </action>
+        <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
+            <result >/Bedel/ActividadEfectivaDocente.jsp</result>
+        </action>
+        <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
+            <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
+            <result name="error">/Bedel/ActividadEfectivaDocente.jsp</result>
+            <result name="input">/Bedel/ActividadEfectivaDocente.jsp</result>
+        </action>
+        <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
+            <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
+            <result name="input">/Bedel/AdministrarRegistroUnico.jsp</result>
+        </action>
+        <action name="AdministrarRegistroUnicoActividadDocente" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoActividadDocente">
+            <result>/Bedel/AdministrarRegistroUnico.jsp</result>
+        </action>
+        <action name="administrarRegistroUnicoActividad" class="controller.RegistrosUnicosController" method="preparedActividadDocente" >
+            <result type="redirectAction">ActividadDocenteGuardar</result>
+        </action>
+        <action name="ActividadDocenteGuardar" class="action.ActividadDocente">
+            <result type="redirectAction">SolicitudesActividadDocenteForm</result>
+        </action>
+        
+        <!-- Confirmar solicitudes -->
+        <action name="ConfirmarSolicitudesForm" class="controller.RegistrosUnicosController" method="setRegistrosAConfirmar">
+            <result>/Bedel/ListadoSolicitudesAConfirmar.jsp</result>
+        </action>
+        <action name="ConfirmarSolicitudesPrepared" class="controller.RegistrosUnicosController" method="ConfirmarSolicitudesPrepared">
+            <result type="redirectAction">ConfirmarSolicitudesAction</result>
+            <result name="input">/Bedel/ListadoSolicitudesAConfirmar.jsp</result>
+        </action>
+        <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
+            <result>/Bedel/index.jsp</result>
+        </action>
+    </package>
+</struts>

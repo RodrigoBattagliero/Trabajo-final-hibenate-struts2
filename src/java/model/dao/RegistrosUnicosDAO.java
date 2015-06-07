@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 import model.entities.Areas;
 import model.entities.RegistrosUnicos;
@@ -41,6 +42,21 @@ public class RegistrosUnicosDAO extends DAO {
 //            sesion.close();
         }
         return a;
+    }
+    
+    public List<RegistrosUnicos> select(Object key) {
+        List<RegistrosUnicos> list = null;
+        try{
+//            iniciaOperacion();
+            String sql = "FROM " + tableName + " AS ru "
+                    + "inner join fetch ru.areas "
+                    + " inner join fetch ru.estados "
+                    + "WHERE ru.solicitudes = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
     }
     
     public Object selectOneWithSolicitud(Object key) {
@@ -123,6 +139,56 @@ public class RegistrosUnicosDAO extends DAO {
             list = q.list();
         }catch(NullPointerException e){
             reg = null;
+        }
+        return list;
+    }
+    
+    public List<RegistrosUnicos> selectExpedientes(Areas area){
+        RegistrosUnicos reg = null;
+        List<RegistrosUnicos> list = null;
+        try{
+            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = 6 AND es = 2 AND ru.confirmado = TRUE AND s = d.solicitudes AND (select COUNT(*) FROM ExpedientesSolicitudes AS es WHERE es.solicitudes = s) = 0";
+            Query q = sesion.createQuery(sql);
+            list = q.list();
+        }catch(NullPointerException e){
+            reg = null;
+        }
+        return list;
+    }
+    
+    public List<RegistrosUnicos> selectHistorial(Areas area) {
+        List<RegistrosUnicos> list;
+        try{
+            String sql = 
+                    " FROM " + tableName + " AS ru "
+                    + " INNER JOIN FETCH ru.solicitudes AS sol"
+                    + " INNER JOIN sol.docenteses"
+                    + " WHERE "
+                        + " ru.areas = " + area.getId();
+            list =  sesion.createQuery(sql).list();
+        }catch(Exception e){
+            list = null;
+        }
+        return list;
+    }
+
+    public List<RegistrosUnicos> consultarRegistro(String nombreDocente, String apellidoDocente, Date fechaDePresentacion) {
+        List<RegistrosUnicos> list;
+        try{
+            String sql = 
+                    " FROM " + tableName + " AS ru "
+                    + " INNER JOIN FETCH ru.solicitudes AS sol"
+                    + " INNER JOIN sol.docenteses AS doc"
+                    + " WHERE ";
+            if(nombreDocente != null && !nombreDocente.equals(""))
+                sql += " doc.nombre LIKE '%"+nombreDocente+"%'";
+            if(apellidoDocente != null && !apellidoDocente.equals(""))
+                sql += " doc.apellido LIKE '%"+apellidoDocente+"%'";
+            if(fechaDePresentacion != null)
+                sql += " sol.fechaAlta = "+fechaDePresentacion;
+            list = sesion.createQuery(sql).list();
+        }catch(Exception e){
+            list = null;
         }
         return list;
     }

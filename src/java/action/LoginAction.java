@@ -50,7 +50,10 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
         if(userController.login(getUser(), getPassword())){
             sesion.setAttribute("user", userController.getEntity());
             sesion.setAttribute("authenticated", true);
-            sesion.setAttribute("role", "ogagtd");
+            if(userController.getEntity().getUser().equals("administrador"))
+                sesion.setAttribute("role", "administrador");
+            else
+                sesion.setAttribute("role", userController.getEntity().getAreas().getNombre().toLowerCase());
             res = SUCCESS;
         }
         

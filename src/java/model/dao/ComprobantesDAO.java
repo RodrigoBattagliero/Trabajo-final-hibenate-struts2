@@ -27,4 +27,19 @@ public class ComprobantesDAO extends DAO {
         super.cerrarSession();
     }
     
+    @Override
+    public List<Object> selectRelated(Object key) {
+        List<Object> list = null;
+        String idStr = String.valueOf(key);
+        try{
+//            iniciaOperacion();
+            String sql = "FROM " + tableName + " t "
+                    + "WHERE t.solicitudes = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
+    
 }

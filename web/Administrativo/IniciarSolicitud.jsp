@@ -13,18 +13,19 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Iniciar solicitud</h1>
-        <s:form action="SolicitudPreparar">
-                <s:select list="sedesList" listKey="id" listValue="nombre" name="idSelectedSede"></s:select>
-                <tr>
-                    <td><label for="tipo">tipo</label></td>
-                    <td>
-                        <select name="entity.tipo" id="">
-                            <option value="1">Capital</option>
-                            <option value="2">Interior</option>
-                        </select>
-                    </td>
-                </tr>
+        <s:if test="entity.id" >
+            <h1>Editar solicitud</h1>
+            <s:set var="url">SolicitudUpdate</s:set>
+        </s:if>
+        <s:else>
+            <h1>Iniciar solicitud</h1>
+            <s:set var="url">SolicitudPreparar</s:set>
+        </s:else>
+        <s:actionerror />
+        <s:fielderror />
+        <s:form action="%{url}">
+            <s:select list="sedesList" listKey="id" listValue="nombre" name="idSelectedSede" value="entity.sedes.id" label="Sede"></s:select>
+            <s:select list="#{'1':'Capital', '2':'Interior'}" name="entity.tipo" value="entity.tipo" label="Tipo" />
             <s:textfield name="entity.numeroSolicitud" label="numeroSolicitud" />
             <s:textfield name="entity.fechaAlta" label="fechaAlta" />
             <s:textarea name="entity.observaciones" label="observaciones" />
