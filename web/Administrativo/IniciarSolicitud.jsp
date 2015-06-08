@@ -25,7 +25,7 @@
         <s:fielderror />
         <s:form action="%{url}">
             <s:select list="sedesList" listKey="id" listValue="nombre" name="idSelectedSede" value="entity.sedes.id" label="Sede"></s:select>
-            <s:select list="#{'1':'Capital', '2':'Interior'}" name="entity.tipo" value="entity.tipo" label="Tipo" />
+            <s:select list="#@java.util.TreeMap@{'1':'Capital', '2':'Interior'}" name="entity.tipo" value="entity.tipo" label="Tipo" />
             <s:textfield name="entity.numeroSolicitud" label="numeroSolicitud" />
             <s:textfield name="entity.fechaAlta" label="fechaAlta" />
             <s:textarea name="entity.observaciones" label="observaciones" />

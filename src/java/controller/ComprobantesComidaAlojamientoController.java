@@ -24,6 +24,7 @@ import resources.DateManager;
 public class ComprobantesComidaAlojamientoController extends Controller<ComprobantesComidaAlojamientos> implements ServletRequestAware {
     
     private HttpServletRequest request;
+    private HttpSession sesion;
     List<ComprobantesComidaAlojamientos> listAlomamiento;
     ArrayList<String> listTipo;
     private String[] alojamientoComprobantesImporte;
@@ -96,7 +97,6 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
     
     public String prepared(){
         setListAlojamiento();
-        HttpSession sesion = this.request.getSession();
         sesion.setAttribute("ComprobanteAlojamiento", this.listAlomamiento);
         return SUCCESS;
     }
@@ -142,6 +142,65 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
+        sesion = this.request.getSession();
+    }
+    
+    public String setUpdate(){
+        String res = SUCCESS;
+        this.entities = new ArrayList();
+        List<Object> s;
+        ComprobantesComidaAlojamientoDAO dao = new ComprobantesComidaAlojamientoDAO();
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        ComprobantesController comCon = new ComprobantesController();
+        comCon.selectRelated(Integer.parseInt(idSolStr));
+        for(Comprobantes com : comCon.getEntities()){
+            s = new ArrayList();
+            dao.iniciaOperacion();
+            s = dao.selectRelated(com.getId());
+            dao.cerrarSession();
+            try{
+                this.entity = (ComprobantesComidaAlojamientos) s.get(0);
+            }catch(Exception e){
+                this.entity = null;
+            }
+            if(this.entity != null)
+                this.entities.add(this.entity);
+        }
+        return res;
+    }
+    
+    public String setComprobante(){
+        setUpdate();
+        String idComStr = this.request.getParameter("idComprobanteSelected");
+        ComprobantesComidaAlojamientoDAO dao = new ComprobantesComidaAlojamientoDAO();
+        dao.iniciaOperacion();
+        this.entity = (ComprobantesComidaAlojamientos) dao.selectOne(Integer.parseInt(idComStr));
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String res = ERROR;
+        ComprobantesComidaAlojamientoDAO dao = new ComprobantesComidaAlojamientoDAO();
+        boolean b = false;
+        try{
+            String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+            SolicitudesController solCon = new SolicitudesController();
+            solCon.selectOne(Integer.parseInt(idSolStr));
+            this.entity.getComprobantes().setSolicitudes(solCon.getEntity());
+            ComprobantesController comCon = new ComprobantesController();
+            comCon.setEntity(this.entity.getComprobantes());
+            comCon.update();
+            dao.iniciaOperacion();
+            b = dao.update(entity);
+            dao.cerrarSession();
+        }catch(NullPointerException e){
+            System.out.println(e);
+        }
+        if(b)
+            res = SUCCESS;
+        return res; 
     }
     
 }

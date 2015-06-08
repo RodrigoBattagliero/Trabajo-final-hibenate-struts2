@@ -5,6 +5,8 @@
  */
 package model.dao;
 
+import java.util.List;
+
 /**
  *
  * @author rodrigo
@@ -12,7 +14,7 @@ package model.dao;
 public class ActividadDocentesDAO extends DAO {
 
     public ActividadDocentesDAO() {
-        tableName = "Actividad_docentes";
+        tableName = "ActividadDocentes";
     }
     
     @Override
@@ -25,5 +27,18 @@ public class ActividadDocentesDAO extends DAO {
         super.cerrarSession();
     }
     
+    @Override
+    public List<Object> selectRelated(Object key) {
+        List<Object> list = null;
+        String idStr = String.valueOf(key);
+        try{
+//            iniciaOperacion();
+            String sql = "FROM " + tableName + " t WHERE t.designaciones = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
     
 }

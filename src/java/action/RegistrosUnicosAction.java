@@ -54,6 +54,24 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
         return res;
     }
     
+    public String guardarRegistroUnico(){
+        String res = ERROR;
+        SolicitudesController solCon = new SolicitudesController();
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        solCon.selectOne(Integer.parseInt(idSolStr));
+        
+        RegistrosUnicosController regController = new RegistrosUnicosController();
+        RegistrosUnicos registros = (RegistrosUnicos) sesion.getAttribute("RegistroUnicoForm");
+        registros.setSolicitudes(solCon.getEntity());
+        
+        regController.getDao().iniciaOperacion();
+        if(regController.getDao().create(registros) > 0)
+            res = SUCCESS;
+        regController.getDao().cerrarSession();
+        
+        return res;
+    }
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

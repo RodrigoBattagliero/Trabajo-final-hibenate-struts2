@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.entities.Areas;
@@ -191,6 +192,32 @@ public class RegistrosUnicosDAO extends DAO {
             list = null;
         }
         return list;
+    }
+
+    public List<RegistrosUnicos> selectDevueltas() {
+        List<RegistrosUnicos> list1;
+        List<RegistrosUnicos> list2;
+        List<RegistrosUnicos> list3  = new ArrayList();
+        try{
+            String sql = "FROM "+tableName+" AS ru "
+                    + "INNER JOIN FETCH ru.estados es "
+                    + "INNER JOIN FETCH ru.solicitudes s "
+                    + "INNER JOIN FETCH s.docenteses d "
+                    + "WHERE es = 4 AND ru.confirmado = TRUE AND s = d.solicitudes";
+            Query q = sesion.createQuery(sql);
+            list1 = q.list();
+            for(RegistrosUnicos re : list1){
+                String sql2 = "FROM " +tableName+" AS ru "
+                    + " WHERE ru.fechaEntrada >= '"+re.getFechaSalida()+"' AND ru.solicitudes = "+re.getSolicitudes().getId()+" AND ru > "+re.getId();
+                list2 = sesion.createQuery(sql2).list();
+                if(list2.isEmpty())
+                    list3.add(re);
+                
+            }
+        }catch(NullPointerException e){
+            list3 = null;
+        }
+        return list3;
     }
     
 }

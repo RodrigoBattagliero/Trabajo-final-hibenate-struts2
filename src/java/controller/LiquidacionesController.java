@@ -99,6 +99,30 @@ public class LiquidacionesController extends Controller<Liquidaciones> implement
         this.sesion.setAttribute("idSolicitudSelected", this.request.getParameter("idSolicitudSelected"));
     }
     
+     public String updatePrepared(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        this.selectRelated(Integer.parseInt(idSolStr));
+        try{
+            this.entity = this.entities.get(0);
+        }catch(NullPointerException | IndexOutOfBoundsException e){
+            this.entity = new Liquidaciones();
+        }
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        SolicitudesController solCont = new SolicitudesController();
+        solCont.selectOne(Integer.parseInt(idSolStr));
+        this.entity.setSolicitudes(solCont.getEntity());
+        this.dao.iniciaOperacion();
+        String res = super.update();
+        this.dao.cerrarSession();
+        return res;
+    }
+    
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

@@ -23,6 +23,7 @@ public class ComprobantesController extends Controller<Comprobantes> implements 
     private ComprobantesTraslados traslado;
     private ComprobantesComidaAlojamientos comida;
     private HttpServletRequest request;
+    private HttpSession sesion;
     
     public ComprobantesController() {
         dao = (ComprobantesDAO) new ComprobantesDAO();
@@ -44,6 +45,22 @@ public class ComprobantesController extends Controller<Comprobantes> implements 
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
+        this.sesion = this.request.getSession();
     }
     
+    @Override
+    public String update(){        
+        String res = ERROR;
+        boolean b = false;
+        try{
+            this.dao.iniciaOperacion();
+            b = dao.update(entity);
+            dao.cerrarSession();
+        }catch(NullPointerException e){
+            System.out.println(e);
+        }
+        if(b)
+            res = SUCCESS;
+        return res; 
+    }
 }

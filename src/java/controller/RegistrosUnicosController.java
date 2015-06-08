@@ -35,6 +35,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     private int idAreaSelected;
     private int idEstadoSelected;
     private List<Estados> listEstados;
+    private List<Areas> listAreas;
     private List<Solicitudes> listSolicitudesACompletar;
     private RegistrosUnicosDAO dao;
     private Areas areaLogueada;
@@ -62,6 +63,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     
     public List<Estados> getListEstados(){
         return this.listEstados;
+    }
+
+    public List<Areas> getListAreas() {
+        return listAreas;
     }
     
     public void setAdministrarObservaciones(String AdministrarObservaciones) {
@@ -197,7 +202,6 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setAdministrarRegistroUnicoSAFForm(){
-        //Usuarios user = (Usuarios) sesion.getAttribute("user");
         String idSol = String.valueOf(this.request.getParameter("idSolicitudSelected"));
         sesion.setAttribute("idSolicitudSelected",idSol );
         
@@ -216,6 +220,13 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         setAreaLogueada();
         this.dao.iniciaOperacion();
         this.entities = this.dao.selectHistorial(getAreaLogueada());
+        this.dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setSolicitudesDevueltas(){
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.selectDevueltas();
         this.dao.cerrarSession();
         return SUCCESS;
     }
@@ -326,9 +337,33 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setAreas(getAreaLogueada());
         this.entity.setEstados(getEstado());
         this.entity.setConfirmado(false);
-        this.entity.setFechaSalida(new Date());
+        this.entity.setFechaEntrada(new Date());
         this.entity.setObservaciones(AdministrarObservaciones);
  
+        sesion.setAttribute("RegistroUnicoForm", this.entity);
+        return SUCCESS;
+    }
+    
+    public String setSolicitudDevuelta(){
+        selectAreas();
+        String idSolStr = this.request.getParameter("idSolicitudSelected");
+        this.sesion.setAttribute("idSolicitudSelected",idSolStr);
+        SolicitudesController solCont = new SolicitudesController();
+        solCont.selectOne(Integer.parseInt(idSolStr));
+        this.entity = new RegistrosUnicos();
+        this.entity.setConfirmado(false);
+        this.entity.setFechaEntrada(new Date());
+        this.entity.setFechaSalida(new Date());
+        this.entity.setSolicitudes(solCont.getEntity());
+        this.entity.setAreas(getArea());
+        return SUCCESS;
+    }
+    
+    public String preparedSolicitudesDevueltas(){
+        this.entity.setEstados(getEstado());
+        this.entity.setAreas(getArea());
+        this.entity.setConfirmado(false);
+        this.entity.setFechaEntrada(new Date());
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
@@ -399,6 +434,12 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         EstadosController es = new EstadosController();
         es.select();
         listEstados = es.getEntities();
+    }
+    
+    private void selectAreas(){
+        AreasController es = new AreasController();
+        es.select();
+        listAreas = es.getEntities();
     }
 
     @Override

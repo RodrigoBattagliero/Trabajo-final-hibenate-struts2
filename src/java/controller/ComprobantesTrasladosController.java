@@ -8,7 +8,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.ComprobantesTrasladosDAO;
@@ -24,6 +23,7 @@ import resources.DateManager;
 public class ComprobantesTrasladosController extends Controller<ComprobantesTraslados> implements ServletRequestAware {
     
     private HttpServletRequest request;
+    private HttpSession sesion;
     private ArrayList<ComprobantesTraslados> listComprobantes;
     private String[] trasladoComprobantesImporte;
     private String[] trasadoComprobantesNumeroComprobante;
@@ -33,6 +33,17 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     private Date[] trasladoFechaHoraSalida;
     private Date[] trasladofechaHoraRegreso;
     private String[] trasladoComprobantesObservaciones;
+    private int[] idComprobantes;
+    private int[] idTraslados;
+    private List<ComprobantesTraslados> comprobantesUpdate;
+    private ComprobantesTraslados[] traslado;
+
+    public void setTraslado(ComprobantesTraslados[] traslado) {
+        this.traslado = traslado;
+    }
+
+    
+    
     
     public ComprobantesTrasladosController() {
         ComprobantesTrasladosDAO dao = (ComprobantesTrasladosDAO) new ComprobantesTrasladosDAO();
@@ -70,6 +81,18 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     public void setTrasladoComprobantesObservaciones(String[] trasladoComprobantestrasladoComprobantesObservaciones) {
         this.trasladoComprobantesObservaciones = trasladoComprobantestrasladoComprobantesObservaciones;
     }
+
+    public void setIdComprobantes(int[] idComprobantes) {
+        this.idComprobantes = idComprobantes;
+    }
+
+    public void setIdTraslados(int[] idTraslados) {
+        this.idTraslados = idTraslados;
+    }
+
+    public List<ComprobantesTraslados> getComprobantesUpdate() {
+        return comprobantesUpdate;
+    }
     
     @Override
     public ComprobantesTrasladosDAO getDao() {
@@ -92,7 +115,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     
     public String prepared(){
         setListComprobantes();
-        HttpSession sesion = this.request.getSession();
         sesion.setAttribute("ComprobanteTraslado", this.listComprobantes);
         return SUCCESS;
     }
@@ -100,6 +122,7 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
+        sesion = this.request.getSession();
     }
     
     private void setListComprobantes(){
@@ -134,19 +157,79 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
         for (int i = 0; i < cant; i++) {
             traslado = new ComprobantesTraslados();
             comprobante = new Comprobantes();
+            // Eliminar en caso de error para crear 
+            comprobante.setId(idComprobantes[i]);
             comprobante.setImporte((float) Double.parseDouble(trasladoComprobantesImporte[i]));
             comprobante.setNumeroComprobante(trasadoComprobantesNumeroComprobante[i]);
             comprobante.setObservaciones(trasladoComprobantesObservaciones[i]);
             comprobante.setProveedor(trasladoComprobantesProveedor[i]);
             traslado.setComprobantes(comprobante);
+            // Eliminar en caso de error para crear 
+            traslado.setId(idTraslados[i]);
             traslado.setDesde(trasladoDesde[i]);
             traslado.setHasta(trasladoHasta[i]);
-//            dateManager.setFechaString(trasladofechaHoraRegreso[i]);
             traslado.setFechaHoraRegreso(trasladofechaHoraRegreso[i]);
-//            dateManager.setFechaString(trasladoFechaHoraSalida[i]);
             traslado.setFechaHoraSalida(trasladoFechaHoraSalida[i]);
+            
             listComprobantes.add(traslado);
         }
-        
+    }
+    
+    public String setComprobante(){
+        setUpdate();
+        String idComStr = this.request.getParameter("idComprobanteSelected");
+        ComprobantesTrasladosDAO dao = new ComprobantesTrasladosDAO();
+        dao.iniciaOperacion();
+        this.entity = (ComprobantesTraslados) dao.selectOne(Integer.parseInt(idComStr));
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setUpdate(){
+        String res = SUCCESS;
+        this.entities = new ArrayList();
+        List<Object> s;
+        ComprobantesTrasladosDAO dao = new ComprobantesTrasladosDAO();
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        ComprobantesController comCon = new ComprobantesController();
+        comCon.selectRelated(Integer.parseInt(idSolStr));
+        for(Comprobantes com : comCon.getEntities()){
+            s = new ArrayList();
+            dao.iniciaOperacion();
+            s = dao.selectRelated(com.getId());
+            dao.cerrarSession();
+            try{
+                this.entity = (ComprobantesTraslados) s.get(0);
+            }catch(Exception e){
+                this.entity = null;
+            }
+            if(this.entity != null)
+                this.entities.add(this.entity);
+        }
+        return res;
+    }
+    
+    @Override
+    public String update(){
+        String res = ERROR;
+        ComprobantesTrasladosDAO dao = new ComprobantesTrasladosDAO();
+        boolean b = false;
+        try{
+            String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+            SolicitudesController solCon = new SolicitudesController();
+            solCon.selectOne(Integer.parseInt(idSolStr));
+            this.entity.getComprobantes().setSolicitudes(solCon.getEntity());
+            ComprobantesController comCon = new ComprobantesController();
+            comCon.setEntity(this.entity.getComprobantes());
+            comCon.update();
+            dao.iniciaOperacion();
+            b = dao.update(entity);
+            dao.cerrarSession();
+        }catch(NullPointerException e){
+            System.out.println(e);
+        }
+        if(b)
+            res = SUCCESS;
+        return res; 
     }
 }

@@ -6,6 +6,7 @@
 package model.dao;
 
 import java.util.List;
+import model.entities.ComprobantesTraslados;
 
 /**
  *
@@ -28,6 +29,19 @@ public class ComprobantesTrasladosDAO extends DAO {
     }
     
     @Override
+    public Object selectOne(Object key) {
+        Object a;
+        try{
+            String sql = "FROM " + tableName + " AS t INNER JOIN FETCH t.comprobantes WHERE t = " + (int) key;
+            List<ComprobantesTraslados> l = sesion.createQuery(sql).list();
+            a = l.get(0);
+        }catch(Exception e){
+            a = null;
+        }
+        return a;
+    }
+    
+    @Override
     public List<Object> selectRelated(Object key) {
         List<Object> list = null;
         String idStr = String.valueOf(key);
@@ -40,4 +54,5 @@ public class ComprobantesTrasladosDAO extends DAO {
         }
         return list;
     }
+
 }

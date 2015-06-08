@@ -24,7 +24,7 @@
             <li><s:a action="/SedeCapital/SolicitudesIniciadasSedeInteriorForm">Solicitudes inicadas en sede interior</s:a></li>
             <li><s:a action="/SedeCapital/GenerarExpedienteForm">Generar expediente</s:a></li>
             <li><s:a action="/SedeCapital/ListarExpedientes">Expedientes</s:a></li>
-            <li><s:a action="/Administrativo/ImptableAdministracionForm">Solicitudes devueltas</s:a></li>
+            <li><s:a action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
             
         </ul>
     </body>

@@ -137,4 +137,45 @@ public class DesignacionesController extends Controller<Designaciones> implement
         this.entities = dao.selectRelatedAll(idSol);
         dao.cerrarSession();
     }
+    
+    public String setUpdate(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        DesignacionesDAO dao = new DesignacionesDAO();
+        dao.iniciaOperacion();
+        this.entities = dao.selectRelatedAll(Integer.parseInt(idSolStr));
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setDesignacion(){
+        setUpdate();
+        String idDesStr = this.request.getParameter("idDesignacionSelected");
+        DesignacionesDAO dao = new DesignacionesDAO();
+        dao.iniciaOperacion();
+        this.entity = (Designaciones) dao.selectOne(Integer.parseInt(idDesStr));
+        dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String res = ERROR;
+        DesignacionesDAO dao = new DesignacionesDAO();
+        boolean b = false;
+        try{
+            String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+            SolicitudesController solCon = new SolicitudesController();
+            solCon.selectOne(Integer.parseInt(idSolStr));
+            this.entity.setSolicitudes(solCon.getEntity());
+            dao.iniciaOperacion();
+            b = dao.update(entity);
+            dao.cerrarSession();
+        }catch(NullPointerException e){
+            System.out.println(e);
+        }
+        if(b)
+            res = SUCCESS;
+        return res; 
+    }
+    
 }

@@ -59,6 +59,5 @@ and open the template in the editor.
             <result>/Administrativo/SedeCapital/ExpedienteDetalle.jsp</result>
         </action>
         
-        <!--  -->
     </package>
 </struts>

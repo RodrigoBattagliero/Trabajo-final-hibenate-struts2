@@ -6,6 +6,7 @@
 package model.dao;
 
 import java.util.List;
+import model.entities.ComprobantesComidaAlojamientos;
 
 /**
  *
@@ -25,6 +26,19 @@ public class ComprobantesComidaAlojamientoDAO extends DAO{
     @Override
     public void cerrarSession(){
         super.cerrarSession();
+    }
+    
+    @Override
+    public Object selectOne(Object key) {
+        Object a;
+        try{
+            String sql = "FROM " + tableName + " AS t INNER JOIN FETCH t.comprobantes WHERE t = " + (int) key;
+            List<ComprobantesComidaAlojamientos> l = sesion.createQuery(sql).list();
+            a = l.get(0);
+        }catch(Exception e){
+            a = null;
+        }
+        return a;
     }
     
     @Override

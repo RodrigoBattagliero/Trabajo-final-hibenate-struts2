@@ -22,8 +22,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
-                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,DesignacionesUpdateForm,ActividadDocenteUpdate;
+                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,DesignacionesUpdateForm,ActividadDocenteUpdate;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -79,6 +79,20 @@ and open the template in the editor.
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
             <result>/Bedel/index.jsp</result>
+        </action>
+        
+        <!-- Solicitud devuelta -->
+        <action name="SolicitudesDevueltasForm" class="controller.RegistrosUnicosController" method="setSolicitudesDevueltasArea">
+            <result>/Bedel/ListadoSolicitudes.jsp</result>
+        </action>
+        <action name="DesignacionesUpdateForm" class="controller.DesignacionesController" method="setUpdate">
+            <result>/Bedel/DesignacionesUpdate.jsp</result>
+        </action>
+        <action name="ActividadDocenteUpdateForm" class="controller.ActividadDocentesController" method="updatePrepared">
+            <result>/Bedel/ActividadDocenteUpdate.jsp</result>
+        </action>
+        <action name="ActividadDocenteUpdate" class="controller.ActividadDocentesController" method="update">
+            <result type="redirectAction">SolicitudesDevueltasForm</result>
         </action>
     </package>
 </struts>

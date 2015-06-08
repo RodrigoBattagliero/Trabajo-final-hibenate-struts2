@@ -19,6 +19,7 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
 
     private HttpServletRequest request;
     private HttpSession sesion;
+    private int id;
     
     public ActividadDocentesController() {
         dao = (ActividadDocentesDAO) new ActividadDocentesDAO();
@@ -32,6 +33,10 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     public void setDao(ActividadDocentesDAO dao) {
         this.dao = dao;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     public String prepared(){
         this.sesion.setAttribute("ActividadDocenteForm", this.entity);
@@ -41,6 +46,33 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     public String setIdDesignacion(){
         this.sesion.setAttribute("idDesignacionSelected", this.request.getParameter("idDesignacionSelected"));
         return SUCCESS;
+    }
+    
+    public String updatePrepared(){
+        String idDesStr = String.valueOf(this.request.getParameter("idDesignacionSelected"));
+        this.sesion.setAttribute("idDesignacionSelected", idDesStr);
+        this.selectRelated(Integer.parseInt(idDesStr));
+        try{
+            this.entity = this.entities.get(0);
+            this.sesion.setAttribute("idActividadDocente", this.entity.getId());
+        }catch(NullPointerException | IndexOutOfBoundsException e){
+            this.entity = new ActividadDocentes();
+        }
+        return SUCCESS;
+    }
+    
+    @Override
+    public String update(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idDesignacionSelected"));
+        String idActStr = String.valueOf(this.sesion.getAttribute("idActividadDocente"));
+        DesignacionesController desCont = new DesignacionesController();
+        desCont.selectOne(Integer.parseInt(idSolStr));
+        this.entity.setDesignaciones(desCont.getEntity());
+        this.entity.setId(Integer.parseInt(idActStr));
+        this.dao.iniciaOperacion();
+        String res = super.update();
+        this.dao.cerrarSession();
+        return res;
     }
     
     @Override
