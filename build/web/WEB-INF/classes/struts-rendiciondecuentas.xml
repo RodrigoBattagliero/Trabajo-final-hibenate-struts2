@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
-                        rendición de cuentas: index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        administrador:index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
+                        rendición de cuentas: index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -70,5 +70,26 @@ and open the template in the editor.
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
             <result>/RendicionDeCuentas/index.jsp</result>
         </action>
+        
+        <!-- Solicitud devuelta -->
+        <action name="SolicitudesDevueltasForm" class="controller.RegistrosUnicosController" method="setSolicitudesDevueltasAreas">
+            <result>/RendicionDeCuentas/ListadoSolicitudesDevueltas.jsp</result>
+        </action>
+        <action name="setSolicitudSelected" class="controller.RegistrosUnicosController" method="setSolicitudSelected">
+            <result type="redirectAction">LiquidacionesUpdateForm</result>
+        </action>
+        <action name="LiquidacionesUpdateForm" class="controller.LiquidacionesController" method="updatePrepared">
+            <result>/Administrativo/LiquidacionesUpdate.jsp</result>
+        </action>
+        <action name="LiquidacionesUpdate" class="controller.LiquidacionesController" method="update">
+            <result type="redirectAction">RegistroUnicoSolicitudDevuelta</result>
+        </action>
+        <action name="RegistroUnicoSolicitudDevuelta" class="controller.RegistrosUnicosController" method="setRegistroUnicoSolicitudesDevueltas">
+            <result>/RendicionDeCuentas/AdministrarRegistroUnicoDevuelta.jsp</result>
+        </action>
+        <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
+            <result type="redirectAction">SolicitudesDevueltasForm</result>
+        </action>
+        
     </package>
 </struts>

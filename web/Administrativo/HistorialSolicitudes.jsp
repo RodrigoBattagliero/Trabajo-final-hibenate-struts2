@@ -11,24 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" src="../css/style.css" />
-        <style>
-            input{
-                width: 150px;
-            }
-
-            body{
-                width: 500px;
-                margin:0px auto;
-            }
-
-            table tbody tr:nth-child(odd){
-                background-color: #ccc;
-            }
-            table tbody tr:hover{
-                background-color: #DEDEDE;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
     </head>
     <body>
         <h1>Solicitudes</h1>

@@ -26,9 +26,7 @@ and open the template in the editor.
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
                         *: LoginAction;
-                        administrador:Administrativo;
-                        oficina de gestión de gasto de traslado docente:Administrativo;
-                        sede interior:Administrativo;
+                        administrador:menu;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -50,10 +48,16 @@ and open the template in the editor.
             <result>/menu.jsp</result>
             <result name="input">/Login.jsp</result>
             <result name="error">/Login.jsp</result>
+            <result name="oficina de gestión de gasto de traslado docente" type="redirectAction">/Administrativo/index</result>
+            <result name="sede interior" type="redirectAction">/Administrativo/index</result>
+            <result name="dirección académica administrativa" type="redirectAction">/Bedel/index</result>
+            <result name="rendición de cuentas" type="redirectAction">/RendicionDeCuentas/index</result>
+            <result name="secretaría administrativo-financiera" type="redirectAction">/SecretariaAdministrativoFinanciera/index</result>
+            <result name="administrativo" type="redirectAction">menu</result>
         </action>
         
-        <action name="Administrativo"  >
-            <result type="redirect">/Administrativo/index.jsp</result>
+        <action name="menu">
+            <result>/menu.jsp</result>
         </action>
         
     </package>

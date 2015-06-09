@@ -17,6 +17,7 @@
             <li><s:a action="SolicitudesActividadDocenteForm">Solcitudes a completar</s:a></li>
             <li><s:a action="">Historial de solicitudes</s:a></li>
             <li><s:a action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
+            <li><s:a action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
         </ul>
     </body>
 </html>

@@ -40,6 +40,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     private RegistrosUnicosDAO dao;
     private Areas areaLogueada;
     private int idSolicitudSelected;
+    private int idRegistroUnico;
     private String AdministrarObservaciones;
     private boolean[] confirmado;
     private int[] idRegistro;
@@ -97,6 +98,12 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public void setIdSolicitudSelected(int id){
         this.idSolicitudSelected = id;
     }
+
+    public void setIdRegistroUnico(int idRegistroUnico) {
+        this.idRegistroUnico = idRegistroUnico;
+    }
+    
+    
 
     public void setConfirmado(boolean[] confirmado) {
         this.confirmado = confirmado;
@@ -159,8 +166,8 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String setAdministrarRegistroUnicoActividadDocente(){
         setAreaLogueada();
         selectEstados();
-        dao.iniciaOperacion();
         String idSol = String.valueOf(sesion.getAttribute("idSolicitudSelected"));
+        dao.iniciaOperacion();
         this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
         this.entity.setFechaSalida(new Date());
         dao.cerrarSession();
@@ -228,6 +235,24 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.dao.iniciaOperacion();
         this.entities = this.dao.selectDevueltas();
         this.dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setSolicitudesDevueltasAreas(){
+        setAreaLogueada();
+        this.dao.iniciaOperacion();
+        this.entities = this.dao.selectDevueltasAreas(this.getAreaLogueada());
+        this.dao.cerrarSession();
+        return SUCCESS;
+    }
+    
+    public String setRegistroUnicoSolicitudesDevueltas(){
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        setAreaLogueada();
+        this.dao.iniciaOperacion();
+        this.entity = this.dao.selectRegistroDevueltasAreas(this.getAreaLogueada(),Integer.parseInt(idSolStr));
+        this.dao.cerrarSession();
+        this.sesion.setAttribute("idRegistroUnico", this.entity.getId());
         return SUCCESS;
     }
     
@@ -360,12 +385,48 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String preparedSolicitudesDevueltas(){
-        this.entity.setEstados(getEstado());
+//        UsuariosController user = new UsuariosController();
+//        user.setEntity((Usuarios) this.sesion.getAttribute("user") );
         this.entity.setAreas(getArea());
+        this.entity.setEstados(getEstado());
         this.entity.setConfirmado(false);
         this.entity.setFechaEntrada(new Date());
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
+    }
+    
+//    public String preparedRegistroUnicoDevuelta(){
+//        setAreaLogueada();
+//        this.entity.setAreas(getAreaLogueada());
+//        this.entity.setEstados(getEstado());
+//        this.entity.setConfirmado(false);
+//        this.entity.setFechaEntrada(new Date());
+//        this.entity.setObservaciones(AdministrarObservaciones);
+// 
+//        sesion.setAttribute("RegistroUnicoForm", this.entity);
+//        return SUCCESS;
+//    }
+    
+    public String UpdateDevuelta(){
+        String res = SUCCESS;
+        String idRegStr = String.valueOf(this.sesion.getAttribute("idRegistroUnico"));
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+        SolicitudesController solCont = new SolicitudesController();
+        solCont.selectOne(Integer.parseInt(idSolStr));
+        setAreaLogueada();
+        this.entity.setAreas(getAreaLogueada());
+        this.entity.setEstados(getEstado());
+        this.entity.setConfirmado(false);
+        this.entity.setFechaEntrada(new Date());
+        this.entity.setObservaciones(AdministrarObservaciones);
+        this.entity.setId(Integer.parseInt(idRegStr));
+        this.entity.setSolicitudes(solCont.getEntity());
+        RegistrosUnicosDAO dao = new RegistrosUnicosDAO();
+        dao.iniciaOperacion();
+        if(!dao.update(this.entity))
+            res = ERROR;
+        dao.cerrarSession();
+        return res;
     }
     
     public String ConfirmarSolicitudesPrepared(){
@@ -406,6 +467,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String CompletarDatosCapital(){
+        this.sesion.setAttribute("idSolicitudSelected", this.request.getParameter("idSolicitudSelected"));
+        return SUCCESS;
+    }
+    
+    public String setSolicitudSelected(){
         this.sesion.setAttribute("idSolicitudSelected", this.request.getParameter("idSolicitudSelected"));
         return SUCCESS;
     }

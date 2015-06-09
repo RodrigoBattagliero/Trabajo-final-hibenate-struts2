@@ -31,14 +31,10 @@
                     <td><s:property value="#solicitud.solicitudes.docenteses[0].nombre" /></td>
                     <td><s:property value="#solicitud.solicitudes.fechaAlta" /></td>
                     <td>
-                        <s:url var="url1" action="SolicitudesDevueltasAdministrar">
-                            <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
-                        </s:url>
-                        <s:url var="url2" action="ConsultarDetalle">
+                        <s:url var="url1" action="setSolicitudSelected">
                             <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
                         </s:url>
                         <s:a href="%{url1}" >Administrar</s:a>
-                        <s:a href="%{url2}" >Detalle</s:a>
                     </td>
                 </tr>
             </s:iterator>

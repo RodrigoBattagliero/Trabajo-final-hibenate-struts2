@@ -39,14 +39,10 @@
                         <td><s:property value="#designacion.dedicacion" /></td>
                         <td><s:property value="#designacion.observaciones" /></td>
                         <td>
-                            <s:url var="url1" action="DesignacionUpdateSelected">
+                            <s:url var="url" action="ActividadDocenteUpdateForm">
                                 <s:param name="idDesignacionSelected" value="#designacion.id"></s:param>
                             </s:url>
-                            <s:url var="url2" action="ActividadDocenteUpdateForm">
-                                <s:param name="idDesignacionSelected" value="#designacion.id"></s:param>
-                            </s:url>
-                            <s:a action="%{url1}" >Editar Designación</s:a>
-                            <s:a action="%{url2}" >Editar Actividad docente</s:a>
+                            <s:a href="%{url}" >Editar Actividad docente</s:a>
                         </td>
                     </tr>
                 </s:iterator>
@@ -85,6 +81,5 @@
             </s:form>
             <hr />
         </s:if>
-        <s:a action="LiquidacionesUpdateForm">Continuar</s:a>
     </body>
 </html>

@@ -22,8 +22,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,DesignacionesUpdateForm,ActividadDocenteUpdate;
-                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,DesignacionesUpdateForm,ActividadDocenteUpdate;
+                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
+                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -82,8 +82,11 @@ and open the template in the editor.
         </action>
         
         <!-- Solicitud devuelta -->
-        <action name="SolicitudesDevueltasForm" class="controller.RegistrosUnicosController" method="setSolicitudesDevueltasArea">
-            <result>/Bedel/ListadoSolicitudes.jsp</result>
+        <action name="SolicitudesDevueltasForm" class="controller.RegistrosUnicosController" method="setSolicitudesDevueltasAreas">
+            <result>/Bedel/ListadoSolicitudesDevueltas.jsp</result>
+        </action>
+        <action name="setSolicitudSelected" class="controller.RegistrosUnicosController" method="setSolicitudSelected">
+            <result type="redirectAction">DesignacionesUpdateForm</result>
         </action>
         <action name="DesignacionesUpdateForm" class="controller.DesignacionesController" method="setUpdate">
             <result>/Bedel/DesignacionesUpdate.jsp</result>
@@ -92,6 +95,12 @@ and open the template in the editor.
             <result>/Bedel/ActividadDocenteUpdate.jsp</result>
         </action>
         <action name="ActividadDocenteUpdate" class="controller.ActividadDocentesController" method="update">
+            <result type="redirectAction">RegistroUnicoSolicitudDevuelta</result>
+        </action>
+        <action name="RegistroUnicoSolicitudDevuelta" class="controller.RegistrosUnicosController" method="setRegistroUnicoSolicitudesDevueltas">
+            <result>/Bedel/AdministrarRegistroUnicoDevuelta.jsp</result>
+        </action>
+        <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
             <result type="redirectAction">SolicitudesDevueltasForm</result>
         </action>
     </package>

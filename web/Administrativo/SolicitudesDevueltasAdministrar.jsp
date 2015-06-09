@@ -21,7 +21,7 @@
             <s:select list="listAreas" listKey="id" listValue="nombre" name="idAreaSelected" label="Area" />
             <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />
             <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true"  />
-            <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
+            <s:select list="#@java.util.TreeMap@{'4':'Imputable a la administración'}" name="idEstadoSelected" label="Estado" />
             <s:textarea name="entity.observaciones" label="Observaciones"  />
             
             <s:submit value="Guardar" />

@@ -54,7 +54,7 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
                 sesion.setAttribute("role", "administrador");
             else
                 sesion.setAttribute("role", userController.getEntity().getAreas().getNombre().toLowerCase());
-            res = SUCCESS;
+            res = String.valueOf(this.sesion.getAttribute("role"));
         }
         
         return res;

@@ -135,7 +135,7 @@ public class RegistrosUnicosDAO extends DAO {
         RegistrosUnicos reg = null;
         List<RegistrosUnicos> list = null;
         try{
-            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND ru.confirmado = FALSE AND s = d.solicitudes";
+            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND es <> 4 AND ru.confirmado = FALSE AND s = d.solicitudes";
             Query q = sesion.createQuery(sql);
             list = q.list();
         }catch(NullPointerException e){
@@ -220,4 +220,36 @@ public class RegistrosUnicosDAO extends DAO {
         return list3;
     }
     
+    public List<RegistrosUnicos> selectDevueltasAreas(Areas area) {
+        List<RegistrosUnicos> list1;
+        try{
+            String sql = "FROM " + tableName + " AS ru "
+                    + "INNER JOIN FETCH ru.estados es "
+                    + "INNER JOIN FETCH ru.solicitudes s "
+                    + "INNER JOIN FETCH s.docenteses d "
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 4";
+            Query q = sesion.createQuery(sql);
+            list1 = q.list();
+        }catch(NullPointerException e){
+            list1 = null;
+        }
+        return list1;
+    }
+    
+    public RegistrosUnicos selectRegistroDevueltasAreas(Areas area,int idSol) {
+        List<RegistrosUnicos> list1;
+        RegistrosUnicos a = new RegistrosUnicos();
+        try{
+            String sql = "FROM " + tableName + " AS ru "
+                    + "INNER JOIN FETCH ru.estados es "
+                    + "INNER JOIN FETCH ru.solicitudes s "
+                    + "INNER JOIN FETCH s.docenteses d "
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 4 AND s = " + idSol;
+            Query q = sesion.createQuery(sql);
+            a = (RegistrosUnicos) q.list().get(0);
+        }catch(Exception e){
+            a = null;
+        }
+        return a;
+    }
 }
