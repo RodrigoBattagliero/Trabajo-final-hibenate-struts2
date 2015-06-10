@@ -11,13 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
     </head>
     <body>
-        <h1>Solicitudes</h1>
-        <hr />
-        <table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+        
+            <table class="table table-striped">
             <thead>
                 <td>N solicitud</td>
                 <td>Docente</td>
@@ -33,5 +33,6 @@
                 </s:iterator>
             </tbody>
         </table>
+        </div>
     </body>
 </html>

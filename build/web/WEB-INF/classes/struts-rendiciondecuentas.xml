@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
-                        rendición de cuentas: index,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
+                        administrador:index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
+                        rendición de cuentas: index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -31,12 +31,16 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/LoginRequired.jsp</result>
-            <result name="authorization_required">/Denied.jsp</result>
+            <result name="authentication_required">/Login.jsp</result>
+            <result name="authorization_required">/Login.jsp</result>
         </global-results>
         
-        <action name="index">
+        <action name="index" class="controller.RegistrosUnicosController" method="setMensajes" >
             <result>/RendicionDeCuentas/index.jsp</result>
+        </action>
+        
+        <action name="logout" class="action.LoginAction" method="logout">
+            <result type="redirectAction">index</result>
         </action>
         
         <!-- Rendición de cuentas -->
@@ -90,6 +94,9 @@ and open the template in the editor.
         <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
             <result type="redirectAction">SolicitudesDevueltasForm</result>
         </action>
-        
+        <!-- Historial de solicitudes -->
+        <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
+            <result >/Administrativo/HistorialSolicitudes.jsp</result>
+        </action>
     </package>
 </struts>

@@ -16,5 +16,11 @@
       </key>
       <one-to-many class="model.entities.Solicitudes"/>
     </set>
+    <set fetch="select" inverse="true" lazy="true" name="usuarioses" table="usuarios">
+      <key>
+        <column name="id_sede" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Usuarios"/>
+    </set>
   </class>
 </hibernate-mapping>

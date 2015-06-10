@@ -14,14 +14,27 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Login</h1>
-        <hr />
-        <s:fielderror />
-        <s:actionerror />
-        <s:form action="LoginAction">
-            <s:textfield name="user" label="Usuario" />
-            <s:password name="password" label="Password" />
-            <s:submit value="Ingresar" />
-        </s:form>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                  <s:fielderror />
+                  <s:actionerror />  
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <s:form action="LoginAction" theme="simple" class="form-signin">
+                        <h2 class="form-signin-heading">Ingresar</h2>
+                        <s:textfield name="user" label="Usuario" class="form-control" />
+                        <s:password name="password" label="Password" class="form-control" />
+                        <s:submit value="Ingresar" class="btn btn-lg btn-primary btn-block" />
+                    </s:form>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            
+            
+        </div>
     </body>
 </html>

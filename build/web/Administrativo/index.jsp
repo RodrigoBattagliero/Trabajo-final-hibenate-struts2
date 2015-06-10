@@ -14,19 +14,21 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Administrativo</h1>
-        <hr>
-        <ul>
-            <li><s:a action="IniciarSolicitudForm">Iniciar solicitud</s:a></li>
-            <li><s:a action="DatosCompletarForm">Completar Datos</s:a></li>
-            <li><s:a action="ConfirmarSolicitudesForm">Confirmar solicitudes</s:a></li>
-            <li><s:a action="HistorialSolicitudes">Historial solicitudes</s:a></li>
-            <li><s:a action="ConsultarForm">Consultar Registro unico</s:a></li>
-            <li><s:a action="/SedeCapital/SolicitudesIniciadasSedeInteriorForm">Solicitudes inicadas en sede interior</s:a></li>
-            <li><s:a action="/SedeCapital/GenerarExpedienteForm">Generar expediente</s:a></li>
-            <li><s:a action="/SedeCapital/ListarExpedientes">Expedientes</s:a></li>
-            <li><s:a action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
-            
-        </ul>
+        <div class="container">
+		
+            <s:include value="partes/menu.jsp" />
+	
+        
+            <s:if test="cantidadSolicitudesCompletar != 0">
+                <div class="alert alert-warning" role="alert">
+		    <p>Tiene <s:property value="cantidadSolicitudesCompletar" /> <s:a action="DatosCompletarForm">solicitudes para completar</s:a></p>
+		</div>
+            </s:if>
+            <s:if test="cantidadSolicitudesDevueltas != 0">
+                <div class="alert alert-warning" role="alert">
+                    <p>Tiene <s:property value="cantidadSolicitudesDevueltas" /> <s:a action="SolicitudesDevueltasForm">solicitudes devueltas</s:a></p>
+                </div>    
+            </s:if>
+        </div>
     </body>
 </html>

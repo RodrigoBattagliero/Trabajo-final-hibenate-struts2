@@ -32,7 +32,7 @@ public class UsuariosDAO extends DAO {
     @Override
     public List<Usuarios> login(String user, String pass){
         List<Usuarios> users;
-        String sql = "FROM "+tableName+" AS u INNER JOIN FETCH u.areas WHERE u.user = '"+user+"' AND u.password = '"+pass+"'";
+        String sql = "FROM "+tableName+" AS u INNER JOIN FETCH u.areas INNER JOIN FETCH u.sedes WHERE u.user = '"+user+"' AND u.password = '"+pass+"'";
         users = sesion.createQuery(sql).list();
         return users;
     }

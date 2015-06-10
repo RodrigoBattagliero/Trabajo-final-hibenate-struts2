@@ -60,6 +60,11 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
         return res;
     }
     
+    public String logout(){
+        this.sesion.invalidate();
+        return SUCCESS;
+    }
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

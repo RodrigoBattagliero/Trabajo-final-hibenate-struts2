@@ -11,91 +11,94 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link src="../css/style.css"></link>
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <script src="../js/jquery-1.11.3.min.js"></script>
     </head>
     <body>
-        <h1>Datos de traslado</h1>
-        <hr />
-        <s:actionerror />
-        <s:fielderror />
-        <s:a action="AlojamientoForm">Agregar datos de alojamiento/combustible</s:a>
-        
-               <table border="1">
-                    <thead>
-                        <tr>
-                            <td>Importe</td>
-                            <td>Número de comprobante</td>
-                            <td>Proveedor</td>
-                            <td>Desde</td>
-                            <td>Hasta</td>
-                            <td>Fecha y hora de salida</td>
-                            <td>Fecha y hora de regreso</td>
-                            <td>Observaciones</td>
-                            <td>Acciones</td>
-                        </tr>
-                     </thead>
-                    <tbody>
-                        <s:iterator value="entities" var="entity">
-                        <tr>
-                           <td><s:property value="#entity.comprobantes.importe"  /></td>
-                           <td><s:property value="#entity.comprobantes.numeroComprobante"  /></td>
-                           <td><s:property value="#entity.comprobantes.proveedor"  /></td>
-                           <td><s:property value="#entity.desde" /></td>
-                           <td><s:property value="#entity.hasta" /></td>
-                           <td><s:property value="#entity.fechaHoraSalida"  /></td>
-                           <td><s:property value="#entity.fechaHoraRegreso"  /></td>
-                           <td><s:property value="#entity.comprobantes.observaciones"  /></td>
-                           <td>
-                                <s:url var="url" action="ComprobantesTrasladoUpdateSelected">
-                                    <s:param name="idComprobanteSelected" value="%{#entity.id}"></s:param>
-                                </s:url>
-                                <s:a href="%{url}" >Editar</s:a>
-                           </td>
-                        </tr>
-                        </s:iterator>
-                    </tbody>
-             </table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+            <h1>Datos de traslado</h1>
+            <hr />
+            <s:actionerror />
+            <s:fielderror />
+            <s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>
 
-        
-        <hr />
-        <s:if test="entity.id" >
-         <s:form action="ComprobantesTrasladoUpdate" theme="simple">
-               <table border="1">
-                    <thead>
-                        <tr>
-                            <td>Id</td>
-                            <td>Id</td>
-                            <td>Importe</td>
-                            <td>Número de comprobante</td>
-                            <td>Proveedor</td>
-                            <td>Desde</td>
-                            <td>Hasta</td>
-                            <td>Fecha y hora de salida</td>
-                            <td>Fecha y hora de regreso</td>
-                            <td>Observaciones</td>
-                            <td>Acciones</td>
-                        </tr>
-                     </thead>
-                    <tbody>
-                        <tr>
-                           <td><s:textfield name="entity.comprobantes.id" label="Importe" disabled="disable" /></td>
-                           <td><s:textfield name="entity.id" label="Importe" disabled="disable" /></td>
-                           <td><s:textfield name="entity.comprobantes.importe" label="Importe" /></td>
-                           <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" /></td>
-                           <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" /></td>
-                           <td><s:textfield name="entity.desde" label="Desde" /></td>
-                           <td><s:textfield name="entity.hasta" label="Hasta" /></td>
-                           <td><s:textfield name="entity.fechaHoraSalida" label="Fecha y hora de salida" /></td>
-                           <td><s:textfield name="entity.fechaHoraRegreso" label="Fecha y hora de regreso" /></td>
-                           <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" /></td>
-                           <td><s:submit value="Modificar" /></td>
-                        </tr>
-                    </tbody>
-             </table>
+                   <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>Importe</td>
+                                <td>Número de comprobante</td>
+                                <td>Proveedor</td>
+                                <td>Desde</td>
+                                <td>Hasta</td>
+                                <td>Fecha y hora de salida</td>
+                                <td>Fecha y hora de regreso</td>
+                                <td>Observaciones</td>
+                                <td>Acciones</td>
+                            </tr>
+                         </thead>
+                        <tbody>
+                            <s:iterator value="entities" var="entity">
+                            <tr>
+                               <td><s:property value="#entity.comprobantes.importe"  /></td>
+                               <td><s:property value="#entity.comprobantes.numeroComprobante"  /></td>
+                               <td><s:property value="#entity.comprobantes.proveedor"  /></td>
+                               <td><s:property value="#entity.desde" /></td>
+                               <td><s:property value="#entity.hasta" /></td>
+                               <td><s:property value="#entity.fechaHoraSalida"  /></td>
+                               <td><s:property value="#entity.fechaHoraRegreso"  /></td>
+                               <td><s:property value="#entity.comprobantes.observaciones"  /></td>
+                               <td>
+                                    <s:url var="url" action="ComprobantesTrasladoUpdateSelected">
+                                        <s:param name="idComprobanteSelected" value="%{#entity.id}"></s:param>
+                                    </s:url>
+                                    <s:a href="%{url}" class="btn" >Editar</s:a>
+                               </td>
+                            </tr>
+                            </s:iterator>
+                        </tbody>
+                 </table>
 
-        </s:form>
-         </s:if>
-        <s:a href="ComprobantesAlojameintoUpdateForm" >Continuar</s:a>
+
+            <hr />
+            <s:if test="entity.id" >
+             <s:form action="ComprobantesTrasladoUpdate" theme="simple">
+                   <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td>Id</td>
+                                <td>Id</td>
+                                <td>Importe</td>
+                                <td>Número de comprobante</td>
+                                <td>Proveedor</td>
+                                <td>Desde</td>
+                                <td>Hasta</td>
+                                <td>Fecha y hora de salida</td>
+                                <td>Fecha y hora de regreso</td>
+                                <td>Observaciones</td>
+                                <td>Acciones</td>
+                            </tr>
+                         </thead>
+                        <tbody>
+                            <tr>
+                               <td><s:textfield name="entity.comprobantes.id" label="Importe" disabled="disable" /></td>
+                               <td><s:textfield name="entity.id" label="Importe" disabled="disable" /></td>
+                               <td><s:textfield name="entity.comprobantes.importe" label="Importe" /></td>
+                               <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" /></td>
+                               <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" /></td>
+                               <td><s:textfield name="entity.desde" label="Desde" /></td>
+                               <td><s:textfield name="entity.hasta" label="Hasta" /></td>
+                               <td><s:textfield name="entity.fechaHoraSalida" label="Fecha y hora de salida" /></td>
+                               <td><s:textfield name="entity.fechaHoraRegreso" label="Fecha y hora de regreso" /></td>
+                               <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" /></td>
+                               <td><s:submit value="Modificar" /></td>
+                            </tr>
+                        </tbody>
+                 </table>
+
+            </s:form>
+             </s:if>
+            <s:a href="ComprobantesAlojameintoUpdateForm" class="btn">Continuar</s:a>
+        </div>
     </body>
 </html>

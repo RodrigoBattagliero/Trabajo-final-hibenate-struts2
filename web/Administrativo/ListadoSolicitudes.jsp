@@ -10,39 +10,43 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Seleccionar solicitud</h1>
-        <hr />
-        <table>
-	<thead>
-            <tr>
-		<td>N° Solicitud</td>
-		<td>Docente</td>
-		<td>Fecha de presentación</td>
-                <td>Acciones</td>
-            </tr>
-	</thead>
-	<tbody>
-            <s:iterator value="entities" var="solicitud">
-                <tr>
-                    <td><s:property value="#solicitud.solicitudes.numeroSolicitud" /></td>
-                    <td><s:property value="#solicitud.solicitudes.docenteses[0].nombre" /></td>
-                    <td><s:property value="#solicitud.solicitudes.fechaAlta" /></td>
-                    <td>
-                        <s:url var="url1" action="SolicitudesDevueltasAdministrar">
-                            <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
-                        </s:url>
-                        <s:url var="url2" action="ConsultarDetalle">
-                            <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
-                        </s:url>
-                        <s:a href="%{url1}" >Administrar</s:a>
-                        <s:a href="%{url2}" >Detalle</s:a>
-                    </td>
-                </tr>
-            </s:iterator>
-	</tbody>
-</table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+            <h1>Seleccionar solicitud</h1>
+            <hr />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>N° Solicitud</td>
+                        <td>Docente</td>
+                        <td>Fecha de presentación</td>
+                        <td>Acciones</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <s:iterator value="entities" var="solicitud">
+                        <tr>
+                            <td><s:property value="#solicitud.solicitudes.numeroSolicitud" /></td>
+                            <td><s:property value="#solicitud.solicitudes.docenteses[0].nombre" /></td>
+                            <td><s:property value="#solicitud.solicitudes.fechaAlta" /></td>
+                            <td>
+                                <s:url var="url1" action="SolicitudesDevueltasAdministrar">
+                                    <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
+                                </s:url>
+                                <s:url var="url2" action="ConsultarDetalle">
+                                    <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
+                                </s:url>
+                                <s:a href="%{url1}" class="btn" >Administrar</s:a>
+                                <s:a href="%{url2}" class="btn" >Detalle</s:a>
+                            </td>
+                        </tr>
+                    </s:iterator>
+                </tbody>
+             </table>
+        </div>
     </body>
 </html>

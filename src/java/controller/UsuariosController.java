@@ -42,6 +42,7 @@ public class UsuariosController extends Controller<Usuarios> {
             this.entity.setNombre(this.entities.get(0).getNombre());
             this.entity.setPassword(this.entities.get(0).getPassword());
             this.entity.setUser(this.entities.get(0).getUser());
+            this.entity.setSedes(this.entities.get(0).getSedes());
         }
         
         return b;

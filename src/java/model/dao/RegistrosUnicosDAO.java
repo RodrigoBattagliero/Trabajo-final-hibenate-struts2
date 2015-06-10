@@ -166,7 +166,26 @@ public class RegistrosUnicosDAO extends DAO {
                     + " INNER JOIN sol.docenteses"
                     + " WHERE "
                         + " ru.areas = " + area.getId();
-            list =  sesion.createQuery(sql).list();
+            list = sesion.createQuery(sql).list();
+//            List<Object[]> aux =  sesion.createQuery(sql).list();
+//            list = new ArrayList();
+//            int cant = aux.size();
+//            for (int i = 0; i < cant; i++) {
+//                Object[] a = aux.get(i);
+//                RegistrosUnicos as = (RegistrosUnicos) a[0];
+//                int idSol = as.getSolicitudes().getId();
+//                int idReg = as.getId();
+//                boolean b = true;
+//                for (int j = 0; j < cant; j++) {
+//                    Object[] c = aux.get(j);
+//                    RegistrosUnicos cs = (RegistrosUnicos) c[0];
+//                    if( (idSol == cs.getSolicitudes().getId()) && (idReg != cs.getId()))
+//                        b = false;
+//                }
+//                if(b)
+//                    list.add(as);
+//            }
+            
         }catch(Exception e){
             list = null;
         }
@@ -252,4 +271,5 @@ public class RegistrosUnicosDAO extends DAO {
         }
         return a;
     }
+
 }

@@ -11,6 +11,7 @@ public class Usuarios  implements java.io.Serializable {
 
      private int id;
      private Areas areas;
+     private Sedes sedes;
      private String nombre;
      private String password;
      private String user;
@@ -23,9 +24,10 @@ public class Usuarios  implements java.io.Serializable {
         this.id = id;
         this.areas = areas;
     }
-    public Usuarios(int id, Areas areas, String nombre, String password, String user) {
+    public Usuarios(int id, Areas areas,Sedes sedes, String nombre, String password, String user) {
        this.id = id;
        this.areas = areas;
+       this.sedes = sedes;
        this.nombre = nombre;
        this.password = password;
        this.user = user;
@@ -44,6 +46,13 @@ public class Usuarios  implements java.io.Serializable {
     
     public void setAreas(Areas areas) {
         this.areas = areas;
+    }
+    public Sedes getSedes() {
+        return this.sedes;
+    }
+    
+    public void setSedes(Sedes sedes) {
+        this.sedes = sedes;
     }
     public String getNombre() {
         return this.nombre;

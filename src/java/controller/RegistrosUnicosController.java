@@ -44,6 +44,8 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     private String AdministrarObservaciones;
     private boolean[] confirmado;
     private int[] idRegistro;
+    private int cantidadSolicitudesDevueltas;
+    private int cantidadSolicitudesCompletar;
     private Map<String, String[]> parametros;
     
     // Variables para consultar registro
@@ -113,6 +115,14 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.idRegistro = idRegistro;
     }
 
+    public int getCantidadSolicitudesDevueltas() {
+        return cantidadSolicitudesDevueltas;
+    }
+
+    public int getCantidadSolicitudesCompletar() {
+        return cantidadSolicitudesCompletar;
+    }
+    
     public String getNombreDocente() {
         return nombreDocente;
     }
@@ -120,7 +130,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public void setNombreDocente(String nombreDocente) {
         this.nombreDocente = nombreDocente;
     }
-
+    
     public String getApellidoDocente() {
         return apellidoDocente;
     }
@@ -256,6 +266,23 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         return SUCCESS;
     }
     
+    public String setMensajes(){
+        setAreaLogueada();
+        cantidadSolicitudesCompletar = 0;
+        cantidadSolicitudesDevueltas = 0;
+        this.dao.iniciaOperacion();
+        if(this.getAreaLogueada().getId() == 1)
+            this.entities = this.dao.selectDevueltas();
+        else
+            this.entities = this.dao.selectDevueltasAreas(this.getAreaLogueada());
+        cantidadSolicitudesDevueltas = this.entities.size();
+        
+        listSolicitudesACompletar = (List) this.dao.selectACompletar(areaLogueada);
+        cantidadSolicitudesCompletar = listSolicitudesACompletar.size();
+        
+        return SUCCESS;
+    }
+    
     public String consultarRegistro(){
         this.dao.iniciaOperacion();
         this.entities = this.dao.consultarRegistro(this.nombreDocente,this.apellidoDocente,this.fechaDePresentacion);
@@ -385,8 +412,6 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String preparedSolicitudesDevueltas(){
-//        UsuariosController user = new UsuariosController();
-//        user.setEntity((Usuarios) this.sesion.getAttribute("user") );
         this.entity.setAreas(getArea());
         this.entity.setEstados(getEstado());
         this.entity.setConfirmado(false);
@@ -394,18 +419,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
-    
-//    public String preparedRegistroUnicoDevuelta(){
-//        setAreaLogueada();
-//        this.entity.setAreas(getAreaLogueada());
-//        this.entity.setEstados(getEstado());
-//        this.entity.setConfirmado(false);
-//        this.entity.setFechaEntrada(new Date());
-//        this.entity.setObservaciones(AdministrarObservaciones);
-// 
-//        sesion.setAttribute("RegistroUnicoForm", this.entity);
-//        return SUCCESS;
-//    }
+
     
     public String UpdateDevuelta(){
         String res = SUCCESS;

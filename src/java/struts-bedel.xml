@@ -22,8 +22,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
-                        dirección académica administrativa:index,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico;
+                        administrador:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
+                        dirección académica administrativa:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -32,12 +32,16 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/LoginRequired.jsp</result>
-            <result name="authorization_required">/Denied.jsp</result>
+            <result name="authentication_required">/Login.jsp</result>
+            <result name="authorization_required">/Login.jsp</result>
         </global-results>
         
-        <action name="index">
+        <action name="index" class="controller.RegistrosUnicosController" method="setMensajes" >
             <result>/Bedel/index.jsp</result>
+        </action>
+        
+        <action name="logout" class="action.LoginAction" method="logout">
+            <result type="redirectAction">index</result>
         </action>
          
          <!-- Actividad docente -->
@@ -102,6 +106,11 @@ and open the template in the editor.
         </action>
         <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
             <result type="redirectAction">SolicitudesDevueltasForm</result>
+        </action>
+        
+        <!-- Historial de solicitudes -->
+        <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
+            <result >/Administrativo/HistorialSolicitudes.jsp</result>
         </action>
     </package>
 </struts>

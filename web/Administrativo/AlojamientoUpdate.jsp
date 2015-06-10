@@ -11,13 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link src="../css/style.css"></link>
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <script src="../js/jquery-1.11.3.min.js"></script>
     </head>
     <body>
-        <h1>Datos de traslado</h1>
-        <hr />
-               <table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+               <table class="table table-striped">
                     <thead>
                             <tr>
                                 <td>Importe</td>
@@ -58,10 +58,9 @@
                         </s:iterator>
                     </tbody>
             </table>
-        <hr />
         <s:if test="entity.id" >
         <s:form action="ComprobantesAlojamientoUpdate" theme="simple">
-               <table>
+               <table class="table table-striped">
                     <thead>
                             <tr>
                                 <td>Id</td>
@@ -91,8 +90,8 @@
             </table>
             <s:submit value="Guardar" />
         </s:form>
-        <hr />
         </s:if>
-        <s:a action="DesignacionesUpdateForm">Continuar</s:a>
+            <s:a action="DesignacionesUpdateForm" class="btn">Continuar</s:a>
+        </div>
     </body>
 </html>

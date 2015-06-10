@@ -10,6 +10,9 @@
     <many-to-one class="model.entities.Areas" fetch="select" name="areas">
       <column name="id_area" not-null="true"/>
     </many-to-one>
+     <many-to-one class="model.entities.Sedes" fetch="select" name="sedes">
+      <column name="id_sede" not-null="true"/>
+    </many-to-one>
     <property name="nombre" type="string">
       <column name="nombre"/>
     </property>

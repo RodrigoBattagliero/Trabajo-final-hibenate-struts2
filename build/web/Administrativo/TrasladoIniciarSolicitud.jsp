@@ -11,47 +11,50 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link src="../css/style.css"></link>
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <script src="../js/jquery-1.11.3.min.js"></script>
     </head>
     <body>
-        <h1>Datos de traslado</h1>
-        <s:a action="AlojamientoForm">Agregar datos de alojamiento/combustible</s:a>
-        
-        
-           <s:form action="DatosTrasladoPreparar" theme="simple">
-               <table border="1">
-                    <thead>
-                        <tr>
-                            <td>Importe</td>
-                            <td>Número de comprobante</td>
-                            <td>Proveedor</td>
-                            <td>Desde</td>
-                            <td>Hasta</td>
-                            <td>Fecha y hora de salida</td>
-                            <td>Fecha y hora de regreso</td>
-                            <td>Observaciones</td>
-                        </tr>
-                     </thead>
-                    <tbody>
-                     <tr id="duplicar">
-                        <td><s:textfield name="trasladoComprobantesImporte" label="Importe" /></td>
-                        <td><s:textfield name="trasadoComprobantesNumeroComprobante" label="Número de comprobante" /></td>
-                        <td><s:textfield name="trasladoComprobantesProveedor" label="Proveedor" /></td>
-                        <td><s:textfield name="trasladoDesde" label="Desde" /></td>
-                        <td><s:textfield name="trasladoHasta" label="Hasta" /></td>
-                        <td><s:textfield name="trasladoFechaHoraSalida" label="Fecha y hora de salida" /></td>
-                        <td><s:textfield name="trasladofechaHoraRegreso" label="Fecha y hora de regreso" /></td>
-                        <td><s:textarea name="trasladoComprobantesObservaciones" label="Observaciones" /></td>
-                     </tr>
-                    </tbody>
-             </table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+                <h1>Datos de traslado</h1>
+                <s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>
 
-                
-            
-            <s:submit value="Guardar" />
-        </s:form>
-            <button id="btnAgregar">Agregar Elemento</button>
+
+                   <s:form action="DatosTrasladoPreparar" theme="simple">
+                       <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <td>Importe</td>
+                                    <td>Número de comprobante</td>
+                                    <td>Proveedor</td>
+                                    <td>Desde</td>
+                                    <td>Hasta</td>
+                                    <td>Fecha y hora de salida</td>
+                                    <td>Fecha y hora de regreso</td>
+                                    <td>Observaciones</td>
+                                </tr>
+                             </thead>
+                            <tbody>
+                             <tr id="duplicar">
+                                <td><s:textfield name="trasladoComprobantesImporte" label="Importe" /></td>
+                                <td><s:textfield name="trasadoComprobantesNumeroComprobante" label="Número de comprobante" /></td>
+                                <td><s:textfield name="trasladoComprobantesProveedor" label="Proveedor" /></td>
+                                <td><s:textfield name="trasladoDesde" label="Desde" /></td>
+                                <td><s:textfield name="trasladoHasta" label="Hasta" /></td>
+                                <td><s:textfield name="trasladoFechaHoraSalida" label="Fecha y hora de salida" /></td>
+                                <td><s:textfield name="trasladofechaHoraRegreso" label="Fecha y hora de regreso" /></td>
+                                <td><s:textarea name="trasladoComprobantesObservaciones" label="Observaciones" /></td>
+                             </tr>
+                            </tbody>
+                     </table>
+
+
+
+                    <s:submit value="Guardar" class="btn" />
+                </s:form>
+                    <button id="btnAgregar" class="btn">Agregar Elemento</button>
+        </div>
         <script>
             $(document).ready(function () 
                 {

@@ -14,13 +14,15 @@ public class Sedes  implements java.io.Serializable {
      private int id;
      private String nombre;
      private Set solicitudeses = new HashSet(0);
+     private Set usuarioses = new HashSet(0);
 
     public Sedes() {
     }
 
-    public Sedes(String nombre, Set solicitudeses) {
+    public Sedes(String nombre, Set solicitudeses,Set usuarioses) {
        this.nombre = nombre;
        this.solicitudeses = solicitudeses;
+       this.usuarioses = usuarioses;
     }
    
     public int getId() {
@@ -45,7 +47,13 @@ public class Sedes  implements java.io.Serializable {
         this.solicitudeses = solicitudeses;
     }
 
-
+    public Set getUsuarioses() {
+        return this.usuarioses;
+    }
+    
+    public void setUsuarioses(Set usuarioses) {
+        this.usuarioses = usuarioses;
+    }
 
 
 }
