@@ -17,7 +17,6 @@
         <div class="container">
 		
             <s:include value="partes/menu.jsp" />
-	
         
             <s:if test="cantidadSolicitudesCompletar != 0">
                 <div class="alert alert-warning" role="alert">
@@ -27,6 +26,11 @@
             <s:if test="cantidadSolicitudesDevueltas != 0">
                 <div class="alert alert-warning" role="alert">
                     <p>Tiene <s:property value="cantidadSolicitudesDevueltas" /> <s:a action="SolicitudesDevueltasForm">solicitudes devueltas</s:a></p>
+                </div>    
+            </s:if>
+            <s:if test="cantidadSolicitudesConfirmar != 0">
+                <div class="alert alert-warning" role="alert">
+                    <p>Tiene <s:property value="cantidadSolicitudesConfirmar" /> <s:a action="ConfirmarSolicitudesForm">solicitudes para confirmar</s:a></p>
                 </div>    
             </s:if>
         </div>

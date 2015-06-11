@@ -15,6 +15,8 @@ import controller.SolicitudesController;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.dao.ActividadDocentesDAO;
+import model.dao.ComprobantesTrasladosDAO;
 import model.entities.Comprobantes;
 import model.entities.ComprobantesComidaAlojamientos;
 import model.entities.ComprobantesTraslados;
@@ -73,8 +75,11 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
                 
                 traslado.setComprobantes(comprobantes);
                 tras.setEntity(traslado);
-                if(tras.save().equals("error"))
+                tras.setDao(new ComprobantesTrasladosDAO());
+                tras.getDao().iniciaOperacion();
+                if(tras.getDao().create(traslado) == 0)
                     res = ERROR;  
+                tras.getDao().cerrarSession();
             }
              
         }
@@ -94,8 +99,10 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
                 
                 alojamiento.setComprobantes(comprobantes);
                 aloj.setEntity(alojamiento);
-                if(aloj.save().equals("error"))
+                aloj.getDao().iniciaOperacion();
+                if(aloj.getDao().create(alojamiento) == 0)
                     res = ERROR;    
+                aloj.getDao().cerrarSession();
             }
         }
         
@@ -106,7 +113,7 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         registroUnico1.setSolicitudes(solicitud);
         reg1.setEntity(registroUnico1);
         reg1.getDao().iniciaOperacion();
-        if(reg1.getDao().create(registroUnico1) > 0)
+        if(reg1.getDao().create(registroUnico1) == 0)
             res = ERROR;
         reg1.getDao().cerrarSession();
         
@@ -116,7 +123,7 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         registroUnico2.setSolicitudes(solicitud);
         reg2.setEntity(registroUnico2);
         reg2.getDao().iniciaOperacion();
-        if(reg2.getDao().create(registroUnico2) > 0)
+        if(reg2.getDao().create(registroUnico2) == 0)
             res = ERROR;
         reg2.getDao().cerrarSession();
         

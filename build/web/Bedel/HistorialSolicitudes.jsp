@@ -15,23 +15,25 @@
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
     </head>
     <body>
-        <h1>Solicitudes</h1>
-        <hr />
-        <table>
-            <thead>
-                <td>N solicitud</td>
-                <td>Docente</td>
-                <td>Fecha de presentación</td>
-            </thead>
-            <tbody>
-                <s:iterator value="entities" var="list">
-                    <tr class="asas">
-                        <td><s:property value="#list[0].solicitudes.numeroSolicitud" /></td>
-                        <td><s:property value="#list[1].nombre" /></td>
-                        <td><s:property value="#list[0].solicitudes.fechaAlta" /></td>
-                    </tr>
-                </s:iterator>
-            </tbody>
-        </table>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+            <h1>Solicitudes</h1>
+            <table class="table table-striped">
+                <thead>
+                    <td>N solicitud</td>
+                    <td>Docente</td>
+                    <td>Fecha de presentación</td>
+                </thead>
+                <tbody>
+                    <s:iterator value="entities" var="list">
+                        <tr>
+                            <td><s:property value="#list[0].solicitudes.numeroSolicitud" /></td>
+                            <td><s:property value="#list[1].nombre" /></td>
+                            <td><s:property value="#list[0].solicitudes.fechaAlta" /></td>
+                        </tr>
+                    </s:iterator>
+                </tbody>
+            </table>
+        </div>
     </body>
 </html>

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import model.entities.Areas;
 import model.entities.RegistrosUnicos;
+import model.entities.Sedes;
 import model.entities.Solicitudes;
 import org.hibernate.Query;
 
@@ -75,14 +76,12 @@ public class RegistrosUnicosDAO extends DAO {
         return a;
     }
     
-    public List<Solicitudes> selectACompletar(Areas area) {
+    public List<Solicitudes> selectACompletar(Areas area,Sedes sede) {
         List<Solicitudes> list = null;
         try{
 //            iniciaOperacion();
-            
-            list = sesion.createQuery(
-                    "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1"
-                ).list();
+            String sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.solicitudes.sedes = "+ sede.getId();
+            list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();
         }
@@ -109,7 +108,21 @@ public class RegistrosUnicosDAO extends DAO {
 //            iniciaOperacion();
             
             list = sesion.createQuery(
-                    "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = 4 AND ru.estados = 1"
+                    "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = 4 AND ru.estados = 1 AND ru.solicitudes.tipo = 1"
+                ).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
+    
+     public List<Solicitudes> selectActividadACompletarInterior(Sedes sede) {
+        List<Solicitudes> list = null;
+        try{
+//            iniciaOperacion();
+            
+            list = sesion.createQuery(
+                    "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = 4 AND ru.estados = 1 AND ru.solicitudes.tipo = 2 AND ru.solicitudes.sedes = " + sede.getId()
                 ).list();
         }finally{
 //            sesion.close();
@@ -131,11 +144,11 @@ public class RegistrosUnicosDAO extends DAO {
         return reg;
     }
     
-    public List<RegistrosUnicos> selectAConfirmar(Areas area){
+    public List<RegistrosUnicos> selectAConfirmar(Areas area,Sedes sede){
         RegistrosUnicos reg = null;
         List<RegistrosUnicos> list = null;
         try{
-            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND es <> 4 AND ru.confirmado = FALSE AND s = d.solicitudes";
+            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND es <> 4 AND ru.confirmado = FALSE AND s = d.solicitudes AND ru.solicitudes.sedes = "+ sede.getId();
             Query q = sesion.createQuery(sql);
             list = q.list();
         }catch(NullPointerException e){
@@ -157,7 +170,7 @@ public class RegistrosUnicosDAO extends DAO {
         return list;
     }
     
-    public List<RegistrosUnicos> selectHistorial(Areas area) {
+    public List<RegistrosUnicos> selectHistorial(Areas area,Sedes sede) {
         List<RegistrosUnicos> list;
         try{
             String sql = 
@@ -165,7 +178,8 @@ public class RegistrosUnicosDAO extends DAO {
                     + " INNER JOIN FETCH ru.solicitudes AS sol"
                     + " INNER JOIN sol.docenteses"
                     + " WHERE "
-                        + " ru.areas = " + area.getId();
+                        + " ru.areas = " + area.getId()
+                        + " AND ru.solicitudes.sedes = "+ sede.getId();
             list = sesion.createQuery(sql).list();
 //            List<Object[]> aux =  sesion.createQuery(sql).list();
 //            list = new ArrayList();

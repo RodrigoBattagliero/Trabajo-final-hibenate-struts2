@@ -41,7 +41,7 @@ and open the template in the editor.
         </action>
         
         <action name="logout" class="action.LoginAction" method="logout">
-            <result type="redirectAction">index</result>
+            <result>/Login.jsp</result>
         </action>
          
          <!-- Actividad docente -->
@@ -82,7 +82,7 @@ and open the template in the editor.
             <result name="input">/Bedel/ListadoSolicitudesAConfirmar.jsp</result>
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
-            <result>/Bedel/index.jsp</result>
+            <result type="redirectAction">index</result>
         </action>
         
         <!-- Solicitud devuelta -->
@@ -110,7 +110,7 @@ and open the template in the editor.
         
         <!-- Historial de solicitudes -->
         <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
-            <result >/Administrativo/HistorialSolicitudes.jsp</result>
+            <result >/Bedel/HistorialSolicitudes.jsp</result>
         </action>
     </package>
 </struts>

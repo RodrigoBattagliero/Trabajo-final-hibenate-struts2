@@ -28,7 +28,7 @@
             <s:fielderror />
             <s:form action="%{url}">
                 <s:select list="sedesList" listKey="id" listValue="nombre" name="idSelectedSede" value="entity.sedes.id" label="Sede"></s:select>
-                <s:textfield name="entity.tipo" disabled="true" label="Tipo" />
+                <s:textfield name="entity.tipo" readonly="true" label="Tipo" />
                 <s:textfield name="entity.numeroSolicitud" label="numeroSolicitud" />
                 <s:textfield name="entity.fechaAlta" label="fechaAlta" />
                 <s:textarea name="entity.observaciones" label="observaciones" />

@@ -46,6 +46,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     private int[] idRegistro;
     private int cantidadSolicitudesDevueltas;
     private int cantidadSolicitudesCompletar;
+    private int cantidadSolicitudesConfirmar;
     private Map<String, String[]> parametros;
     
     // Variables para consultar registro
@@ -122,6 +123,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public int getCantidadSolicitudesCompletar() {
         return cantidadSolicitudesCompletar;
     }
+
+    public int getCantidadSolicitudesConfirmar() {
+        return cantidadSolicitudesConfirmar;
+    }
     
     public String getNombreDocente() {
         return nombreDocente;
@@ -150,7 +155,9 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String setSolicitudesACompletar(){
         setAreaLogueada();
         dao.iniciaOperacion();
-        listSolicitudesACompletar = (List) this.dao.selectACompletar(areaLogueada);
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
+        listSolicitudesACompletar = (List) this.dao.selectACompletar(areaLogueada,user.getSedes());
         dao.cerrarSession();
         return SUCCESS;
     }
@@ -170,6 +177,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
         this.entity.setFechaSalida(new Date());
         dao.cerrarSession();
+        
+        listEstados = new ArrayList();
+        listEstados.add(new Estados(2, "Aprobado", null));
+        listEstados.add(new Estados(3, "Rechazado", null));
+        listEstados.add(new Estados(4, "Imputable a la administración", null));
         return SUCCESS;
     }
     
@@ -187,8 +199,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String setRegistrosAConfirmar(){
         String res = SUCCESS;
         setAreaLogueada();
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
         this.dao.iniciaOperacion();
-        this.entities = (List<RegistrosUnicos>) this.dao.selectAConfirmar(getAreaLogueada());
+        this.entities = (List<RegistrosUnicos>) this.dao.selectAConfirmar(getAreaLogueada(),user.getSedes());
         sesion.setAttribute("RegistrosAConfirmar", this.entities);
         this.dao.cerrarSession();
         return res;
@@ -212,8 +226,13 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setSolicitudesActividadDocente(){
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
         dao.iniciaOperacion();
-        listSolicitudesACompletar = (List) this.dao.selectActividadACompletar();
+        if(user.getSedes().getId() == 1)
+            listSolicitudesACompletar = (List) this.dao.selectActividadACompletar();
+        else
+            listSolicitudesACompletar = (List) this.dao.selectActividadACompletarInterior(user.getSedes());
         dao.cerrarSession();
         return SUCCESS;
     }
@@ -235,8 +254,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String setHistorialSolicutdes(){
         
         setAreaLogueada();
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
         this.dao.iniciaOperacion();
-        this.entities = this.dao.selectHistorial(getAreaLogueada());
+        this.entities = this.dao.selectHistorial(getAreaLogueada(),user.getSedes());
         this.dao.cerrarSession();
         return SUCCESS;
     }
@@ -267,9 +288,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setMensajes(){
+        // setRegistrosAConfirmar
         setAreaLogueada();
         cantidadSolicitudesCompletar = 0;
         cantidadSolicitudesDevueltas = 0;
+        cantidadSolicitudesConfirmar = 0;
         this.dao.iniciaOperacion();
         if(this.getAreaLogueada().getId() == 1)
             this.entities = this.dao.selectDevueltas();
@@ -277,8 +300,15 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
             this.entities = this.dao.selectDevueltasAreas(this.getAreaLogueada());
         cantidadSolicitudesDevueltas = this.entities.size();
         
-        listSolicitudesACompletar = (List) this.dao.selectACompletar(areaLogueada);
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
+        
+        listSolicitudesACompletar = (List) this.dao.selectACompletar(areaLogueada,user.getSedes());
         cantidadSolicitudesCompletar = listSolicitudesACompletar.size();
+        this.setRegistrosAConfirmar();
+        this.dao.iniciaOperacion();
+        cantidadSolicitudesConfirmar = this.dao.selectAConfirmar(getAreaLogueada(),user.getSedes()).size();
+        this.dao.cerrarSession();
         
         return SUCCESS;
     }
@@ -348,6 +378,9 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String crearPrepared(){
         Solicitudes sl = (Solicitudes) sesion.getAttribute("SolicitudesForm");
         this.entity.setFechaEntrada(sl.getFechaAlta());
+        listEstados = new ArrayList();
+        listEstados.add(new Estados(2, "Aprobado", null));
+        listEstados.add(new Estados(3, "Rechazado", null));
         return SUCCESS;
     }
     
@@ -356,15 +389,19 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setEstados(getEstado());
         this.entity.setAreas(getArea());
         this.entity.setConfirmado(true);
+        this.entity.setId(0);
         this.entity.setFechaSalida(this.entity.getFechaEntrada());
         sesion.setAttribute("RegistroUnicoForm", this.entity);
-        this.idAreaSelected = 1;
+        Usuarios user = new Usuarios();
+        user = (Usuarios) this.sesion.getAttribute("user");
+        this.idAreaSelected = user.getAreas().getId();
         RegistrosUnicos re = new RegistrosUnicos();
         re.setAreas(getArea());
         re.setFechaEntrada(new Date());
         this.idEstadoSelected = 1;
         re.setEstados(getEstado());
         re.setConfirmado(Boolean.FALSE);
+        re.setId(0);
         re.setObservaciones("");
         sesion.setAttribute("RegistroUnicoProximo",re );
         return SUCCESS;
@@ -378,13 +415,14 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setConfirmado(false);
         this.entity.setFechaSalida(new Date());
         this.entity.setObservaciones(AdministrarObservaciones);
-
+        
         sesion.setAttribute("RegistroUnicoForm", this.entity);
         return SUCCESS;
     }
     
     public String preparedActividadDocente(){
-        setAreaLogueada();
+//        AreasController us = new AreasController();
+//        us.selectOne(4);
         setAdministrarRegistroUnicoForm();
         this.entity.setAreas(getAreaLogueada());
         this.entity.setEstados(getEstado());

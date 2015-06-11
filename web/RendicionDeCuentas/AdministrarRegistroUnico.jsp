@@ -10,20 +10,23 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Administrar registro único</h1>
-        <hr />
-        <s:form action="administrarRegistroUnicoLiquidacion">
-            <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
-            <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
-            <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />
-            <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true"  />
-            <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
-            <s:textarea name="AdministrarObservaciones" label="Observaciones"  />
-            
-            <s:submit value="Guardar" />
-        </s:form>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+            <h1>Administrar registro único</h1>
+            <s:form action="administrarRegistroUnicoLiquidacion">
+                <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
+                <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
+                <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />
+                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true"  />
+                <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
+                <s:textarea name="AdministrarObservaciones" label="Observaciones"  />
+
+                <s:submit value="Guardar" class="btn" />
+            </s:form>
+        </div>
     </body>
 </html>

@@ -7,6 +7,7 @@ package controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -100,6 +101,7 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
         this.sedesList.add(user.getEntity().getSedes());
         dao.cerrarSession();
         this.entity.setNumeroSolicitud(++id);
+        this.entity.setFechaAlta(new Date());
         return SUCCESS;
     }   
     

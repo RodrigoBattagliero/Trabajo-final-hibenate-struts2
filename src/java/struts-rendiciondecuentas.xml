@@ -72,7 +72,7 @@ and open the template in the editor.
             <result name="input">/RendicionDeCuentas/ListadoSolicitudesAConfirmar.jsp</result>
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
-            <result>/RendicionDeCuentas/index.jsp</result>
+            <result type="redirectAction">index</result>
         </action>
         
         <!-- Solicitud devuelta -->

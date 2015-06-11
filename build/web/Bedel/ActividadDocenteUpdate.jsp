@@ -10,24 +10,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
     <body>
-    <h1>Actividad docente</h1>
-    <s:fielderror />
-    <s:actionerror />
-    <s:form action="ActividadDocenteUpdate">
-        <s:textfield name="entity.id" label="Id" disabled="true" />
-        <s:textfield name="entity.fecha" label="Fecha" />
-        <s:textfield name="entity.asignatura" label="Asignatura" />
-        <s:textfield name="entity.idUnidadAcademica" label="idUnidadAcademica" />
-        <s:textfield name="entity.carrera" label="carrera" />
-        <s:textfield name="entity.idComision" label="idComision" />
-        <s:textfield name="entity.idMateria" label="idMateria" />
-        <s:checkbox name="entity.visadoBedelia" label="visadoBedelia" />
-        <s:textarea name="entity.observaciones" label="observaciones" />
-        
-        <s:submit value="Modificar" />
-    </s:form>
+        <div class="container">
+            <s:include value="partes/menu.jsp" />
+            <h1>Actividad docente</h1>
+            <s:fielderror />
+            <s:actionerror />
+            <s:form action="ActividadDocenteUpdate">
+                <s:textfield name="entity.id" label="Id" disabled="true" />
+                <s:textfield name="entity.fecha" label="Fecha" />
+                <s:textfield name="entity.asignatura" label="Asignatura" />
+                <s:textfield name="entity.idUnidadAcademica" label="idUnidadAcademica" />
+                <s:textfield name="entity.carrera" label="carrera" />
+                <s:textfield name="entity.idComision" label="idComision" />
+                <s:textfield name="entity.idMateria" label="idMateria" />
+                <s:checkbox name="entity.visadoBedelia" label="visadoBedelia" />
+                <s:textarea name="entity.observaciones" label="observaciones" />
+
+                <s:submit value="Modificar" class="btn" />
+            </s:form>
+        </div>
     </body>
 </html>

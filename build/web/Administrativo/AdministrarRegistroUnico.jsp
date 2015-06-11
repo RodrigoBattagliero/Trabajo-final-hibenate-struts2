@@ -21,7 +21,7 @@
                 <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
                 <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
                 <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />
-                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true"  />
+                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida"  />
                 <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
                 <s:textarea name="AdministrarObservaciones" label="Observaciones"  />
 

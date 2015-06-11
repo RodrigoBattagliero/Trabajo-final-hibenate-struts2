@@ -17,6 +17,8 @@
         <div class="container">
             <s:include value="partes/menu.jsp" />
             <h1>Registro único</h1>
+            <s:actionerror />
+            <s:fielderror />
             <s:form action="RegistroUnicoPrepare">
                 <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" />
                 <tr>
@@ -28,7 +30,7 @@
                     </td>
                 </tr>
                 <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
-                <s:checkbox name="entity.confirmado" label="Confirmado" value="true" />
+                <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" />
                 <s:textarea name="entity.observaciones" label="Observaciones" />
                 <s:submit value="Guardar" class="btn" />
             </s:form>

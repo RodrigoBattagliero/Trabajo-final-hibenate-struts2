@@ -158,14 +158,14 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
             traslado = new ComprobantesTraslados();
             comprobante = new Comprobantes();
             // Eliminar en caso de error para crear 
-            comprobante.setId(idComprobantes[i]);
+            //comprobante.setId(idComprobantes[i]);
             comprobante.setImporte((float) Double.parseDouble(trasladoComprobantesImporte[i]));
             comprobante.setNumeroComprobante(trasadoComprobantesNumeroComprobante[i]);
             comprobante.setObservaciones(trasladoComprobantesObservaciones[i]);
             comprobante.setProveedor(trasladoComprobantesProveedor[i]);
             traslado.setComprobantes(comprobante);
             // Eliminar en caso de error para crear 
-            traslado.setId(idTraslados[i]);
+            //traslado.setId(idTraslados[i]);
             traslado.setDesde(trasladoDesde[i]);
             traslado.setHasta(trasladoHasta[i]);
             traslado.setFechaHoraRegreso(trasladofechaHoraRegreso[i]);
