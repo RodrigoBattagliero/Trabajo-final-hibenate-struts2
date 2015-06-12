@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -28,13 +28,11 @@ public class Docentes  implements java.io.Serializable {
     }
 
 	
-    public Docentes(int id, DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes) {
-        this.id = id;
+    public Docentes(DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes) {
         this.departamentosAcademicos = departamentosAcademicos;
         this.solicitudes = solicitudes;
     }
-    public Docentes(int id, DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes, String nombre, String apellido, String dni, String telefono, String email, String lugarResidencia, String motivoComision, Date fechaInicio, Date fechaFinalizacion, String observaciones) {
-       this.id = id;
+    public Docentes(DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes, String nombre, String apellido, String dni, String telefono, String email, String lugarResidencia, String motivoComision, Date fechaInicio, Date fechaFinalizacion, String observaciones) {
        this.departamentosAcademicos = departamentosAcademicos;
        this.solicitudes = solicitudes;
        this.nombre = nombre;

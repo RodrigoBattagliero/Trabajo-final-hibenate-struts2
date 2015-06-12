@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -24,13 +24,11 @@ public class Comprobantes  implements java.io.Serializable {
     }
 
 	
-    public Comprobantes(int id, Solicitudes solicitudes, float importe) {
-        this.id = id;
+    public Comprobantes(Solicitudes solicitudes, float importe) {
         this.solicitudes = solicitudes;
         this.importe = importe;
     }
-    public Comprobantes(int id, Solicitudes solicitudes, float importe, String numeroComprobante, String proveedor, String observaciones, Set comprobantesTrasladoses, Set comprobantesComidaAlojamientoses) {
-       this.id = id;
+    public Comprobantes(Solicitudes solicitudes, float importe, String numeroComprobante, String proveedor, String observaciones, Set comprobantesTrasladoses, Set comprobantesComidaAlojamientoses) {
        this.solicitudes = solicitudes;
        this.importe = importe;
        this.numeroComprobante = numeroComprobante;

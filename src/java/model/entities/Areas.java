@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -20,12 +20,7 @@ public class Areas  implements java.io.Serializable {
     public Areas() {
     }
 
-	
-    public Areas(int id) {
-        this.id = id;
-    }
-    public Areas(int id, String nombre, Integer orden, Set registrosUnicoses, Set usuarioses) {
-       this.id = id;
+    public Areas(String nombre, Integer orden, Set registrosUnicoses, Set usuarioses) {
        this.nombre = nombre;
        this.orden = orden;
        this.registrosUnicoses = registrosUnicoses;

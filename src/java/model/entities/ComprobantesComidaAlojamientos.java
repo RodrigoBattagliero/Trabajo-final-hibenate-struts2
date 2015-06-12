@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 
@@ -18,13 +18,11 @@ public class ComprobantesComidaAlojamientos  implements java.io.Serializable {
     }
 
 	
-    public ComprobantesComidaAlojamientos(int id, Comprobantes comprobantes, short tipo) {
-        this.id = id;
+    public ComprobantesComidaAlojamientos(Comprobantes comprobantes, short tipo) {
         this.comprobantes = comprobantes;
         this.tipo = tipo;
     }
-    public ComprobantesComidaAlojamientos(int id, Comprobantes comprobantes, short tipo, String descripcion) {
-       this.id = id;
+    public ComprobantesComidaAlojamientos(Comprobantes comprobantes, short tipo, String descripcion) {
        this.comprobantes = comprobantes;
        this.tipo = tipo;
        this.descripcion = descripcion;

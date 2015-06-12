@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -26,12 +26,10 @@ public class Designaciones  implements java.io.Serializable {
     }
 
 	
-    public Designaciones(int id, Solicitudes solicitudes) {
-        this.id = id;
+    public Designaciones(Solicitudes solicitudes) {
         this.solicitudes = solicitudes;
     }
-    public Designaciones(int id, Solicitudes solicitudes, String numeroResolucion, String categoria, Date desde, Date hasta, String dedicacion, String observaciones, Set actividadDocenteses) {
-       this.id = id;
+    public Designaciones(Solicitudes solicitudes, String numeroResolucion, String categoria, Date desde, Date hasta, String dedicacion, String observaciones, Set actividadDocenteses) {
        this.solicitudes = solicitudes;
        this.numeroResolucion = numeroResolucion;
        this.categoria = categoria;

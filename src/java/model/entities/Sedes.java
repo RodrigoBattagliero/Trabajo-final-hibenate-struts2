@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -19,7 +19,7 @@ public class Sedes  implements java.io.Serializable {
     public Sedes() {
     }
 
-    public Sedes(String nombre, Set solicitudeses,Set usuarioses) {
+    public Sedes(String nombre, Set solicitudeses, Set usuarioses) {
        this.nombre = nombre;
        this.solicitudeses = solicitudeses;
        this.usuarioses = usuarioses;
@@ -46,7 +46,6 @@ public class Sedes  implements java.io.Serializable {
     public void setSolicitudeses(Set solicitudeses) {
         this.solicitudeses = solicitudeses;
     }
-
     public Set getUsuarioses() {
         return this.usuarioses;
     }
@@ -54,6 +53,8 @@ public class Sedes  implements java.io.Serializable {
     public void setUsuarioses(Set usuarioses) {
         this.usuarioses = usuarioses;
     }
+
+
 
 
 }

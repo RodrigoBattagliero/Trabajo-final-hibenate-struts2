@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -23,13 +23,12 @@ public class RegistrosUnicos  implements java.io.Serializable {
     }
 
 	
-    public RegistrosUnicos(int id, Areas areas, Estados estados, Solicitudes solicitudes) {
-        this.id = id;
+    public RegistrosUnicos(Areas areas, Estados estados, Solicitudes solicitudes) {
         this.areas = areas;
         this.estados = estados;
         this.solicitudes = solicitudes;
     }
-    public RegistrosUnicos(int id, Areas areas, Estados estados, Solicitudes solicitudes, Date fechaEntrada, Date fechaSalida, Boolean confirmado, String observaciones) {
+    public RegistrosUnicos(int id,Areas areas, Estados estados, Solicitudes solicitudes, Date fechaEntrada, Date fechaSalida, Boolean confirmado, String observaciones) {
        this.id = id;
        this.areas = areas;
        this.estados = estados;

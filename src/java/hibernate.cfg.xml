@@ -24,5 +24,21 @@
     <mapping resource="model/mapping/Expedientes.hbm.xml"/>
     <mapping resource="model/mapping/Usuarios.hbm.xml"/>
     <mapping resource="model/mapping/ComprobantesComidaAlojamientos.hbm.xml"/>
+    <mapping resource="kakan/ComprobantesComidaAlojamientos.hbm.xml"/>
+    <mapping resource="kakan/Estados.hbm.xml"/>
+    <mapping resource="kakan/Usuarios.hbm.xml"/>
+    <mapping resource="kakan/ComprobantesTraslados.hbm.xml"/>
+    <mapping resource="kakan/Designaciones.hbm.xml"/>
+    <mapping resource="kakan/RegistrosUnicos.hbm.xml"/>
+    <mapping resource="kakan/DepartamentosAcademicos.hbm.xml"/>
+    <mapping resource="kakan/Areas.hbm.xml"/>
+    <mapping resource="kakan/Solicitudes.hbm.xml"/>
+    <mapping resource="kakan/ExpedientesSolicitudes.hbm.xml"/>
+    <mapping resource="kakan/Comprobantes.hbm.xml"/>
+    <mapping resource="kakan/Liquidaciones.hbm.xml"/>
+    <mapping resource="kakan/Sedes.hbm.xml"/>
+    <mapping resource="kakan/Docentes.hbm.xml"/>
+    <mapping resource="kakan/ActividadDocentes.hbm.xml"/>
+    <mapping resource="kakan/Expedientes.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

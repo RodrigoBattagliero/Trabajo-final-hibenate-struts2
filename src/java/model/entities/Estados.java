@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,14 +18,10 @@ public class Estados  implements java.io.Serializable {
     public Estados() {
     }
 
-	
-    public Estados(int id) {
+    public Estados(int id, String nombre, Set reg) {
         this.id = id;
-    }
-    public Estados(int id, String nombre, Set registrosUnicoses) {
-       this.id = id;
-       this.nombre = nombre;
-       this.registrosUnicoses = registrosUnicoses;
+        this.nombre = nombre;
+        this.registrosUnicoses = reg;
     }
    
     public int getId() {

@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 
@@ -20,12 +20,11 @@ public class Usuarios  implements java.io.Serializable {
     }
 
 	
-    public Usuarios(int id, Areas areas) {
-        this.id = id;
+    public Usuarios(Areas areas, Sedes sedes) {
         this.areas = areas;
+        this.sedes = sedes;
     }
-    public Usuarios(int id, Areas areas,Sedes sedes, String nombre, String password, String user) {
-       this.id = id;
+    public Usuarios(Areas areas, Sedes sedes, String nombre, String password, String user) {
        this.areas = areas;
        this.sedes = sedes;
        this.nombre = nombre;

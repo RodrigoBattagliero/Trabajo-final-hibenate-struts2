@@ -1,5 +1,5 @@
 package model.entities;
-// Generated May 17, 2015 2:44:47 AM by Hibernate Tools 4.3.1
+// Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
 
 
@@ -16,7 +16,7 @@ public class ExpedientesSolicitudes  implements java.io.Serializable {
     public ExpedientesSolicitudes() {
     }
 
-    public ExpedientesSolicitudes(int id, Expedientes expedientes, Solicitudes solicitudes) {
+    public ExpedientesSolicitudes(int id,Expedientes expedientes, Solicitudes solicitudes) {
        this.id = id;
        this.expedientes = expedientes;
        this.solicitudes = solicitudes;
