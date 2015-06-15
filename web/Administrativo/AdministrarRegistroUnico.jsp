@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
@@ -21,12 +22,18 @@
                 <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
                 <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
                 <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true"  />
-                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida"  />
+                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" class="fecha"  />
                 <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
                 <s:textarea name="AdministrarObservaciones" label="Observaciones"  />
 
                 <s:submit value="Guardar" />
             </s:form>
         </div>
+            
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});
+        </script>
     </body>
 </html>

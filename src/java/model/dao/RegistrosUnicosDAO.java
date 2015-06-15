@@ -80,7 +80,11 @@ public class RegistrosUnicosDAO extends DAO {
         List<Solicitudes> list = null;
         try{
 //            iniciaOperacion();
-            String sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.solicitudes.sedes = "+ sede.getId();
+            String sql;
+            if(sede.getId() == 2 || sede.getId() == 3 || sede.getId() == 4)
+                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.solicitudes.sedes = "+ sede.getId();
+            else
+                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1";
             list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();
@@ -219,7 +223,7 @@ public class RegistrosUnicosDAO extends DAO {
             if(apellidoDocente != null && !apellidoDocente.equals(""))
                 sql += " doc.apellido LIKE '%"+apellidoDocente+"%'";
             if(fechaDePresentacion != null)
-                sql += " sol.fechaAlta = "+fechaDePresentacion;
+                sql += " sol.fechaAlta = '"+fechaDePresentacion+"' ";
             list = sesion.createQuery(sql).list();
         }catch(Exception e){
             list = null;

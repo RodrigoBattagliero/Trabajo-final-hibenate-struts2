@@ -10,6 +10,8 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import kakan.controller.SpgDocentesController;
+import kakan.entities.SpgDocentes;
 import model.dao.DocentesDAO;
 import model.entities.DepartamentosAcademicos;
 import model.entities.Docentes;
@@ -123,6 +125,29 @@ public class DocentesController extends Controller<Docentes> implements ServletR
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
         sesion = request.getSession();
+    }
+    
+    public String BuscarDocenteKakan(){
+        SpgDocentesController docKakan = new SpgDocentesController();
+        try{
+            docKakan.setDni(this.entity.getDni());
+            docKakan.execute();
+            if(docKakan.getEntities().size() > 1){
+                addActionError("Error: se han encontrado más de un docente con el mismo DNI. Por favor, ingresar datos manualmente.");
+            }else if(docKakan.getEntities().size() == 0){
+                addActionError("Error: No se han encontrado datos.");
+            }else{
+                SpgDocentes spgDoc = docKakan.getEntities().get(0);
+                this.entity.setApellido(spgDoc.getApellido());
+                this.entity.setNombre(spgDoc.getNombre());
+                this.entity.setDni(spgDoc.getDocumento());
+                this.entity.setLugarResidencia(spgDoc.getResidencia());
+                this.entity.setEmail(spgDoc.getMail());
+            }
+        }catch(Exception e){
+            this.entity = null;
+        }
+        return SUCCESS;
     }
 
 }

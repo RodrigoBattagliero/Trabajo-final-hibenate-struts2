@@ -26,7 +26,7 @@ and open the template in the editor.
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
                         *: LoginAction;
-                        administrador:menu;
+                        administrador:menu,ogagtd,docentes;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -53,11 +53,19 @@ and open the template in the editor.
             <result name="dirección académica administrativa" type="redirectAction">/Bedel/index</result>
             <result name="rendición de cuentas" type="redirectAction">/RendicionDeCuentas/index</result>
             <result name="secretaría administrativo-financiera" type="redirectAction">/SecretariaAdministrativoFinanciera/index</result>
-            <result name="administrativo" type="redirectAction">menu</result>
+            <result name="administrador" type="redirectAction">menu</result>
         </action>
         
         <action name="menu">
             <result>/menu.jsp</result>
+        </action>
+        
+        <action name="ogagtd" class="kakan.controller.OgagtdController">
+            <result>/ogagtd.jsp</result>
+        </action>
+        
+        <action name="docentes" class="kakan.controller.SpgDocentesController">
+            <result>/docentes.jsp</result>
         </action>
         
     </package>

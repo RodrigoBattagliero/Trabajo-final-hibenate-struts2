@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
@@ -29,12 +30,17 @@
             <s:form action="%{url}">
                 <s:select list="sedesList" listKey="id" listValue="nombre" name="idSelectedSede" value="entity.sedes.id" label="Sede"></s:select>
                 <s:textfield name="entity.tipo" readonly="true" label="Tipo" />
-                <s:textfield name="entity.numeroSolicitud" label="numeroSolicitud" />
-                <s:textfield name="entity.fechaAlta" label="fechaAlta" />
-                <s:textarea name="entity.observaciones" label="observaciones" />
+                <s:textfield name="entity.numeroSolicitud" label="Número de solicitud" />
+                <s:textfield name="entity.fechaAlta" class="fecha" label="Fecha alta" />
+                <s:textarea name="entity.observaciones" label="Observaciones" />
                 <s:submit value="Guardar" class="btn" />
             </s:form>
         </div>
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});
+        </script>		
     </body>
 </html>
 

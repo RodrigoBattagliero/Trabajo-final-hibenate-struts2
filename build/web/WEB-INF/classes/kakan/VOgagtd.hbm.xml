@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-Jun-2015 04:06:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="kakan.entities.VOgagtd" table="v_ogagtd" schema="kakan" optimistic-lock="version">
+        <id name="idOgagtd" type="int">
+            <column name="id_ogagtd" />
+            <generator class="assigned" />
+        </id>
+        <property name="idCategoria" type="string">
+            <column name="id_categoria" length="4" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="20" />
+        </property>
+        <property name="categoriaInvestigacion" type="string">
+            <column name="categoria_investigacion" length="100" />
+        </property>
+        <property name="idCaracterLiquidacion" type="string">
+            <column name="id_caracter_liquidacion" length="7" />
+        </property>
+        <property name="idPeriodo" type="java.lang.Integer">
+            <column name="id_periodo" />
+        </property>
+        <property name="nro" type="java.lang.Integer">
+            <column name="nro" />
+        </property>
+        <property name="anioAcademico" type="java.lang.Integer">
+            <column name="anio_academico" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="periodo" />
+        </property>
+        <property name="comision" type="java.lang.Integer">
+            <column name="comision" />
+        </property>
+        <property name="id" type="java.lang.Integer">
+            <column name="id" />
+        </property>
+        <property name="idDocente" type="java.lang.Long">
+            <column name="id_docente" />
+        </property>
+        <property name="idDepartamento" type="java.lang.Short">
+            <column name="id_departamento" />
+        </property>
+        <property name="nombreDpto" type="string">
+            <column name="nombre_dpto" />
+        </property>
+        <property name="idUnidadAcademica" type="java.lang.Short">
+            <column name="id_unidad_academica" />
+        </property>
+        <property name="nombreSede" type="string">
+            <column name="nombre_sede" length="200" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="apellido" length="100" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="nombre" length="200" />
+        </property>
+        <property name="dni" type="string">
+            <column name="dni" length="8" />
+        </property>
+        <property name="tipoDocumento" type="string">
+            <column name="tipo_documento" length="4" />
+        </property>
+        <property name="documento" type="string">
+            <column name="documento" />
+        </property>
+        <property name="nombreCategoria" type="string">
+            <column name="nombre_categoria" length="100" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="cargo" length="30" />
+        </property>
+        <property name="dedicacion" type="string">
+            <column name="dedicacion" />
+        </property>
+        <property name="resComp" type="string">
+            <column name="res_comp" />
+        </property>
+        <property name="nombreCaracter" type="string">
+            <column name="nombre_caracter" />
+        </property>
+        <property name="unidadAcademica" type="string">
+            <column name="unidad_academica" length="5" />
+        </property>
+        <property name="nombreUnidadAcademica" type="string">
+            <column name="nombre_unidad_academica" length="60" />
+        </property>
+        <property name="carrera" type="string">
+            <column name="carrera" length="5" />
+        </property>
+        <property name="nombreCarrera" type="string">
+            <column name="nombre_carrera" />
+        </property>
+        <property name="plan" type="string">
+            <column name="plan" length="5" />
+        </property>
+        <property name="nroResolucion" type="string">
+            <column name="nro_resolucion" length="15" />
+        </property>
+        <property name="materia" type="string">
+            <column name="materia" length="5" />
+        </property>
+        <property name="nombreMateria" type="string">
+            <column name="nombre_materia" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="anio" />
+        </property>
+        <property name="periodoLectivo" type="string">
+            <column name="periodo_lectivo" length="20" />
+        </property>
+        <property name="reg" type="string">
+            <column name="reg" />
+        </property>
+        <property name="extension" type="string">
+            <column name="extension" />
+        </property>
+        <property name="emisorNorma" type="string">
+            <column name="emisor_norma" />
+        </property>
+        <property name="norma" type="string">
+            <column name="norma" />
+        </property>
+        <property name="nroNorma" type="java.lang.Long">
+            <column name="nro_norma" />
+        </property>
+        <property name="fecNorma" type="date">
+            <column name="fec_norma" length="13" />
+        </property>
+        <property name="actExtension" type="string">
+            <column name="act_extension" />
+        </property>
+        <property name="proyInvestigacion" type="string">
+            <column name="proy_investigacion" />
+        </property>
+        <property name="actGestion" type="string">
+            <column name="act_gestion" />
+        </property>
+        <property name="formRrhh" type="string">
+            <column name="form_rrhh" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="observaciones" length="5000" />
+        </property>
+        <property name="descripcionProyectoInvestigacion" type="string">
+            <column name="descripcion_proyecto_investigacion" length="5000" />
+        </property>
+        <property name="descripcionProyectoExtencion" type="string">
+            <column name="descripcion_proyecto_extencion" length="5000" />
+        </property>
+        <property name="descripcionActividadGestion" type="string">
+            <column name="descripcion_actividad_gestion" length="5000" />
+        </property>
+        <property name="descripcionRrhh" type="string">
+            <column name="descripcion_rrhh" length="5000" />
+        </property>
+        <property name="fechaInicio" type="date">
+            <column name="fecha_inicio" length="13" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="fecha_fin" length="13" />
+        </property>
+        <property name="aumentoDedicacion" type="java.lang.Integer">
+            <column name="aumento_dedicacion" />
+        </property>
+        <property name="tipoDedicacion" type="string">
+            <column name="tipo_dedicacion" />
+        </property>
+        <property name="info" type="string">
+            <column name="info" />
+        </property>
+        <property name="estadoActual" type="string">
+            <column name="estado_actual" length="50" />
+        </property>
+        <property name="instituto" type="string">
+            <column name="instituto" length="500" />
+        </property>
+        <property name="leyenda" type="string">
+            <column name="leyenda" length="300" />
+        </property>
+        <property name="ambitoLaboral" type="string">
+            <column name="ambito_laboral" length="100" />
+        </property>
+        <property name="centroInvestigacion" type="string">
+            <column name="centro_investigacion" length="20" />
+        </property>
+        <property name="dptoMateria" type="string">
+            <column name="dpto_materia" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>

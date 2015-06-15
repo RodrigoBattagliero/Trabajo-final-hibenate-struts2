@@ -25,6 +25,9 @@
     <property name="dedicacion" type="string">
       <column name="dedicacion"/>
     </property>
+    <property name="idComision" type="int">
+      <column name="id_comision"/>
+    </property>
     <property name="observaciones" type="string">
       <column name="observaciones"/>
     </property>

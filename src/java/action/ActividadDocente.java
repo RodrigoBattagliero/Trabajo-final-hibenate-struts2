@@ -9,9 +9,10 @@ import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
 import controller.ActividadDocentesController;
-import controller.DesignacionesController;
 import controller.RegistrosUnicosController;
 import controller.SolicitudesController;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.entities.ActividadDocentes;
@@ -36,17 +37,15 @@ public class ActividadDocente extends ActionSupport implements ServletRequestAwa
         solContr.selectOne(idSol);
         Solicitudes solicitud = solContr.getEntity();
         
-        int idDesignacion = Integer.parseInt(String.valueOf(sesion.getAttribute("idDesignacionSelected")));
-        DesignacionesController desigController = new DesignacionesController();
-        desigController.selectOne(idDesignacion);
-        
-        ActividadDocentesController actController = new ActividadDocentesController();
-        ActividadDocentes act = new ActividadDocentes();
-        act = (ActividadDocentes) sesion.getAttribute("ActividadDocenteForm");
-        act.setDesignaciones(desigController.getEntity());
-        actController.setEntity(act);
-        if(actController.save().equals("error"))
-            res = ERROR;
+        List<ActividadDocentes> actList = (List<ActividadDocentes>) sesion.getAttribute("ActividadDocenteForm");
+        if(actList == null)
+            actList = new ArrayList();
+        for(ActividadDocentes actDoc : actList){
+            ActividadDocentesController actController = new ActividadDocentesController();
+            actController.setEntity(actDoc);
+            if(actController.save().equals("error"))
+                res = ERROR;
+        }
         
         RegistrosUnicosController reg1 = new RegistrosUnicosController();
         RegistrosUnicos registroUnico1 = new RegistrosUnicos();

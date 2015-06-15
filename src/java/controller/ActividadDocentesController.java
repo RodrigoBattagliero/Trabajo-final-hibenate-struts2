@@ -5,8 +5,12 @@
  */
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import kakan.controller.OgagtdController;
+import kakan.entities.VOgagtd;
 import model.dao.ActividadDocentesDAO;
 import model.entities.ActividadDocentes;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -39,12 +43,43 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     }
     
     public String prepared(){
-        this.sesion.setAttribute("ActividadDocenteForm", this.entity);
-        return SUCCESS;
+        String res = SUCCESS;
+        int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
+        int idDesignacion = Integer.parseInt(String.valueOf(sesion.getAttribute("idDesignacionSelected")));
+        int cantActual;
+        
+        DesignacionesController desCon = new DesignacionesController();
+        desCon.getDao().iniciaOperacion();
+        desCon.setEntities((List) desCon.getDao().selectRelated(idSol));
+        desCon.getDao().cerrarSession();
+        int cantDesignaciones = desCon.getEntities().size();
+        
+        DesignacionesController desigController = new DesignacionesController();
+        desigController.selectOne(idDesignacion);
+        this.entity.setDesignaciones(desigController.getEntity());
+        this.entities = (List<ActividadDocentes>) this.sesion.getAttribute("ActividadDocenteForm");
+        
+        if(this.entities == null){
+            this.entities = new ArrayList();
+            cantActual = 0;
+        }else{
+            cantActual = this.entities.size();
+        }
+        
+        this.entities.add(this.entity);
+        this.sesion.removeAttribute("ActividadDocenteForm");
+        this.sesion.setAttribute("ActividadDocenteForm", this.entities);
+        cantActual++;
+        if(cantDesignaciones > cantActual ){
+            res = "back";
+        }
+        
+        return res;
     }
     
     public String setIdDesignacion(){
         this.sesion.setAttribute("idDesignacionSelected", this.request.getParameter("idDesignacionSelected"));
+        this.actividadesDocentesKakan();
         return SUCCESS;
     }
     
@@ -79,5 +114,48 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;
         this.sesion = this.request.getSession();
+    }
+    
+    private void actividadesDocentesKakan(){
+        int idDes = Integer.parseInt(String.valueOf(this.sesion.getAttribute("idDesignacionSelected")));
+        int idSol = Integer.parseInt(String.valueOf(this.sesion.getAttribute("idSolicitudSelected")));
+        this.entity = new ActividadDocentes();
+        
+        SolicitudesController solCon = new SolicitudesController();
+        solCon.selectOne(idSol);
+        
+        DocentesController docCon = new DocentesController();
+        docCon.selectRelated(idSol);
+        
+        DesignacionesController desCon = new DesignacionesController();
+        desCon.selectOne(idDes);
+        
+        OgagtdController vO = new OgagtdController();
+        try{
+            vO.setDni(docCon.getEntities().get(0).getDni());
+            vO.setFecha(solCon.getEntity().getFechaAlta());
+            vO.setComision(desCon.getEntity().getIdComision());
+            vO.selectFromComision();
+        }catch(Exception e){
+            
+        }
+        if(vO.getEntities().size() == 1){
+            VOgagtd o = vO.getEntities().get(0);
+            this.entity.setAsignatura(o.getNombreMateria());
+            this.entity.setCarrera(o.getCarrera());
+            //this.entity.setDesignaciones();
+            //this.entity.setFecha();
+            //this.entity.setId();
+            this.entity.setIdComision(o.getComision());
+            this.entity.setIdMateria(o.getMateria());
+            this.entity.setIdUnidadAcademica(o.getIdUnidadAcademica());
+            //this.entity.setObservaciones();
+            //this.entity.setVisadoBedelia();
+        }else if(vO.getEntities().size() > 1){
+            addActionError("Error: Se han encontrado más de una relación para la comsión seleccionada. Ingrese los datos manualmente.");
+        }else{
+            addActionError("Error: No se ha encontrado una relación para la comsión seleccionada. Ingrese los datos manualmente.");
+        }
+        
     }
 }

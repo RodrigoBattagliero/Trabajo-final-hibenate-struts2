@@ -20,6 +20,7 @@ public class Designaciones  implements java.io.Serializable {
      private Date hasta;
      private String dedicacion;
      private String observaciones;
+     private int idComision;
      private Set actividadDocenteses = new HashSet(0);
 
     public Designaciones() {
@@ -89,6 +90,15 @@ public class Designaciones  implements java.io.Serializable {
     public void setDedicacion(String dedicacion) {
         this.dedicacion = dedicacion;
     }
+
+    public int getIdComision() {
+        return idComision;
+    }
+
+    public void setIdComision(int idComision) {
+        this.idComision = idComision;
+    }
+    
     public String getObservaciones() {
         return this.observaciones;
     }

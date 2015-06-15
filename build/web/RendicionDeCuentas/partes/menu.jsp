@@ -18,11 +18,11 @@
             <h3 class="text-musted">Proyecto</h3>
             <nav>
                 <ul class="nav nav-justified">
-                    <li><s:a action="RendicionDeCuentasForm">Solcitudes a completar</s:a></li>
-                    <li><s:a action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
-                    <li><s:a action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
-                    <li><s:a action="HistorialSolicitudes">Historial solicitudes</s:a></li>
-                    <li><s:a action="logout">Salir</s:a></li>
+                    <li><s:a namespace="/RendicionDeCuentas" action="RendicionDeCuentasForm">Solcitudes a completar</s:a></li>
+                    <li><s:a namespace="/RendicionDeCuentas" action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
+                    <li><s:a namespace="/RendicionDeCuentas" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
+                    <li><s:a namespace="/RendicionDeCuentas" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                    <li><s:a namespace="/RendicionDeCuentas" action="logout">Salir</s:a></li>
                 </ul>
             </nav>
         </div>

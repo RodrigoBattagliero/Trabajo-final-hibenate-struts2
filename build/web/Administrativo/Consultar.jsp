@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title></title>
     </head>
@@ -19,7 +20,7 @@
             <s:form action="Consultar">
                 <s:textfield name="nombreDocente" label="Nombre del docente" />
                 <s:textfield name="apellidoDocente" label="Apellido del docente" />
-                <s:textfield name="fechaPresentacion" label="Fecha de presentación" />
+                <s:textfield name="fechaDePresentacion" label="Fecha de presentación" class="fecha" />
                 <s:submit value="Consultar" />
             </s:form>
             <table class="table table-striped">
@@ -50,6 +51,12 @@
                 </tbody>
             </table>
         </div>
+            
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});
+        </script>
     </body>
 </html>
 

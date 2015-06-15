@@ -16,11 +16,11 @@
         <h3 class="text-musted">Proyecto</h3>
         <nav>
             <ul class="nav nav-justified">
-                <li><s:a action="SolicitudesActividadDocenteForm">Solcitudes a completar</s:a></li>
-                <li><s:a action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
-                <li><s:a action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
-                <li><s:a action="HistorialSolicitudes">Historial solicitudes</s:a></li>
-                <li><s:a action="logout">Salir</s:a></li>
+                <li><s:a namespace="/Bedel" action="SolicitudesActividadDocenteForm">Solcitudes a completar</s:a></li>
+                <li><s:a namespace="/Bedel" action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
+                <li><s:a namespace="/Bedel" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
+                <li><s:a namespace="/Bedel" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                <li><s:a namespace="/Bedel" action="logout">Salir</s:a></li>
             </ul>
         </nav>
     </body>

@@ -41,7 +41,7 @@ and open the template in the editor.
         </action>
         
         <action name="logout" class="action.LoginAction" method="logout">
-            <result>/Login.jsp</result>
+            <result type="redirect">/index</result>
         </action>
          
          <!-- Actividad docente -->
@@ -56,6 +56,7 @@ and open the template in the editor.
         </action>
         <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
             <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
+            <result name="back" type="redirectAction">DesignacionesActividadForm</result>
             <result name="error">/Bedel/ActividadEfectivaDocente.jsp</result>
             <result name="input">/Bedel/ActividadEfectivaDocente.jsp</result>
         </action>

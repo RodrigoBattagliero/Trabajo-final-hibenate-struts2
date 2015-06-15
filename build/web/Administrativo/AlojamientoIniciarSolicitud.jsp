@@ -12,7 +12,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <script src="../js/jquery-1.11.3.min.js"></script>
     </head>
     <body>
         <div class="container">
@@ -30,7 +29,7 @@
                                 </tr>
                         </thead>
                         <tbody>
-                            <tr id="duplicar">
+                            <tr >
                                 <td><s:textfield name="alojamientoComprobantesImporte" label="Importe" /></td>
                                 <td><s:textfield name="alojamientoComprobantesNumeroComprobante" label="Número de comprobante" /></td>
                                 <td><s:textfield name="alojamientoComprobantesNroveedor" label="Proveedor" /></td>
@@ -49,13 +48,15 @@
                 <s:submit value="Guardar" />
             </s:form>
             <button id="btnAgregar">Agregar Elemento</button>
+            
+            <script src="../js/jquery-1.11.3.min.js"></script>
             <script>
                 $(document).ready(function () 
                     {
                         $("#btnAgregar").click(function() 
                         {
-                            var elementoNuevo = $("#duplicar").clone();
-                            $("#duplicar").after(elementoNuevo);
+                            var tr = '<tr id="duplicar"><td><input type="text" name="alojamientoComprobantesImporte" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesImporte"/></td><td><input type="text" name="alojamientoComprobantesNumeroComprobante" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNumeroComprobante"/></td><td><input type="text" name="alojamientoComprobantesNroveedor" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNroveedor"/></td><td><select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo"><option value="1">Comida</option><option value="2">Combustible</option><option value="3">Alojamiemto</option></select></td><td><textarea name="alojamientoDescripcion" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoDescripcion"></textarea></td><td><textarea name="alojamientoComprobantesObservaciones" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoComprobantesObservaciones"></textarea></td></tr>';
+                            $("tbody").append(tr);
                         });
                     });
             </script>

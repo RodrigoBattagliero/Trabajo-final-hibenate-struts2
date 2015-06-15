@@ -16,10 +16,10 @@ public class ActividadDocentes  implements java.io.Serializable {
      private String asignatura;
      private Boolean visadoBedelia;
      private String observaciones;
-     private String idUnidadAcademica;
+     private int idUnidadAcademica;
      private String idMateria;
      private String carrera;
-     private String idComision;
+     private int idComision;
 
     public ActividadDocentes() {
     }
@@ -28,7 +28,7 @@ public class ActividadDocentes  implements java.io.Serializable {
     public ActividadDocentes(Designaciones designaciones) {
         this.designaciones = designaciones;
     }
-    public ActividadDocentes(Designaciones designaciones, Date fecha, String asignatura, Boolean visadoBedelia, String observaciones, String idUnidadAcademica, String idMateria, String carrera, String idComision) {
+    public ActividadDocentes(Designaciones designaciones, Date fecha, String asignatura, Boolean visadoBedelia, String observaciones, int idUnidadAcademica, String idMateria, String carrera, int idComision) {
        this.designaciones = designaciones;
        this.fecha = fecha;
        this.asignatura = asignatura;
@@ -82,11 +82,11 @@ public class ActividadDocentes  implements java.io.Serializable {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    public String getIdUnidadAcademica() {
+    public int getIdUnidadAcademica() {
         return this.idUnidadAcademica;
     }
     
-    public void setIdUnidadAcademica(String idUnidadAcademica) {
+    public void setIdUnidadAcademica(int idUnidadAcademica) {
         this.idUnidadAcademica = idUnidadAcademica;
     }
     public String getIdMateria() {
@@ -103,11 +103,11 @@ public class ActividadDocentes  implements java.io.Serializable {
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
-    public String getIdComision() {
+    public int getIdComision() {
         return this.idComision;
     }
     
-    public void setIdComision(String idComision) {
+    public void setIdComision(int idComision) {
         this.idComision = idComision;
     }
 

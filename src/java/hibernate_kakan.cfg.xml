@@ -7,5 +7,16 @@
     <property name="hibernate.connection.url">jdbc:postgresql://170.210.152.43:5432/kakan</property>
     <property name="hibernate.connection.username">ogagtd</property>
     <property name="hibernate.connection.password">rorodrigo</property>
+    <mapping resource="kakan/VOgagtd.hbm.xml"/>
+    <mapping resource="kakan/SpgDocentes.hbm.xml"/>
+    <!--
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/kakan</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">123</property>
+    <mapping resource="kakan/VOgagtd.hbm.xml"/>
+    <mapping resource="kakan/SpgDocentes.hbm.xml"/>
+    -->
   </session-factory>
 </hibernate-configuration>

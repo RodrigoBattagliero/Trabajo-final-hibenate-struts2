@@ -22,7 +22,7 @@
     <property name="observaciones" type="string">
       <column name="observaciones"/>
     </property>
-    <property name="idUnidadAcademica" type="string">
+    <property name="idUnidadAcademica" type="int">
       <column length="10" name="id_unidad_academica"/>
     </property>
     <property name="idMateria" type="string">
@@ -31,7 +31,7 @@
     <property name="carrera" type="string">
       <column length="100" name="carrera"/>
     </property>
-    <property name="idComision" type="string">
+    <property name="idComision" type="int">
       <column length="10" name="id_comision"/>
     </property>
   </class>

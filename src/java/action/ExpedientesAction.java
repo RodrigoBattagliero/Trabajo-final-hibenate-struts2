@@ -33,9 +33,13 @@ public class ExpedientesAction extends ActionSupport implements ServletRequestAw
         // Expediente
         ExpedientesController expController = new ExpedientesController();
         expController.setEntity((Expedientes)this.sesion.getAttribute("ExpedienteForm"));
-        if(expController.save().equals("error"))
+        expController.getDao().iniciaOperacion();
+        if(expController.getDao().create(expController.getEntity()) == 0)
             res = ERROR;
-        expController.selectOne(expController.getId());
+        expController.getDao().cerrarSession();
+        expController.getDao().iniciaOperacion();
+        expController.getDao().selectOne(expController.getId());
+        expController.getDao().cerrarSession();
         
         // Expedientes - solicitudes
         ExpedientesSolicitudesController expSolController;
@@ -44,7 +48,8 @@ public class ExpedientesAction extends ActionSupport implements ServletRequestAw
             expSol.setExpedientes(expController.getEntity());
             expSolController = new ExpedientesSolicitudesController();
             expSolController.setEntity(expSol);
-            if(expSolController.save().equals("error"))
+            expSolController.getDao().iniciaOperacion();
+            if(expSolController.getDao().create(expSol) == 0)
                 res = ERROR;
         }
         

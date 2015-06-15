@@ -22,9 +22,9 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico;
-                        oficina de gestión de gasto de traslado docente: index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico;
-                        sede interior:index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico;
+                        administrador:index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico,BuscarDocente;
+                        oficina de gestión de gasto de traslado docente: index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico,BuscarDocente;
+                        sede interior:index,logout,IniciarSolicitudForm,SolicitudPreparar,DatosDocentesForm,DatosDocentesPreparar,DatosTrasladoPreparar,AlojamientoForm,DatosAlojamientoPreparar,RegistroUnicoForm,RegistroUnicoPrepare,IniciarSolcitud,DatosCompletarForm,CompletarDatosCapital,designacionPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnico,DesignacionGuardarAction,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,HistorialSolicitudes,ConsultarForm,Consultar,ConsultarDetalle,EditarForm,SolicitudUpdate,DocenteUpdateForm,DocentesUpdate,ComprobantesTrasladoUpdateForm,ComprobantesTrasladoUpdateSelected,ComprobantesTrasladoUpdate,ComprobantesAlojameintoUpdateForm,ComprobantesAlojameintoUpdateSelected,DesignacionesUpdateForm,DesignacionUpdateSelected,DesignacionUpdate,ComprobantesAlojamientoUpdate,ActividadDocenteUpdateForm,ActividadDocenteUpdate,LiquidacionesUpdateForm,LiquidacionesUpdate,SolicitudesDevueltasForm,SolicitudesDevueltasAdministrar,GuardarRegistroUnico,GuardarRegistroUnico,PreparedRegistroUnico,BuscarDocente;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -42,7 +42,7 @@ and open the template in the editor.
         </action>
         
         <action name="logout" class="action.LoginAction" method="logout">
-            <result type="redirectAction">index</result>
+            <result type="redirect">/index</result>
         </action>
         
         <!-- Iniciar solicitud -->
@@ -101,11 +101,17 @@ and open the template in the editor.
         </action>
         <!-- Fin iniciar solicitud -->
         
+        <!-- Buscar docente -->
+        <action name="BuscarDocente" class="controller.DocentesController" method="BuscarDocenteKakan">
+            <result >/Administrativo/DocentesIniciarSolicitud.jsp</result>
+        </action>
+        <!-- Fin buscar docente -->
+        
         <!-- Completar datos -->
         <action name="DatosCompletarForm" class="controller.RegistrosUnicosController" method="setSolicitudesACompletar">
             <result>/Administrativo/ListadoSolicitudesACompletar.jsp</result>
         </action>
-         <action name="CompletarDatosCapital" class="controller.RegistrosUnicosController" method="CompletarDatosCapital">
+         <action name="CompletarDatosCapital" class="controller.DesignacionesController" method="CompletarDatosCapital">
             <result>/Administrativo/Designaciones.jsp</result>
         </action>
         <action name="designacionPrepared" class="controller.DesignacionesController" method="prepared" >
@@ -122,6 +128,7 @@ and open the template in the editor.
         <action name="DesignacionGuardarAction" class="action.Designacion">
             <result type="redirectAction">DatosCompletarForm</result>
         </action>
+        <!-- Fin Completar datos -->
         
         <!-- Confirmar solicitudes -->
         <action name="ConfirmarSolicitudesForm" class="controller.RegistrosUnicosController" method="setRegistrosAConfirmar">

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-Jun-2015 04:06:32 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="kakan.entities.SpgDocentes" optimistic-lock="version" schema="kakan" table="spg_docentes">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="nroLegajo" type="java.lang.Integer">
+      <column name="nro_legajo"/>
+    </property>
+    <property name="apellido" type="string">
+      <column length="100" name="apellido"/>
+    </property>
+    <property name="nombre" type="string">
+      <column length="200" name="nombre"/>
+    </property>
+    <property name="tipoDocumento" type="string">
+      <column length="4" name="tipo_documento"/>
+    </property>
+    <property name="documento" type="string">
+      <column length="8" name="documento"/>
+    </property>
+    <property name="cuil" type="string">
+      <column length="11" name="cuil"/>
+    </property>
+    <property name="sexo" type="string">
+      <column length="1" name="sexo"/>
+    </property>
+    <property name="fechaAlta" type="date">
+      <column length="13" name="fecha_alta"/>
+    </property>
+    <property name="idProvincia" type="string">
+      <column length="1" name="id_provincia"/>
+    </property>
+    <property name="idCiudad" type="big_decimal">
+      <column name="id_ciudad" precision="131089" scale="0"/>
+    </property>
+    <property name="barrio" type="string">
+      <column length="200" name="barrio"/>
+    </property>
+    <property name="calle" type="string">
+      <column length="250" name="calle"/>
+    </property>
+    <property name="numero" type="string">
+      <column length="10" name="numero"/>
+    </property>
+    <property name="piso" type="string">
+      <column length="10" name="piso"/>
+    </property>
+    <property name="depto" type="string">
+      <column length="10" name="depto"/>
+    </property>
+    <property name="telefonoFijo" type="string">
+      <column length="100" name="telefono_fijo"/>
+    </property>
+    <property name="telefonoCelular" type="string">
+      <column length="100" name="telefono_celular"/>
+    </property>
+    <property name="mail" type="string">
+      <column length="200" name="mail"/>
+    </property>
+    <property name="estado" type="string">
+      <column length="10" name="estado"/>
+    </property>
+    <property name="concursoCargo" type="java.lang.Integer">
+      <column name="concurso_cargo"/>
+    </property>
+    <property name="fechaPrimerConcurso" type="date">
+      <column length="13" name="fecha_primer_concurso"/>
+    </property>
+    <property name="antiguedad" type="java.lang.Integer">
+      <column name="antiguedad"/>
+    </property>
+    <property name="nivelEstudio" type="string">
+      <column length="30" name="nivel_estudio"/>
+    </property>
+    <property name="actividades" type="string">
+      <column length="3000" name="actividades"/>
+    </property>
+    <property name="fechaNacim" type="date">
+      <column length="13" name="fecha_nacim"/>
+    </property>
+    <property name="edad" type="java.lang.Integer">
+      <column name="edad"/>
+    </property>
+    <property name="puntajeExterno" type="java.lang.Integer">
+      <column name="puntaje_externo"/>
+    </property>
+    <property name="fechaIngreso" type="date">
+      <column length="13" name="fecha_ingreso"/>
+    </property>
+    
+  </class>
+  <sql-query name="residencia" callable="true">
+        <return class="kakan.Residencia" >
+            <return-property name="residencia" />
+        </return>
+	{? = call get_residencia(?)}
+    </sql-query>
+</hibernate-mapping>

@@ -37,7 +37,7 @@ and open the template in the editor.
         
         <!-- Solicitudes inicadas en sede interior -->
         <action name="SolicitudesIniciadasSedeInteriorForm" class="controller.RegistrosUnicosController" method="setSolicitudesInciadasSedeInterior">
-            <result>/Administrativo/ListadoSolicitudesACompletar.jsp</result>
+            <result>ListadoSolicitudesACompletar.jsp</result>
         </action>
         
         <!-- Expedientes -->
@@ -48,7 +48,7 @@ and open the template in the editor.
             <result type="redirectAction">Guardar</result>
         </action>
         <action name="Guardar" class="action.ExpedientesAction" >
-            <result type="redirectAction">index</result>
+            <result type="redirectAction">/Administrativo/index</result>
         </action>
         
         <!-- Listar Expedientes -->

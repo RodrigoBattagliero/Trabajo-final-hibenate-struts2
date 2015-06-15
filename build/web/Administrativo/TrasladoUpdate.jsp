@@ -11,6 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <script src="../js/jquery-1.11.3.min.js"></script>
     </head>
@@ -86,8 +87,8 @@
                                <td><s:textfield name="entity.comprobantes.importe" label="Importe" /></td>
                                <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" /></td>
                                <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" /></td>
-                               <td><s:textfield name="entity.desde" label="Desde" /></td>
-                               <td><s:textfield name="entity.hasta" label="Hasta" /></td>
+                               <td><s:textfield name="entity.desde" label="Desde" class="fecha" /></td>
+                               <td><s:textfield name="entity.hasta" label="Hasta" class="fecha" /></td>
                                <td><s:textfield name="entity.fechaHoraSalida" label="Fecha y hora de salida" /></td>
                                <td><s:textfield name="entity.fechaHoraRegreso" label="Fecha y hora de regreso" /></td>
                                <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" /></td>
@@ -100,5 +101,11 @@
              </s:if>
             <s:a href="ComprobantesAlojameintoUpdateForm" class="btn">Continuar</s:a>
         </div>
+        
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y H:m'});
+        </script>
     </body>
 </html>

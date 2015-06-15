@@ -40,7 +40,7 @@ and open the template in the editor.
         </action>
         
         <action name="logout" class="action.LoginAction" method="logout">
-            <result type="redirectAction">index</result>
+            <result type="redirect">/index</result>
         </action>
         
         <!-- Rendición de cuentas -->
