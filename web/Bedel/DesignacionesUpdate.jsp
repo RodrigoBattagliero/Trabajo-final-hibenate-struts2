@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
@@ -69,8 +70,8 @@
                                     <td><s:textfield name="entity.id"  /></td>
                                     <td><s:textfield name="entity.numeroResolucion" /></td>
                                     <td><s:textfield name="entity.categoria"  /></td>
-                                    <td><s:textfield name="entity.desde" /></td>
-                                    <td><s:textfield name="entity.hasta"/></td>
+                                    <td><s:textfield name="entity.desde" class="fecha" /></td>
+                                    <td><s:textfield name="entity.hasta" class="fecha" /></td>
                                     <td><s:textfield name="entity.dedicacion"  /></td>
                                     <td><s:textarea name="entity.observaciones"  /></td>
                                 </tr>
@@ -83,5 +84,11 @@
                 <hr />
             </s:if>
         </div>
+            
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y H:m'});
+        </script>
     </body>
 </html>

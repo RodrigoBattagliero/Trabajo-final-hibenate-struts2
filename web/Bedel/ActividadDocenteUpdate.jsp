@@ -10,6 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
         <title>JSP Page</title>
     </head>
@@ -21,7 +22,7 @@
             <s:actionerror />
             <s:form action="ActividadDocenteUpdate">
                 <s:textfield name="entity.id" label="Id" disabled="true" />
-                <s:textfield name="entity.fecha" label="Fecha" />
+                <s:textfield name="entity.fecha" label="Fecha" class="fecha" />
                 <s:textfield name="entity.asignatura" label="Asignatura" />
                 <s:textfield name="entity.idUnidadAcademica" label="idUnidadAcademica" />
                 <s:textfield name="entity.carrera" label="carrera" />
@@ -33,5 +34,11 @@
                 <s:submit value="Modificar" class="btn" />
             </s:form>
         </div>
+            
+        <script src="../js/jquery-1.11.3.min.js"></script>
+        <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
+        <script>
+            $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y H:m'});
+        </script>
     </body>
 </html>
