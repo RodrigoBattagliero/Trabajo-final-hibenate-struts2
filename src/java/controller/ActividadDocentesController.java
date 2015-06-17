@@ -65,15 +65,16 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
         }else{
             cantActual = this.entities.size();
         }
-        
-        this.entities.add(this.entity);
-        this.sesion.removeAttribute("ActividadDocenteForm");
-        this.sesion.setAttribute("ActividadDocenteForm", this.entities);
-        cantActual++;
-        if(cantDesignaciones > cantActual ){
-            res = "back";
+        if(this.validar()){
+            this.entities.add(this.entity);
+            this.sesion.removeAttribute("ActividadDocenteForm");
+            this.sesion.setAttribute("ActividadDocenteForm", this.entities);
+            cantActual++;
+            if(cantDesignaciones > cantActual )
+                res = "back";
+        }else{
+            res = INPUT;
         }
-        
         return res;
     }
     
@@ -157,5 +158,39 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
             addActionError("Error: No se ha encontrado una relación para la comsión seleccionada. Ingrese los datos manualmente.");
         }
         
+    }
+    
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getAsignatura().equals("")){
+            addFieldError("asignatura", "ERROR: Debe ingresar una asignatura");
+            b = false;
+        }
+        if(this.entity.getCarrera().equals("")){
+            addFieldError("carrera", "ERROR: Debe ingresar una carrera");
+            b = false;
+        }
+        if(this.entity.getFecha() == null){
+            addFieldError("fecha", "ERROR: Debe ingresar una fecha");
+            b = false;
+        }
+        if(this.entity.getIdComision() == 0){
+            addFieldError("idComision", "ERROR: Debe ingresar el ID de la comisión");
+            b = false;
+        }
+        if(this.entity.getIdMateria().equals("")){
+            addFieldError("idMateria", "ERROR: Debe ingresar el ID de la materia");
+            b = false;
+        }
+        if(this.entity.getIdUnidadAcademica() == 0){
+            addFieldError("idUnidadAcademica", "ERROR: Debe ingresar el ID de la unidad academica");
+            b = false;
+        }
+        if( !b && this.entity.getObservaciones().equals("")){
+            addFieldError("observaciones", "ERROR: Si deja algún campo obligatorio debe ingresar una observación.");
+        }else if(!b && !this.entity.getObservaciones().equals("")){
+            b = true;
+        }
+        return b;
     }
 }

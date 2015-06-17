@@ -17,38 +17,85 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            
+            <h1 class="page-header">Buscar docente</h1>
+            <s:form action="BuscarDocente" theme="simple">
+                <div class="form-group input-group">
+                    <label>DNI</label>
+                    <s:textfield name="entity.dni" label="DNI" class="form-control" />
+                    <span class="input-group-btn" >
+                        <button class="btn btn-default" type="button">
+                            <i class="fa fa-search">B</i>
+                        </button>
+                    </span>
+                </div>
+            </s:form>
+            
             <s:if test="entity.id" >
-                <h1>Datos docentes</h1>
+                <h1 class="page-header">Datos docentes</h1>
                 <s:set var="url">DocentesUpdate</s:set>
             </s:if>
             <s:else>
-                <h1>Datos docentes</h1>
+                <h1 class="page-header">Datos docentes</h1>
                 <s:set var="url">DatosDocentesPreparar</s:set>
             </s:else>
                 
             <s:fielderror />
             <s:actionerror />
-            <s:form action="BuscarDocente">
-                <s:textfield name="entity.dni" label="DNI"  />
-                <s:submit value="Buscar" class="btn" />
+            <s:form action="%{url}" theme="simple">
+                <div class="form-group">
+                    <label>Departamento acádemico</label>
+                    <s:select name="idDeptoAcademico" label="Departamento acádemico" list="listDeptosAcademicos" listKey="id" listValue="nombre" value="entity.departamentosAcademicos.id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <s:textfield name="entity.nombre" label="Nombre" class="form-control"  />
+                </div>
+                <div class="form-group">
+                    <label>Apellido</label>
+                    <s:textfield name="entity.apellido" label="Apellido" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>DNI</label>
+                    <s:textfield name="entity.dni" label="DNI" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Telefono</label>
+                    <s:textfield name="entity.telefono" label="Telefono" class="form-control"  />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <s:textfield name="entity.email" label="Email"  class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Lugar de residencia</label>
+                    <s:textfield name="entity.lugarResidencia" label="Lugar de residencia" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Motivo Comisión</label>
+                    <s:select name="entity.motivoComision" label="Motivo Comision" list="listMotivoComision" value="entity.motivoComision" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Fecha de inicio</label>
+                    <s:textfield name="entity.fechaInicio" label="Fecha de inicio" class="form-control fecha"  />
+                </div>
+                <div class="form-group">
+                    <label>Fecha finalización</label>
+                    <s:textfield name="entity.fechaFinalizacion" label="Fecha finalización" class="form-control fecha" />
+                </div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <s:submit value="Guardar" class="btn btn-primary" />
+                </div>
             </s:form>
-            <s:form action="%{url}">
-                <s:select name="idDeptoAcademico" label="Departamento acádemico" list="listDeptosAcademicos" listKey="id" listValue="nombre" value="entity.departamentosAcademicos.id" />
-                <s:textfield name="entity.nombre" label="Nombre"  />
-                <s:textfield name="entity.apellido" label="Apellido"  />
-                <s:textfield name="entity.dni" label="DNI" />
-                <s:textfield name="entity.telefono" label="Telefono"  />
-                <s:textfield name="entity.email" label="Email"  />
-                <s:textfield name="entity.lugarResidencia" label="Lugar de residencia" />
-                <s:select name="entity.motivoComision" label="Motivo Comision" list="listMotivoComision" value="entity.motivoComision" />
-                <s:textfield name="entity.fechaInicio" label="Fecha de inicio" class="fecha"  />
-                <s:textfield name="entity.fechaFinalizacion" label="Fecha finalización" class="fecha" />
-                <s:textarea name="entity.observaciones" label="Observaciones"  />
-                <s:submit value="Guardar" class="btn" />
-            </s:form>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
             
-        <script src="../js/jquery-1.11.3.min.js"></script>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});

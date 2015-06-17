@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Designaciones</h1>
+            <h1 class="page-header">Designaciones</h1>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -48,6 +48,8 @@
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
             
     </body>

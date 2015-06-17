@@ -55,6 +55,9 @@ public class LoginAction extends ActionSupport implements ServletRequestAware {
             else
                 sesion.setAttribute("role", userController.getEntity().getAreas().getNombre().toLowerCase());
             res = String.valueOf(this.sesion.getAttribute("role"));
+        }else{
+            addActionMessage("ERROR: datos incorrectos");
+            res = LOGIN;
         }
         
         return res;

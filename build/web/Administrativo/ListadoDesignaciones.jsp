@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Designaciones</h1>
+            <h1 class="page-header">Designaciones</h1>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -38,11 +38,13 @@
                             <td><s:property value="#list.hasta" /></td>
                             <td><s:property value="#list.dedicacion" /></td>
                             <td><s:property value="#list.observaciones" /></td>
-                            <td><s:a action="">Agregar datos de Actividad</s:a></td>
+                            <td><s:a action="" class="btn">Agregar datos de Actividad</s:a></td>
                         </tr>
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

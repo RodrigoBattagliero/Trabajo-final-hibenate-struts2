@@ -96,13 +96,16 @@ public class DesignacionesController extends Controller<Designaciones> implement
     }
     
     public String prepared(){
-        setDesignaciones();
         String res = SUCCESS;
-        sesion.setAttribute("DesignacionesForm", this.entities);
+        if(setDesignaciones())
+            sesion.setAttribute("DesignacionesForm", this.entities);
+        else
+            res = INPUT;
         return res;
     }
-    private void setDesignaciones(){
+    private boolean setDesignaciones(){
         this.entities = new ArrayList();
+        boolean b = true;
         int cant = numeroResolucion.length;
         if(cant < categoria.length)
             cant = categoria.length;
@@ -127,10 +130,14 @@ public class DesignacionesController extends Controller<Designaciones> implement
                     this.entity.setIdComision(idComision[i]);
                     this.entity.setObservaciones(observaciones[i]);
                     this.entity.setSolicitudes(selectSolicitud());
+                    if(!this.validar())
+                        b = false;
                     this.entities.add(this.entity);
+                        
                 }
             }
         }
+        return b;
     }
     
     private Solicitudes selectSolicitud(){
@@ -265,4 +272,32 @@ public class DesignacionesController extends Controller<Designaciones> implement
         return SUCCESS;
     }
     
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getCategoria().equals("")){
+            addFieldError("categoria", "ERROR: Debe ingresar la categoría");
+            b = false;
+        }
+        if(this.entity.getDedicacion().equals("")){
+            addFieldError("dedicacion", "ERROR: Debe ingresar la dedicación");
+            b = false;
+        }
+        if(this.entity.getDesde() == null){
+            addFieldError("desde", "ERROR: Debe ingresar la fecha de inicio");
+            b = false;
+        }
+        if(this.entity.getHasta() == null ){
+            addFieldError("hasta", "ERROR: Debe ingresar la fecha de fin");
+            b = false;
+        }
+        if(this.entity.getIdComision() == 0){
+            addFieldError("idComision", "ERROR: Debe ingresar la comisión");
+            b = false;
+        }
+        if(this.entity.getNumeroResolucion().equals("")){
+            addFieldError("numeroResolucion", "ERROR: Debe ingresar el número de resolución");
+            b = false;
+        }
+        return b;
+    }
 }

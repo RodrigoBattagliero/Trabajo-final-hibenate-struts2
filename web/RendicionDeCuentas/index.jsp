@@ -16,6 +16,9 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            
+            <h1 class="page-header">Bienvenido</h1>
+            
             <s:if test="cantidadSolicitudesCompletar != 0">
                 <div class="alert alert-warning" role="alert">
                     <p>Tiene <s:property value="cantidadSolicitudesCompletar" /> <s:a action="RendicionDeCuentasForm">solicitudes para completar</s:a></p>
@@ -31,6 +34,8 @@
                     <p>Tiene <s:property value="cantidadSolicitudesConfirmar" /> <s:a action="ConfirmarSolicitudesForm">solicitudes para confirmar</s:a></p>
                 </div>    
             </s:if>
+            
+            <s:include value="partes/footer.jsp" />
         </div>
     </body>
 </html>

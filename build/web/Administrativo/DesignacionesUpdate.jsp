@@ -17,7 +17,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Designaciones</h1>
+            <h1 class="page-header">Designaciones</h1>
             <s:actionerror />
             <s:fielderror />
             <table class="table table-striped">
@@ -71,13 +71,13 @@
                         </thead>
                         <tbody>
                                 <tr>
-                                    <td><s:textfield name="entity.id"  /></td>
-                                    <td><s:textfield name="entity.numeroResolucion" /></td>
-                                    <td><s:textfield name="entity.categoria"  /></td>
-                                    <td><s:textfield name="entity.desde" class="fecha" /></td>
-                                    <td><s:textfield name="entity.hasta" class="fecha" /></td>
-                                    <td><s:textfield name="entity.dedicacion"  /></td>
-                                    <td><s:textarea name="entity.observaciones"  /></td>
+                                    <td><s:textfield name="entity.id" class="form-control" /></td>
+                                    <td><s:textfield name="entity.numeroResolucion" class="form-control" /></td>
+                                    <td><s:textfield name="entity.categoria" class="form-control" /></td>
+                                    <td><s:textfield name="entity.desde" class="fecha form-control" /></td>
+                                    <td><s:textfield name="entity.hasta" class="fecha form-control" /></td>
+                                    <td><s:textfield name="entity.dedicacion" class="form-control" /></td>
+                                    <td><s:textarea name="entity.observaciones" class="form-control" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="7"><s:submit value="Modificar" class="btn" /></td>
@@ -88,7 +88,7 @@
             </s:if>
             <s:a action="LiquidacionesUpdateForm" class="btn">Continuar</s:a>
             
-        <script src="../js/jquery-1.11.3.min.js"></script>
+        <%@include file="partes/footer.jsp" %>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});

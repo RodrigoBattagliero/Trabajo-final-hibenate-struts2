@@ -17,20 +17,38 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Registro único</h1>
+            <h1 class="page-header">Registro único</h1>
             <s:actionerror />
             <s:fielderror />
-            <s:form action="RegistroUnicoPrepare">
-                <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" class="fecha" />
-                <s:select list="#@java.util.TreeMap@{'2':'Profesor'}" label="Area" />
-                <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
-                <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" />
-                <s:textarea name="entity.observaciones" label="Observaciones" />
-                <s:submit value="Guardar" class="btn" />
+            <s:form action="RegistroUnicoPrepare" theme="simple">
+                <div class="form-group input-group">
+                    <label>Fecha de entrada</label>
+                    <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" class="form-control fecha" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Area</label>
+                    <s:select list="#@java.util.TreeMap@{'2':'Profesor'}" label="Area" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Estado</label>
+                    <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Confirmado</label>
+                    <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Observaciones</label>
+                    <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <s:submit value="Guardar" class="btn" />
+                </div>
             </s:form>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
             
-        <script src="../js/jquery-1.11.3.min.js"></script>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});

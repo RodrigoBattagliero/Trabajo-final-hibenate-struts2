@@ -651,5 +651,21 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.parametros = maps;
     }
     
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getAreas() == null){
+            addFieldError("areas", "ERROR: no se definió el área");
+            b = false;
+        }
+        if(this.entity.getEstados() == null){
+            addFieldError("areas", "ERROR: no se definió el estado");
+            b = false;
+        }
+        if(this.entity.getFechaEntrada() == null){
+            addFieldError("areas", "ERROR: no se definió el área");
+            b = false;
+        }
+        return b;
+    }
     
 }

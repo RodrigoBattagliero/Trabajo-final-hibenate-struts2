@@ -48,6 +48,7 @@ and open the template in the editor.
             <result>/menu.jsp</result>
             <result name="input">/Login.jsp</result>
             <result name="error">/Login.jsp</result>
+            <result name="login">/Login.jsp</result>
             <result name="oficina de gestión de gasto de traslado docente" type="redirectAction">/Administrativo/index</result>
             <result name="sede interior" type="redirectAction">/Administrativo/index</result>
             <result name="dirección académica administrativa" type="redirectAction">/Bedel/index</result>

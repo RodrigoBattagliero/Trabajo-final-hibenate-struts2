@@ -31,8 +31,8 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/Login.jsp</result>
-            <result name="authorization_required">/Login.jsp</result>
+            <result name="authentication_required" type="redirect">/index</result>
+            <result name="authorization_required" type="redirect">/index</result>
         </global-results>
         
         <action name="index" class="controller.RegistrosUnicosController" method="setMensajes" >
@@ -83,7 +83,7 @@ and open the template in the editor.
             <result type="redirectAction">LiquidacionesUpdateForm</result>
         </action>
         <action name="LiquidacionesUpdateForm" class="controller.LiquidacionesController" method="updatePrepared">
-            <result>/Administrativo/LiquidacionesUpdate.jsp</result>
+            <result>/RendicionDeCuentas/LiquidacionesUpdate.jsp</result>
         </action>
         <action name="LiquidacionesUpdate" class="controller.LiquidacionesController" method="update">
             <result type="redirectAction">RegistroUnicoSolicitudDevuelta</result>
@@ -96,7 +96,7 @@ and open the template in the editor.
         </action>
         <!-- Historial de solicitudes -->
         <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
-            <result >/Administrativo/HistorialSolicitudes.jsp</result>
+            <result >/RendicionDeCuentas/HistorialSolicitudes.jsp</result>
         </action>
     </package>
 </struts>

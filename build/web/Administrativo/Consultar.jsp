@@ -17,11 +17,22 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <s:form action="Consultar">
-                <s:textfield name="nombreDocente" label="Nombre del docente" />
-                <s:textfield name="apellidoDocente" label="Apellido del docente" />
-                <s:textfield name="fechaDePresentacion" label="Fecha de presentación" class="fecha" />
-                <s:submit value="Consultar" />
+            <s:form action="Consultar" theme="simple">
+                <div class="form-group input-group">
+                    <label>Nombre del docente</label>
+                    <s:textfield name="nombreDocente" label="Nombre del docente" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Apellido del docente</label>
+                    <s:textfield name="apellidoDocente" label="Apellido del docente" class="form-control" />
+                </div>
+                <div class="form-group input-group">
+                    <label>Fecha de presentación</label>
+                    <s:textfield name="fechaDePresentacion" label="Fecha de presentación" class="form-control fecha" />
+                </div>
+                <div class="form-group input-group">
+                    <s:submit value="Consultar" class="btn" />
+                </div>
             </s:form>
             <table class="table table-striped">
                 <thead>
@@ -52,7 +63,7 @@
             </table>
         </div>
             
-        <script src="../js/jquery-1.11.3.min.js"></script>
+        <%@include file="partes/footer.jsp" %>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y'});

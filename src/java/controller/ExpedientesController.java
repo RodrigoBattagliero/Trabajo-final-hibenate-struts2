@@ -95,9 +95,13 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
                 listRegistros.add(reg);
             }
         }
-        this.sesion.setAttribute("ExpedienteForm", expe);
-        this.sesion.setAttribute("ExpedientesSolicitudesForm", listExpSol);
-        this.sesion.setAttribute("RegistrosUnicosForm", listRegistros);
+        if(this.validar()){
+            this.sesion.setAttribute("ExpedienteForm", expe);
+            this.sesion.setAttribute("ExpedientesSolicitudesForm", listExpSol);
+            this.sesion.setAttribute("RegistrosUnicosForm", listRegistros);
+        }else{
+            res = INPUT;
+        }    
         return res;
     }
     
@@ -118,5 +122,18 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
     @Override
     public void setParameters(Map<String, String[]> maps) {
         this.parametros = maps;
+    }
+    
+    public boolean validar(){
+        boolean b = false;
+        if(this.entity.getFecha() == null){
+            addFieldError("fecha", "ERROR: Debe ingresar la fecha de expediente");
+            b = false;
+        }
+        if(this.entity.getNumeroExpediente().equals("")){
+            addFieldError("numeroExpediente", "ERROR: Debe ingresar el número de expediente");
+            b = false;
+        }
+        return b;
     }
 }

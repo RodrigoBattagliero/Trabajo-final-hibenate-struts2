@@ -17,6 +17,8 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            
+            <h1 class="page-header">Modificar datos de alojamiento / combustible / comida</h1>
                <table class="table table-striped">
                     <thead>
                             <tr>
@@ -75,23 +77,25 @@
                     </thead>
                     <tbody>
                         <tr >
-                            <td><s:textfield name="entity.comprobantes.id" /></td>
-                            <td><s:textfield name="entity.id" /></td>
-                            <td><s:textfield name="entity.comprobantes.importe" label="Importe" /></td>
-                            <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" /></td>
-                            <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" /></td>
+                            <td><s:textfield name="entity.comprobantes.id" class="form-control" /></td>
+                            <td><s:textfield name="entity.id" class="form-control" /></td>
+                            <td><s:textfield name="entity.comprobantes.importe" label="Importe" class="form-control" /></td>
+                            <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" class="form-control" /></td>
+                            <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" class="form-control" /></td>
                             <td>
-                                <s:select list="#@java.util.TreeMap@{'1':'Comida', '2':'Combustible','3':'Alojamiento'}" name="entity.tipo" value="entity.tipo" label="Tipo" />
+                                <s:select list="#@java.util.TreeMap@{'1':'Comida', '2':'Combustible','3':'Alojamiento'}" name="entity.tipo" value="entity.tipo" label="Tipo" class="form-control" />
                             </td>
-                            <td><s:textarea name="entity.descripcion" label="Descripción" /></td>
-                            <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" /></td>
+                            <td><s:textarea name="entity.descripcion" label="Descripción" class="form-control" /></td>
+                            <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" class="form-control" /></td>
                         </tr>
                     </tbody>
             </table>
-            <s:submit value="Guardar" />
+                            <s:submit value="Guardar" class="btn" />
         </s:form>
         </s:if>
             <s:a action="DesignacionesUpdateForm" class="btn">Continuar</s:a>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

@@ -39,6 +39,8 @@
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <s:include value="../partes/footer.jsp" />
         </div>
     </body>
 </html>

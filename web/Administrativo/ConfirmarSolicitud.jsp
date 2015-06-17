@@ -16,9 +16,11 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Confirmar Solicitud</h1>
+            <h1 class="page-header">Confirmar Solicitud</h1>
             <s:a action="IniciarSolcitud" class="btn">Guardar</s:a>
             <s:a action="index" class="btn">Cancelar</s:a>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

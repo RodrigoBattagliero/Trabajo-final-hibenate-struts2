@@ -32,8 +32,8 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/Login.jsp</result>
-            <result name="authorization_required">/Login.jsp</result>
+            <result name="authentication_required" type="redirect">/index</result>
+            <result name="authorization_required" type="redirect">/index</result>
         </global-results>
         
         <action name="index" class="controller.RegistrosUnicosController" method="setMensajes" >

@@ -39,7 +39,10 @@ public class LiquidacionesController extends Controller<Liquidaciones> implement
     
     public String prepared(){
         String res = SUCCESS;
-        sesion.setAttribute("LiquidacionesForm", this.entity);
+        if(this.validar())
+            sesion.setAttribute("LiquidacionesForm", this.entity);
+        else
+            res = INPUT;
         return res;
     }
     
@@ -129,4 +132,17 @@ public class LiquidacionesController extends Controller<Liquidaciones> implement
         this.sesion = this.request.getSession();
     }
     
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getReconocimientoImporteTotal() <= 0.0){
+            addFieldError("reconocimientoImporteTotal", "ERROR: El monto a reconocer debe der mayor a cero");
+            b = false;
+        }
+        if( !b && this.entity.getObservaciones().equals("")){
+            addFieldError("observaciones", "ERROR: Debe agregar una observación si deja vacío un campo.");
+        }else if(!b && !this.entity.getObservaciones().equals("")){
+            b = true;
+        }
+        return b;
+    }
 }

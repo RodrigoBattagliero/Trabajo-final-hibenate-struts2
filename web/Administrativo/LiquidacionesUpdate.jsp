@@ -16,19 +16,46 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Rendicion de cuentas</h1>
-            <s:form action="LiquidacionesUpdate">
-                <s:textfield name="entity.id" label="Id" />
-                <s:textfield name="entity.reconocimientoGastoComida" label="reconocimientoGastoComida" />
-                <s:textfield name="entity.reconocimientoGastoAlojamiento" label="reconocimientoGastoAlojamiento" />
-                <s:textfield name="entity.reconocimientoGastoCombustible" label="reconocimientoGastoCombustible" />
-                <s:textfield name="entity.reconocimientoGastoPasajes" label="reconocimientoGastoPasajes" />
-                <s:textfield name="entity.importeDeclarado" label="importeDeclarado" />
-                <s:textfield name="entity.reconocimientoImporteTotal" label="reconocimientoImporteTotal" />
-                <s:textarea name="entity.observaciones" label="observaciones" />
-
-                <s:submit name="Guardar" value="Guardar" class="btn" /> 
+            <h1 class="page-header">Rendicion de cuentas</h1>
+            <s:form action="LiquidacionesUpdate" theme="simple">
+                <div class="form-group">
+                    <label>ID</label>
+                    <s:textfield name="entity.id" label="Id" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Reconocimiento gasto comida</label>
+                    <s:textfield name="entity.reconocimientoGastoComida" label="reconocimientoGastoComida" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Reconocimiento gasto alojamiento</label>
+                    <s:textfield name="entity.reconocimientoGastoAlojamiento" label="reconocimientoGastoAlojamiento" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <label>Reconocimiento gasto combustible</label>
+                    <s:textfield name="entity.reconocimientoGastoCombustible" label="reconocimientoGastoCombustible" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <label>Reconocimiento gasto pasajes</label>
+                    <s:textfield name="entity.reconocimientoGastoPasajes" label="reconocimientoGastoPasajes" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <label>Importe declarado</label>
+                    <s:textfield name="entity.importeDeclarado" label="importeDeclarado" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <label>Reconocimiento importe total</label>
+                    <s:textfield name="entity.reconocimientoImporteTotal" label="reconocimientoImporteTotal" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <s:textarea name="entity.observaciones" label="observaciones" class="form-control" />
+		</div>
+                <div class="form-group">
+                    <s:submit name="Guardar" value="Guardar" class="btn" /> 
+		</div>
             </s:form>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

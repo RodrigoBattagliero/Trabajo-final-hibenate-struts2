@@ -16,8 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Confirmar solicitudes</h1>
-            <hr />
+            <h1 class="page-header">Confirmar solicitudes</h1>
             <s:form action="ConfirmarSolicitudesPrepared" theme="simple" method="post">
             <table class="table table-striped">
             <thead>
@@ -42,11 +41,13 @@
                     </tr>
                 </s:iterator>
                     <tr>
-                        <td colspan="5"><s:submit value="Confirmar" /></td>
+                        <td colspan="5"><s:submit value="Confirmar" class="btn" /></td>
                     </tr>
                 </tbody>
             </table>
             </s:form>
+            
+            <s:include value="partes/footer.jsp" />
         </div>
     </body>
 </html>

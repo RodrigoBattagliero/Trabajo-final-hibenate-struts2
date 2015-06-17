@@ -18,8 +18,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Datos de traslado</h1>
-            <hr />
+            <h1 class="page-header">Datos de traslado</h1>
             <s:actionerror />
             <s:fielderror />
             <s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>
@@ -82,17 +81,17 @@
                          </thead>
                         <tbody>
                             <tr>
-                               <td><s:textfield name="entity.comprobantes.id" label="Importe" disabled="disable" /></td>
-                               <td><s:textfield name="entity.id" label="Importe" disabled="disable" /></td>
-                               <td><s:textfield name="entity.comprobantes.importe" label="Importe" /></td>
-                               <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante" /></td>
-                               <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor" /></td>
-                               <td><s:textfield name="entity.desde" label="Desde" class="fecha" /></td>
-                               <td><s:textfield name="entity.hasta" label="Hasta" class="fecha" /></td>
-                               <td><s:textfield name="entity.fechaHoraSalida" label="Fecha y hora de salida" /></td>
-                               <td><s:textfield name="entity.fechaHoraRegreso" label="Fecha y hora de regreso" /></td>
-                               <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones" /></td>
-                               <td><s:submit value="Modificar" /></td>
+                                <td><s:textfield name="entity.comprobantes.id" label="Importe" disabled="disable" class="form-control" /></td>
+                               <td><s:textfield name="entity.id" label="Importe" disabled="disable"  class="form-control" /></td>
+                               <td><s:textfield name="entity.comprobantes.importe" label="Importe"  class="form-control" /></td>
+                               <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante"  class="form-control" /></td>
+                               <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor"  class="form-control" /></td>
+                               <td><s:textfield name="entity.desde" label="Desde" class="form-control" /></td>
+                               <td><s:textfield name="entity.hasta" label="Hasta" class="form-control"/></td>
+                               <td><s:textfield name="entity.fechaHoraSalida" label="Fecha y hora de salida"  class="form-control fecha" /></td>
+                               <td><s:textfield name="entity.fechaHoraRegreso" label="Fecha y hora de regreso"  class="form-control fecha" /></td>
+                               <td><s:textarea name="entity.comprobantes.observaciones" label="Observaciones"  class="form-control" /></td>
+                               <td><s:submit value="Modificar" class="btn" /></td>
                             </tr>
                         </tbody>
                  </table>
@@ -100,9 +99,10 @@
             </s:form>
              </s:if>
             <s:a href="ComprobantesAlojameintoUpdateForm" class="btn">Continuar</s:a>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
-        
-        <script src="../js/jquery-1.11.3.min.js"></script>
+                
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y H:m'});

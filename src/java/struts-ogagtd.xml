@@ -31,8 +31,8 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/LoginRequired.jsp</result>
-            <result name="authorization_required">/Denied.jsp</result>
+            <result name="authentication_required" type="redirect">/index</result>
+            <result name="authorization_required" type="redirect">/index</result>
         </global-results>
         
         <!-- Solicitudes inicadas en sede interior -->

@@ -16,9 +16,8 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Detalle</h1>
+            <h1 class="page-header">Detalle</h1>
             <h2>Solicitud</h2>
-            <hr />
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -228,6 +227,8 @@
                     </tr>
                 </tbody>
             </table>
+                    
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

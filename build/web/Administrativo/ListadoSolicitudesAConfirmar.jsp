@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Confirmar solicitudes</h1>
+            <h1 class="page-header">Confirmar solicitudes</h1>
             <s:form action="ConfirmarSolicitudesPrepared" theme="simple" method="post">
             <table class="table table-striped">
             <thead>
@@ -46,6 +46,8 @@
                 </tbody>
                </table>
             </s:form>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

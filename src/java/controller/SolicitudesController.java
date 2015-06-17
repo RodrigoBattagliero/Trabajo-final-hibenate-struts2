@@ -106,11 +106,13 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     }   
     
     public String prepared(){
+        String res = SUCCESS;
         this.entity.setSedes(selectSedes(idSelectedSede));
-        
-        // validar
-        sesion.setAttribute("SolicitudesForm", this.entity);
-        return SUCCESS;
+        if(this.validar())
+            sesion.setAttribute("SolicitudesForm", this.entity);
+        else
+            res = INPUT;
+        return res;
     }
     
     public String updatePrepared(){
@@ -136,5 +138,18 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
         this.request = hsr;
         this.sesion = request.getSession();
     }
-
+    
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getFechaAlta() == null){
+            addFieldError("fechaAlta", "Debe ingresar la fecha de alta de la solicitud.");   
+            b = false;
+        }
+        if(this.entity.getNumeroSolicitud() == 0){
+            addFieldError("numeroSolicitud", "Debe ingresar el número de solicitud.");
+            b = false;
+        }
+        return b;
+    }
+    
 }

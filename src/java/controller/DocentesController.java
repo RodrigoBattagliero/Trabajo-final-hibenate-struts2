@@ -79,11 +79,13 @@ public class DocentesController extends Controller<Docentes> implements ServletR
     }
     
     public String prepared(){
+        String res = SUCCESS;
         entity.setDepartamentosAcademicos(deptoAcademico());
-        // Validar
-//        sesion.setAttribute("SolicitudesControllerForm",sesion.getAttribute("SolicitudesControllerForm") );
-        sesion.setAttribute("DocentesForm", this.entity);
-        return SUCCESS;
+        if(this.validar())
+            sesion.setAttribute("DocentesForm", this.entity);
+        else
+            res = INPUT;
+        return res;
     }
     
     public String updatePrepared(){
@@ -149,5 +151,49 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         }
         return SUCCESS;
     }
-
+    
+    public boolean validar(){
+        boolean b = true;
+        if(this.entity.getApellido().equals("")){
+            addFieldError("apellido", "Debe completar el apellido.");
+            b = false;
+        }
+        if(this.entity.getDepartamentosAcademicos() == null){
+            addFieldError("departamentosAcademicos", "Debe seleccionar el departamento acádemico.");
+            b = false;
+        }
+        if(this.entity.getDni().equals("")){
+            addFieldError("dni", "Debe completar el DNI.");
+            b = false;
+        }
+        if(this.entity.getEmail().equals("")){
+            addFieldError("email", "Debe completar el email.");
+            b = false;
+        }
+        if(this.entity.getFechaFinalizacion() == null){
+            addFieldError("fechaFinalizacion", "Debe completar la fecha de finalización.");
+            b = false;
+        }
+        if(this.entity.getFechaInicio() == null){
+            addFieldError("apellido", "Debe completar la fecha de inicio.");
+            b = false;
+        }
+        if(this.entity.getLugarResidencia().equals("")){
+            addFieldError("lugarResidencia", "Debe completar el lugar de residencia.");
+            b = false;
+        }
+        if(this.entity.getMotivoComision().equals("")){
+            addFieldError("motivoComision", "Debe completar el motivo de comisión.");
+            b = false;
+        }
+        if(this.entity.getNombre().equals("")){
+            addFieldError("nombre", "Debe completar el nombre.");
+            b = false;
+        }
+        if(this.entity.getTelefono().equals("")){
+            addFieldError("telefono", "Debe completar el telefono.");
+            b = false;
+        }
+        return b;
+    }
 }

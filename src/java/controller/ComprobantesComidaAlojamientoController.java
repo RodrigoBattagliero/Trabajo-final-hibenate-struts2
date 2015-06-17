@@ -96,9 +96,13 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
     }
     
     public String prepared(){
+        String res = SUCCESS;
         setListAlojamiento();
-        sesion.setAttribute("ComprobanteAlojamiento", this.listAlomamiento);
-        return SUCCESS;
+        if(this.validar())
+            sesion.setAttribute("ComprobanteAlojamiento", this.listAlomamiento);
+        else
+            res = INPUT;        
+        return res;
     }
     
     private void setListAlojamiento(){
@@ -133,7 +137,6 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
             alojamiento.setDescripcion(alojamientoDescripcion[i]);
             alojamiento.setTipo(alojamientoTipo[i]);
             alojamiento.setComprobantes(comprobante);
-            System.out.println("as");
             listAlomamiento.add(alojamiento);
         }
         
@@ -203,4 +206,30 @@ public class ComprobantesComidaAlojamientoController extends Controller<Comproba
         return res; 
     }
     
+    public boolean validar(){
+        boolean b = true;
+        for(ComprobantesComidaAlojamientos a : listAlomamiento){
+            if(a.getComprobantes().getImporte() == 0.0){
+                addFieldError("importe", "ERROR: Debe ingresar el importe.");
+                b = false;
+            }
+            if(a.getComprobantes().getNumeroComprobante().equals("")){
+                addFieldError("numeroComprobante", "ERROR: Debe ingresar el número de comprobante.");
+                b = false;
+            }
+            if(a.getComprobantes().getProveedor().equals("")){
+                addFieldError("proveedor", "ERROR: Debe ingresar el proveedor.");
+                b = false;
+            }
+            if(a.getTipo() == 0){
+                addFieldError("tipo", "ERROR: Debe seleccionar el tipo.");
+                b = false;
+            }
+            if(a.getDescripcion().equals("")){
+                addFieldError("descripcion", "ERROR: Debe ingresar la descripción.");
+                b = false;
+            }
+        }
+        return b;
+    }
 }

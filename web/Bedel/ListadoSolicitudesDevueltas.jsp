@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-                <h1>Seleccionar solicitud</h1>
+                <h1 class="page-header">Seleccionar solicitud</h1>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -36,12 +36,14 @@
                                     <s:url var="url1" action="setSolicitudSelected">
                                         <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
                                     </s:url>
-                                    <s:a href="%{url1}" >Administrar</s:a>
+                                    <s:a href="%{url1}" class="btn" >Administrar</s:a>
                                 </td>
                             </tr>
                         </s:iterator>
                     </tbody>
                 </table>
+                
+                <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

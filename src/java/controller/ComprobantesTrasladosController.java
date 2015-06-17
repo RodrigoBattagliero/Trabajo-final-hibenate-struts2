@@ -114,9 +114,13 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     }
     
     public String prepared(){
+        String res = SUCCESS;
         setListComprobantes();
-        sesion.setAttribute("ComprobanteTraslado", this.listComprobantes);
-        return SUCCESS;
+        if(this.validar())
+            sesion.setAttribute("ComprobanteTraslado", this.listComprobantes);
+        else
+            res = INPUT;
+        return res;
     }
 
     @Override
@@ -159,7 +163,11 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
             comprobante = new Comprobantes();
             // Eliminar en caso de error para crear 
             //comprobante.setId(idComprobantes[i]);
-            comprobante.setImporte((float) Double.parseDouble(trasladoComprobantesImporte[i]));
+            try{
+                comprobante.setImporte((float) Double.parseDouble(trasladoComprobantesImporte[i]));   
+            }catch(Exception e){
+                comprobante.setImporte((float)0.0);
+            }
             comprobante.setNumeroComprobante(trasadoComprobantesNumeroComprobante[i]);
             comprobante.setObservaciones(trasladoComprobantesObservaciones[i]);
             comprobante.setProveedor(trasladoComprobantesProveedor[i]);
@@ -231,5 +239,40 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
         if(b)
             res = SUCCESS;
         return res; 
+    }
+    
+    public boolean validar(){
+        boolean b = true;
+        for(ComprobantesTraslados com : this.listComprobantes){
+            if(com.getComprobantes().getImporte() == 0){
+                addFieldError("importe", "Debe completar el importe");
+                b = false;
+            }
+            if(com.getComprobantes().getNumeroComprobante().equals("")){
+                addFieldError("numeroComprobante", "Debe completar el número de comprobante");
+                b = false;
+            }
+            if(com.getComprobantes().getProveedor().equals("")){
+                addFieldError("proveedor", "Debe completar el proveedor");
+                b = false;
+            }
+            if(com.getDesde().equals("")){
+                addFieldError("desde", "Debe completar el lugar de salida");
+                b = false;
+            }
+            if(com.getFechaHoraRegreso() == null){
+                addFieldError("fechaHoraRegreso", "Debe completar la fecha y hora de regreso");
+                b = false;
+            }
+            if(com.getFechaHoraSalida()== null){
+                addFieldError("fechaHoraSalida", "Debe completar la fecha y hora de salida");
+                b = false;
+            }
+            if(com.getHasta().equals("")){
+                addFieldError("hasta", "Debe completar el lugar de llegada");
+                b = false;
+            }
+        }
+        return b;
     }
 }

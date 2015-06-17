@@ -17,20 +17,40 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Administrar registro único</h1>
-            <s:form action="AdministrarRegistroUnico">
-                <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true"  />
-                <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" />
-                <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true" class="fecha" />
-                <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true" class="fecha" />
-                <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" />
-                <s:textarea name="AdministrarObservaciones" label="Observaciones"  />
-
-                <s:submit value="Guardar" class="btn"/>
+            <h1 class="page-header">Administrar registro único</h1>
+            <s:form action="AdministrarRegistroUnico" theme="simple">
+                <div class="form-group">
+                    <label>Número de solicitud</label>
+                    <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Area</label>
+                    <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Fecha entrada</label>
+                    <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true" class="fecha form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Fecha Salida</label>
+                    <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" disabled="true" class="fecha form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Estado</label>
+                    <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>Observaciones</label>
+                    <s:textarea name="AdministrarObservaciones" label="Observaciones" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <s:submit value="Guardar" class="btn" />
+                </div>
             </s:form>
+            
+            <s:include value="partes/footer.jsp" />
         </div>
             
-        <script src="../js/jquery-1.11.3.min.js"></script>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
         <script>
             $('.fecha').datetimepicker({lang : 'es',format: 'd/m/Y H:m'});

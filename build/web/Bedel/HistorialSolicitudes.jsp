@@ -17,7 +17,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Solicitudes</h1>
+            <h1 class="page-header">Solicitudes</h1>
             <table class="table table-striped">
                 <thead>
                     <td>N solicitud</td>
@@ -34,6 +34,8 @@
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

@@ -42,13 +42,15 @@
                         </tr>
                     </s:iterator>
                         <tr>
-                            <td><s:textfield name="fecha" label="Fecha" /></td>
-                            <td><s:textfield name="numeroExpediente" label="N de expediente" /></td>
+                            <td><s:textfield name="fecha" label="Fecha" class="form-control" /></td>
+                            <td><s:textfield name="numeroExpediente" label="N de expediente" class="form-control" /></td>
                             <td colspan="5"><s:submit value="Confirmar" class="btn" /></td>
                         </tr>
                 </tbody>
             </table>
             </s:form>
+            
+            <s:include value="../partes/footer.jsp" />
         </div>
     </body>
 </html>

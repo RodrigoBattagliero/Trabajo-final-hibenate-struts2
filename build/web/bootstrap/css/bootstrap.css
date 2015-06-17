@@ -4920,7 +4920,7 @@ a.thumbnail.active {
   padding: 9px;
   color: #333;
 }
-.alert {
+.alert,.errorMessage {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -4984,7 +4984,7 @@ a.thumbnail.active {
 .alert-warning .alert-link {
   color: #66512c;
 }
-.alert-danger {
+.alert-danger,.errorMessage {
   color: #a94442;
   background-color: #f2dede;
   border-color: #ebccd1;

@@ -37,12 +37,14 @@
                                 <s:url var="url" action="DesignacionesActividadForm">
                                     <s:param name="idSolicitudSelected" value="%{#solicitud[0].id}"></s:param>
                                 </s:url>
-                                <s:a href="%{url}" >Ver designación</s:a>
+                                <s:a href="%{url}" class="btn" >Ver designación</s:a>
                             </td>
                         </tr>
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

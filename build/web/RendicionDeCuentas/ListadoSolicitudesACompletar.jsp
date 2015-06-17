@@ -16,7 +16,7 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Seleccionar solicitud</h1>
+            <h1 class="page-header">Seleccionar solicitud</h1>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -33,16 +33,17 @@
                             <td><s:property value="#solicitud[1].nombre" /></td>
                             <td><s:property value="#solicitud[0].fechaAlta" /></td>
                             <td>
-                                <!-- CompletarDatosCapital -->
                                 <s:url var="url" action="RendicionDeCuentasSolicitudForm">
                                     <s:param name="idSolicitudSelected" value="%{#solicitud[0].id}"></s:param>
                                 </s:url>
-                                <s:a href="%{url}" >Completar datos</s:a>
+                                <s:a href="%{url}" class="btn" >Completar datos</s:a>
                             </td>
                         </tr>
                     </s:iterator>
                 </tbody>
             </table>
+            
+            <s:include value="partes/footer.jsp" />
         </div>
     </body>
 </html>

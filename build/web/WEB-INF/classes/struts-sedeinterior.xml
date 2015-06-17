@@ -31,25 +31,25 @@ and open the template in the editor.
         <default-interceptor-ref name="defaultSecurityInterceptor" />
         
         <global-results>
-            <result name="authentication_required">/LoginRequired.jsp</result>
-            <result name="authorization_required">/Denied.jsp</result>
+            <result name="authentication_required" type="redirect">/index</result>
+            <result name="authorization_required" type="redirect">/index</result>
         </global-results>
         
          <!-- Actividad docente -->
         <action name="SolicitudesActividadDocenteForm" class="controller.RegistrosUnicosController" method="setSolicitudesActividadDocente">
-            <result>/Bedel/ListadoSolicitudesActividadDocente.jsp</result>
+            <result>/Administrativo/SedeInterior/ListadoSolicitudesActividadDocente.jsp</result>
         </action>
         <action name="DesignacionesActividadForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud" >
             <result>/Administrativo/DesignacionesSolicitudForm.jsp</result>
         </action>
         <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
-            <result >/Bedel/ActividadEfectivaDocente.jsp</result>
+            <result >/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
         </action>
         <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
             <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
             <result name="back" type="redirectAction">DesignacionesActividadForm</result>
-            <result name="error">/Bedel/ActividadEfectivaDocente.jsp</result>
-            <result name="input">/Bedel/ActividadEfectivaDocente.jsp</result>
+            <result name="error">/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
+            <result name="input">/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
         </action>
         <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
             <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
@@ -67,7 +67,7 @@ and open the template in the editor.
         
         <!-- Confirmar solicitudes -->
         <action name="ConfirmarSolicitudesForm" class="controller.RegistrosUnicosController" method="setRegistrosAConfirmarActividadesInterior">
-            <result>/Administrativo/ListadoSolicitudesAConfirmar.jsp</result>
+            <result>/Administrativo/SedeInterior/ListadoSolicitudesAConfirmar.jsp</result>
         </action>
         <action name="ConfirmarSolicitudesPrepared" class="controller.RegistrosUnicosController" method="ConfirmarSolicitudesPreparedActividadInterior">
             <result type="redirectAction">ConfirmarSolicitudesAction</result>
