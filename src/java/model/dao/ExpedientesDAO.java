@@ -6,6 +6,8 @@
 package model.dao;
 
 import java.util.List;
+import model.entities.Areas;
+import model.entities.Estados;
 import model.entities.Expedientes;
 
 /**
@@ -51,4 +53,17 @@ public class ExpedientesDAO extends DAO {
         return list;
     }
     
+    public List<Expedientes> selectRelated(Areas area, Estados estado){
+        List<Expedientes> list = null;
+        try{
+            String sql = "FROM " +tableName + " AS ex "
+                        + " INNER JOIN FETCH ex.areas "
+                        + " INNER JOIN FETCH ex.estados "
+                        + " WHERE ex.areas = " + area.getId() + " AND ex.estados = " + estado.getId();
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
 }

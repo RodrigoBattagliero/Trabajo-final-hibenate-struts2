@@ -17,6 +17,7 @@ import model.entities.Sedes;
 import model.entities.Solicitudes;
 import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -85,6 +86,11 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     }
     
     public String iniciarSolicitudPrepared(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         int id = 0;
         UsuariosController user = new UsuariosController();
         user.setEntity((Usuarios) this.sesion.getAttribute("user"));
@@ -116,6 +122,11 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     }
     
     public String updatePrepared(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         String idSolStr = String.valueOf(this.request.getParameter("idSolicitudSelected"));
         this.sesion.setAttribute("idSolicitudSelected",idSolStr);
         this.selectOne(Integer.parseInt(idSolStr));

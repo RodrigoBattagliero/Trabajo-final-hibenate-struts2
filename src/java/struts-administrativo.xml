@@ -77,7 +77,7 @@ and open the template in the editor.
             <result name="error">/Administrativo/TrasladoIniciarSolicitud.jsp</result>
         </action>
         
-        <action name="AlojamientoForm" class="controller.ComprobantesComidaAlojamientoController" method="setTipo">
+        <action name="AlojamientoForm" class="controller.ComprobantesComidaAlojamientoController">
             <result>/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
             <result name="input">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>
             <result name="error">/Administrativo/AlojamientoIniciarSolicitud.jsp</result>

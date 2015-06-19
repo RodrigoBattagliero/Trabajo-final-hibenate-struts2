@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+    <package name="LiquidacionDeHaberes" extends="struts-default" namespace="/LiquidacionDeHaberes">
+         <interceptors> 
+            <interceptor name="authenticationInterceptor" class="interceptor.AuthenticationInterceptor" />
+            <interceptor name="rolesInterceptor" class="interceptor.RolesInterceptor" />
+            
+            <interceptor-stack name="defaultSecurityInterceptor">
+                <interceptor-ref name="defaultStack" />                
+                <interceptor-ref name="authenticationInterceptor">
+                    <param name="excludeActions">LoginAction</param>
+                </interceptor-ref>
+                <interceptor-ref name="rolesInterceptor">
+                    <param name="roleActions">
+                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
+                        liquidación de haberes:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
+                    </param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+        
+        <default-interceptor-ref name="defaultSecurityInterceptor" />
+        
+        <global-results>
+            <result name="authentication_required" type="redirect">/index</result>
+            <result name="authorization_required" type="redirect">/index</result>
+        </global-results>
+        
+       <action name="index" >
+           <result>/LiquidacionDeHaberes/index.jsp</result>
+       </action>
+       
+       <action name="logout" class="action.LoginAction" method="logout">
+            <result type="redirect">/index</result>
+        </action>
+       
+       <!-- Listar expedientes -->
+       <action name="ExpedientesList" class="controller.LiquidacionDeHaberesController" method="setExpedientes">
+           <result>/LiquidacionDeHaberes/ListadoExpedientes.jsp</result>
+       </action>
+       <action name="ExpedienteDetalle" class="controller.LiquidacionDeHaberesController" method="setExpediente">
+           <result >/LiquidacionDeHaberes/ExpedienteDetalle.jsp</result>
+       </action>
+       <action name="ConfirmarTodos" class="controller.LiquidacionDeHaberesController" method="confirmarTodos">
+           <result type="redirectAction">Guardar</result>
+       </action> 
+       <action name="Guardar" class="action.RegistrosUnicosAction" >
+           <result type="redirectAction">index</result>
+       </action>
+    </package>
+</struts>

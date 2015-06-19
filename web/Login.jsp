@@ -39,8 +39,9 @@
                 </div>
                 <div class="col-sm-3"></div>
             </div>
-            
-            
+                  <s:if test="#session.test == 'back'">
+                      <s:a action="menu">Continuar</s:a>
+                  </s:if>
         </div>
     </body>
 </html>

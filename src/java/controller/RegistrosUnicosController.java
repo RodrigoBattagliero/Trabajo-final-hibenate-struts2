@@ -23,6 +23,7 @@ import model.entities.Solicitudes;
 import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -153,6 +154,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setSolicitudesACompletar(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         setAreaLogueada();
         dao.iniciaOperacion();
         Usuarios user = new Usuarios();
@@ -216,6 +222,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setRegistrosAConfirmar(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         String res = SUCCESS;
         setAreaLogueada();
         Usuarios user = new Usuarios();
@@ -228,6 +239,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setRegistrosAConfirmarActividadesInterior(){
+        
+            // Eliminar datos de sesion
+            SesionRemove sR = new SesionRemove();
+            sR.removeAllSession(this.sesion);
+        
         String res = SUCCESS;
         idAreaSelected = 4;
         Usuarios user = new Usuarios();
@@ -240,6 +256,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setRegistrosExpediente(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         String res = SUCCESS;
         setAreaLogueada();
         this.dao.iniciaOperacion();
@@ -257,6 +278,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setSolicitudesActividadDocente(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         Usuarios user = new Usuarios();
         user = (Usuarios) this.sesion.getAttribute("user");
         dao.iniciaOperacion();
@@ -284,6 +310,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     
     public String setHistorialSolicutdes(){
         
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         setAreaLogueada();
         Usuarios user = new Usuarios();
         user = (Usuarios) this.sesion.getAttribute("user");
@@ -294,6 +324,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setSolicitudesDevueltas(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         this.dao.iniciaOperacion();
         this.entities = this.dao.selectDevueltas();
         this.dao.cerrarSession();
@@ -301,6 +336,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setSolicitudesDevueltasAreas(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         setAreaLogueada();
         this.dao.iniciaOperacion();
         this.entities = this.dao.selectDevueltasAreas(this.getAreaLogueada());
@@ -319,7 +359,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String setMensajes(){
-        // setRegistrosAConfirmar
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         setAreaLogueada();
         cantidadSolicitudesCompletar = 0;
         cantidadSolicitudesDevueltas = 0;
@@ -348,6 +392,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     }
     
     public String consultarRegistro(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+
         this.dao.iniciaOperacion();
         this.entities = this.dao.consultarRegistro(this.nombreDocente,this.apellidoDocente,this.fechaDePresentacion);
         this.dao.cerrarSession();
@@ -421,6 +470,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     public String crear(){
         
         this.entity.setEstados(getEstado());
+        idAreaSelected = 1;
         this.entity.setAreas(getArea());
         this.entity.setConfirmado(true);
         this.entity.setId(0);
@@ -638,6 +688,13 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         AreasController es = new AreasController();
         es.select();
         listAreas = es.getEntities();
+    }
+    
+    public void selectFromParametros(Areas area,Estados estado){
+        RegistrosUnicosDAO dao = new RegistrosUnicosDAO();
+        dao.iniciaOperacion();
+        this.entities = dao.selectFromParametros(area, estado);
+        dao.cerrarSession();
     }
 
     @Override

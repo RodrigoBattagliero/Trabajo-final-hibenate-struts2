@@ -16,5 +16,11 @@
       </key>
       <one-to-many class="model.entities.RegistrosUnicos"/>
     </set>
+    <set fetch="select" inverse="true" lazy="true" name="expedienteses" table="expedientes">
+      <key>
+        <column name="id_estado" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.Expedientes"/>
+    </set>
   </class>
 </hibernate-mapping>

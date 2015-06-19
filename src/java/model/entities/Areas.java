@@ -16,6 +16,7 @@ public class Areas  implements java.io.Serializable {
      private Integer orden;
      private Set registrosUnicoses = new HashSet(0);
      private Set usuarioses = new HashSet(0);
+     private Set expedienteses = new HashSet(0);
 
     public Areas() {
     }
@@ -63,7 +64,13 @@ public class Areas  implements java.io.Serializable {
         this.usuarioses = usuarioses;
     }
 
+    public Set getExpedienteses() {
+        return expedienteses;
+    }
 
+    public void setExpedienteses(Set expedienteses) {
+        this.expedienteses = expedienteses;
+    }
 
 
 }

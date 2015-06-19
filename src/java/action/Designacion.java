@@ -17,6 +17,7 @@ import model.entities.Designaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -71,6 +72,9 @@ public class Designacion extends ActionSupport implements ServletRequestAware {
 //            System.out.println(e);
 //        }
         
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
         
         return res;
     }

@@ -39,4 +39,21 @@ public class ExpedientesSolicitudesDAO extends DAO {
         }
         return list;
     }
+    
+    public List<ExpedientesSolicitudes> selectFromExpediente(int idExpediente){
+        List<ExpedientesSolicitudes> list = null;
+        try{
+//            iniciaOperacion();
+            String sql = "FROM " +tableName+" AS exSol "
+                    + " INNER JOIN FETCH exSol.solicitudes s "
+                    + " INNER JOIN FETCH s.docenteses "
+                    + " INNER JOIN FETCH s.comprobanteses "
+                    + " INNER JOIN FETCH s.liquidacioneses "
+                    + "WHERE exSol.expedientes = " + idExpediente;
+            list = sesion.createQuery(sql).list();
+        }finally{
+//            sesion.close();
+        }
+        return list;
+    }
 }

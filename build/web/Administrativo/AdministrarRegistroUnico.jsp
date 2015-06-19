@@ -18,7 +18,7 @@
         <div class="container">
             <s:include value="partes/menu.jsp" />
             <h1 class="page-header">Administrar regitro único</h1>
-            <s:form action="administrarRegistroUnico">
+            <s:form action="administrarRegistroUnico" theme="simple">
                 <div class="form-group">
                     <label>Número de solicitud</label>
                     <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true" class="form-control" />

@@ -16,6 +16,7 @@ import model.entities.Expedientes;
 import model.entities.ExpedientesSolicitudes;
 import model.entities.RegistrosUnicos;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -64,6 +65,11 @@ public class ExpedientesAction extends ActionSupport implements ServletRequestAw
                 res = ERROR;
             regUniController.getDao().cerrarSession();
         }
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
         return res;
     }
     

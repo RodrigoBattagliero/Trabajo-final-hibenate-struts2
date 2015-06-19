@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.entities.Areas;
+import model.entities.Estados;
 import model.entities.RegistrosUnicos;
 import model.entities.Sedes;
 import model.entities.Solicitudes;
@@ -184,6 +185,12 @@ public class RegistrosUnicosDAO extends DAO {
                     + " WHERE "
                         + " ru.areas = " + area.getId()
                         + " AND ru.solicitudes.sedes = "+ sede.getId();
+            String sql2 = ""
+                    + "FROM Solicitudes AS so "
+                    + "INNER JOIN FECHT so.docenteses "
+                    + "WHERE "
+                        + " so.sedes = " + sede.getId() 
+                        + " so.registrosUnicos.areas = " + area.getId();
             list = sesion.createQuery(sql).list();
 //            List<Object[]> aux =  sesion.createQuery(sql).list();
 //            list = new ArrayList();
@@ -288,6 +295,21 @@ public class RegistrosUnicosDAO extends DAO {
             a = null;
         }
         return a;
+    }
+    
+    public List<RegistrosUnicos> selectFromParametros(Areas area,Estados estado) {
+        List<RegistrosUnicos> list1;
+        try{
+            String sql = "FROM " + tableName + " AS ru "
+                    + "INNER JOIN FETCH ru.estados es "
+                    + "INNER JOIN FETCH ru.solicitudes s "
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = " + estado.getId();
+            Query q = sesion.createQuery(sql);
+            list1 = q.list();
+        }catch(NullPointerException e){
+            list1 = null;
+        }
+        return list1;
     }
 
 }

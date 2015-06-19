@@ -16,9 +16,9 @@ import model.dao.ExpedientesDAO;
 import model.entities.Expedientes;
 import model.entities.ExpedientesSolicitudes;
 import model.entities.RegistrosUnicos;
-import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ParameterAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -83,7 +83,7 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
         Expedientes expe = null;
         int cant = parametros.size();
         if(cant > 0){
-            expe = new Expedientes(0, numeroExpediente, fecha, null);
+            expe = new Expedientes(0, numeroExpediente, fecha,areaController.getEntity(),estController.getEntity(), null);
         }
         for (String key : parametros.keySet()) {
             String value[] = parametros.get(key);
@@ -106,6 +106,11 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
     }
     
     public String listarExpedientes(){
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
        String res = SUCCESS;
        this.dao.iniciaOperacion();
        this.entities = this.dao.selectExpedientes();

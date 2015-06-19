@@ -19,6 +19,7 @@ import model.entities.ActividadDocentes;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -56,6 +57,10 @@ public class ActividadDocente extends ActionSupport implements ServletRequestAwa
         if(!reg1.getDao().update(registroUnico1))
             res = ERROR;
         reg1.getDao().cerrarSession();
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
         
         return res;
     }

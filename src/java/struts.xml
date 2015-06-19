@@ -26,7 +26,7 @@ and open the template in the editor.
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
                         *: LoginAction;
-                        administrador:menu,ogagtd,docentes;
+                        administrador:menu,ogagtd,docentes,pdf;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -54,7 +54,10 @@ and open the template in the editor.
             <result name="dirección académica administrativa" type="redirectAction">/Bedel/index</result>
             <result name="rendición de cuentas" type="redirectAction">/RendicionDeCuentas/index</result>
             <result name="secretaría administrativo-financiera" type="redirectAction">/SecretariaAdministrativoFinanciera/index</result>
-            <result name="administrador" type="redirectAction">menu</result>
+            <result name="dirección económico-financiera" type="redirectAction">/DireccionEconomicoFinanciera/index</result>
+            <result name="liquidación de haberes" type="redirectAction">/LiquidacionDeHaberes/index</result>
+            <result name="tesorería" type="redirectAction">/Tesoreria/index</result>
+            <result name="administrador" type="redirectAction">pdf</result>
         </action>
         
         <action name="menu">
@@ -69,6 +72,18 @@ and open the template in the editor.
             <result>/docentes.jsp</result>
         </action>
         
+        
+        <action name="pdf" class="reports.Reportes">
+            <result type="stream" >
+                <param name="contentType">application/pdf</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+            <result name="back" type="redirectAction">
+                menu
+            </result>
+        </action>
+        
     </package>
     
     <include file="struts-administrativo.xml" />
@@ -77,5 +92,7 @@ and open the template in the editor.
     <include file="struts-bedel.xml" />
     <include file="struts-rendiciondecuentas.xml" />
     <include file="struts-secretariaadministrativofinanciera.xml" />
-    
+    <include file="struts-direccioneconomicofinanciera.xml" />
+    <include file="struts-liquidaciondehaberes.xml" />
+    <include file="struts-tesoreria.xml" />
 </struts>

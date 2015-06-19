@@ -15,15 +15,19 @@ public class Expedientes  implements java.io.Serializable {
      private int id;
      private String numeroExpediente;
      private Date fecha;
+     private Estados estados;
+     private Areas areas;
      private Set expedientesSolicitudeses = new HashSet(0);
 
     public Expedientes() {
     }
 
-    public Expedientes(int id,String numeroExpediente, Date fecha, Set expedientesSolicitudeses) {
+    public Expedientes(int id,String numeroExpediente, Date fecha,Areas area,Estados estado, Set expedientesSolicitudeses) {
        this.id = id;
        this.numeroExpediente = numeroExpediente;
        this.fecha = fecha;
+       this.estados = estado;
+       this.areas = area;
        this.expedientesSolicitudeses = expedientesSolicitudeses;
     }
    
@@ -54,6 +58,22 @@ public class Expedientes  implements java.io.Serializable {
     
     public void setExpedientesSolicitudeses(Set expedientesSolicitudeses) {
         this.expedientesSolicitudeses = expedientesSolicitudeses;
+    }
+
+    public Estados getEstados() {
+        return estados;
+    }
+
+    public void setEstados(Estados estados) {
+        this.estados = estados;
+    }
+
+    public Areas getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Areas areas) {
+        this.areas = areas;
     }
 
 

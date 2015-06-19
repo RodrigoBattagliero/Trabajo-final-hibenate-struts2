@@ -15,7 +15,6 @@ import controller.SolicitudesController;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import model.dao.ActividadDocentesDAO;
 import model.dao.ComprobantesTrasladosDAO;
 import model.entities.Comprobantes;
 import model.entities.ComprobantesComidaAlojamientos;
@@ -24,6 +23,7 @@ import model.entities.Docentes;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.SesionRemove;
 
 /**
  *
@@ -126,6 +126,10 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         if(reg2.getDao().create(registroUnico2) == 0)
             res = ERROR;
         reg2.getDao().cerrarSession();
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
         
         return res;
     }

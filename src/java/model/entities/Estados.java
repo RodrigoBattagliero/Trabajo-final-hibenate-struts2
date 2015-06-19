@@ -14,6 +14,7 @@ public class Estados  implements java.io.Serializable {
      private int id;
      private String nombre;
      private Set registrosUnicoses = new HashSet(0);
+     private Set expedienteses = new HashSet(0);
 
     public Estados() {
     }
@@ -46,7 +47,13 @@ public class Estados  implements java.io.Serializable {
         this.registrosUnicoses = registrosUnicoses;
     }
 
+    public Set getExpedienteses() {
+        return expedienteses;
+    }
 
+    public void setExpedienteses(Set expedienteses) {
+        this.expedienteses = expedienteses;
+    }
 
 
 }

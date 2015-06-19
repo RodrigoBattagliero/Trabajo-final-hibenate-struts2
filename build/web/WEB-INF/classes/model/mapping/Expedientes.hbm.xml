@@ -13,6 +13,12 @@
     <property name="fecha" type="date">
       <column length="13" name="fecha"/>
     </property>
+    <many-to-one class="model.entities.Estados" fetch="select" name="estados">
+      <column name="id_estado"/>
+    </many-to-one>
+    <many-to-one class="model.entities.Areas" fetch="select" name="areas">
+      <column name="id_area"/>
+    </many-to-one>
     <set fetch="select" inverse="true" lazy="true" name="expedientesSolicitudeses" table="expedientes_solicitudes">
       <key>
         <column name="id_expediente" not-null="true"/>
