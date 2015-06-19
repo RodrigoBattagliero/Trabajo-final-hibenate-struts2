@@ -33,18 +33,18 @@
                         <tbody>
                             <!--
                             <tr >
-                                <td><s:textfield name="alojamientoComprobantesImporte" label="Importe" /></td>
-                                <td><s:textfield name="alojamientoComprobantesNumeroComprobante" label="Número de comprobante" /></td>
-                                <td><s:textfield name="alojamientoComprobantesNroveedor" label="Proveedor" /></td>
+                                <td><s:textfield name="alojamientoComprobantesImporte" label="Importe" class="form-control" /></td>
+                                <td><s:textfield name="alojamientoComprobantesNumeroComprobante" label="Número de comprobante" class="form-control" /></td>
+                                <td><s:textfield name="alojamientoComprobantesNroveedor" label="Proveedor" class="form-control" /></td>
                                 <td>
-                                    <select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo">
+                                    <select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo" class="form-control">
                                         <option value="1">Comida</option>
                                         <option value="2">Combustible</option>
                                         <option value="3">Alojamiemto</option>
                                     </select>
                                 </td>
-                                <td><s:textarea name="alojamientoDescripcion" label="Descripción" /></td>
-                                <td><s:textarea name="alojamientoComprobantesObservaciones" label="Observaciones" /></td>
+                                <td><s:textarea name="alojamientoDescripcion" label="Descripción" class="form-control" /></td>
+                                <td><s:textarea name="alojamientoComprobantesObservaciones" label="Observaciones" class="form-control" /></td>
                             </tr>
                             -->
                         </tbody>
@@ -60,7 +60,7 @@
                     {
                         $("#btnAgregar").click(function() 
                         {
-                            var tr = '<tr class="fila"><td><input type="text" name="alojamientoComprobantesImporte" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesImporte"/></td><td><input type="text" name="alojamientoComprobantesNumeroComprobante" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNumeroComprobante"/></td><td><input type="text" name="alojamientoComprobantesNroveedor" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNroveedor"/></td><td><select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo"><option value="1">Comida</option><option value="2">Combustible</option><option value="3">Alojamiemto</option></select></td><td><textarea name="alojamientoDescripcion" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoDescripcion"></textarea></td><td><textarea name="alojamientoComprobantesObservaciones" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoComprobantesObservaciones"></textarea></td></tr>';
+                            var tr = '<tr class="fila" ><td><input type="text" name="alojamientoComprobantesImporte" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesImporte" class="form-control"/></td><td><input type="text" name="alojamientoComprobantesNumeroComprobante" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNumeroComprobante" class="form-control"/></td><td><input type="text" name="alojamientoComprobantesNroveedor" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNroveedor" class="form-control"/></td><td><select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo" class="form-control"><option value="1">Comida</option><option value="2">Combustible</option><option value="3">Alojamiemto</option></select></td><td><textarea name="alojamientoDescripcion" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoDescripcion" class="form-control"></textarea></td><td><textarea name="alojamientoComprobantesObservaciones" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoComprobantesObservaciones" class="form-control"></textarea></td></tr>';
                             $("tbody").append(tr);
                         });
                         $("#btnEliminar").click(function()

@@ -66,13 +66,12 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
             ConfirmarSolicitudesReporte reporteDatos = new ConfirmarSolicitudesReporte();
             reporteDatos.setListRegistros(registros);
             
-                String ruta = ServletActionContext.getServletContext().getRealPath("/solicitudes_confirmadas.jasper");
+                String ruta = ServletActionContext.getServletContext().getRealPath("/SolicitudesConfirmadas/solicitudes_confirmadas.jasper");
                 String ruta2 = ServletActionContext.getServletContext().getRealPath("/");
                 JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(reporte,null,reporteDatos);
-                JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2+"/solicitud_confirmadas3.pdf");
-//                File pdf = File.createTempFile("output.", ".pdf");
-//                JasperExportManager.exportReportToPdfStream(jasperPrint, new FileOutputStream(pdf));
+                JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2+"/SolicitudesConfirmadas/solicitud_confirmadas.pdf");
+
             
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();

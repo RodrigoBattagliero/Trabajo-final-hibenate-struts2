@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css" />
         <title>JSP Page</title>
     </head>
     <body>
@@ -25,7 +26,7 @@
                     <s:textfield name="entity.dni" label="DNI" class="form-control" />
                     <span class="input-group-btn" >
                         <button class="btn btn-default" type="button">
-                            <i class="fa fa-search">B</i>
+                            <i class="fa fa-search"></i>
                         </button>
                     </span>
                 </div>

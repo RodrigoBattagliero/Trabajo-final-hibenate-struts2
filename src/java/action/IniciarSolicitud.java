@@ -12,6 +12,7 @@ import controller.ComprobantesTrasladosController;
 import controller.DocentesController;
 import controller.RegistrosUnicosController;
 import controller.SolicitudesController;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,15 @@ import model.entities.ComprobantesTraslados;
 import model.entities.Docentes;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import reports.ConfirmarSolicitudesReporte;
+import reports.ConstanciaDePresentacion;
 import resources.SesionRemove;
 
 /**
@@ -41,6 +50,7 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
     public String execute(){
         
         String res = SUCCESS;
+        int cantidadComprobantes = 0;
         
         SolicitudesController sol = new SolicitudesController();
         Solicitudes solicitud = new Solicitudes();
@@ -65,6 +75,9 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         List<ComprobantesTraslados> listTraslado = (List) sesion.getAttribute("ComprobanteTraslado");
         if(listTraslado != null){
             for(ComprobantesTraslados traslado : listTraslado){
+                
+                cantidadComprobantes++;
+                
                 ComprobantesController com = new ComprobantesController();
                 Comprobantes comprobantes = new Comprobantes();
                 comprobantes = (Comprobantes)traslado.getComprobantes();
@@ -88,6 +101,8 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         List<ComprobantesComidaAlojamientos> listAlojamiento = (List) sesion.getAttribute("ComprobanteAlojamiento");
         if(listAlojamiento != null){
             for(ComprobantesComidaAlojamientos alojamiento : listAlojamiento){
+                
+                cantidadComprobantes++;
                 
                 ComprobantesController com = new ComprobantesController();
                 Comprobantes comprobantes = new Comprobantes();
@@ -126,6 +141,28 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         if(reg2.getDao().create(registroUnico2) == 0)
             res = ERROR;
         reg2.getDao().cerrarSession();
+        
+        ConstanciaDePresentacion constancia = new ConstanciaDePresentacion();
+        constancia.setApellido(docente.getApellido());
+        constancia.setCantComprobantes(cantidadComprobantes);
+        constancia.setFechaAlta(solicitud.getFechaAlta());
+        constancia.setFechaFin(docente.getFechaFinalizacion());
+        constancia.setFechaInicio(docente.getFechaInicio());
+        constancia.setNombre(docente.getNombre());
+        constancia.setNumSolicitud(solicitud.getNumeroSolicitud());
+        
+        try{
+            String ruta = ServletActionContext.getServletContext().getRealPath("/ConstanciasDePresentacion/constancia_de_presentacion.jasper");
+            String ruta2 = ServletActionContext.getServletContext().getRealPath("/");
+            ruta2 += "/ConstanciasDePresentacion/"+docente.getApellido()+"_"+docente.getNombre() +"_" + String.valueOf(solicitud.getNumeroSolicitud()) +"_" + solicitud.getFechaAlta() + ".pdf";
+            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte,null,constancia);
+            JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2);
+        }catch(Exception e){
+            
+        
+        }
+        
         
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();

@@ -21,27 +21,27 @@
             <s:actionerror />
             <s:fielderror />
             <s:form action="RegistroUnicoPrepare" theme="simple">
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Fecha de entrada</label>
                     <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" class="form-control fecha" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Area</label>
                     <s:select list="#@java.util.TreeMap@{'2':'Profesor'}" label="Area" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Estado</label>
                     <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Confirmado</label>
                     <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Observaciones</label>
                     <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <s:submit value="Guardar" class="btn" />
                 </div>
             </s:form>

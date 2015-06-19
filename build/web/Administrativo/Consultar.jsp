@@ -18,19 +18,19 @@
         <div class="container">
             <s:include value="partes/menu.jsp" />
             <s:form action="Consultar" theme="simple">
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Nombre del docente</label>
                     <s:textfield name="nombreDocente" label="Nombre del docente" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Apellido del docente</label>
                     <s:textfield name="apellidoDocente" label="Apellido del docente" class="form-control" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <label>Fecha de presentación</label>
                     <s:textfield name="fechaDePresentacion" label="Fecha de presentación" class="form-control fecha" />
                 </div>
-                <div class="form-group input-group">
+                <div class="form-group">
                     <s:submit value="Consultar" class="btn" />
                 </div>
             </s:form>
