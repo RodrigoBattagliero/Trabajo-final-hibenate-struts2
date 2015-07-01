@@ -5,7 +5,7 @@
  */
 package kakan.dao;
 
-import conexion.HibernateUtilKakan;
+import conexion.HibernateUtil;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -23,7 +23,7 @@ public class DAO {
     protected Object entitie;
     
     public void iniciaOperacion() throws HibernateException{
-        sesion = HibernateUtilKakan.getSessionFactory().openSession();
+        sesion = HibernateUtil.getSessionFactory().openSession();
         tx = sesion.beginTransaction();
     }
     

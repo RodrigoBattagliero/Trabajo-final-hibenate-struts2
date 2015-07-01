@@ -6,7 +6,6 @@
 package conexion;
 
 import java.net.URL;
-import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -18,7 +17,7 @@ import org.hibernate.service.ServiceRegistry;
  *
  * @author rodrigo
  */
-public class HibernateUtilKakan {
+public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     
@@ -26,7 +25,7 @@ public class HibernateUtilKakan {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
-            URL resource = HibernateUtil.class.getResource("/hibernate_kakan.cfg.xml");
+            URL resource = HibernateUtil.class.getResource("/hibernate.cfg.xml");
             Configuration configuration = new Configuration().configure(resource);
             StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
             serviceRegistryBuilder.applySettings(configuration.getProperties());
