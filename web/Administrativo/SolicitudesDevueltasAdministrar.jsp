@@ -38,7 +38,7 @@
 		</div>
                 <div class="form-group">
                     <label>Estado</label>
-                    <s:select list="#@java.util.TreeMap@{'4':'Imputable a la administración'}" name="idEstadoSelected" label="Estado" class="form-control" />
+                    <s:select list="#@java.util.TreeMap@{'9':'Devuelta'}" name="idEstadoSelected" label="Estado" class="form-control" />
 		</div>
                 <div class="form-group">
                     <label>Observaciones</label>

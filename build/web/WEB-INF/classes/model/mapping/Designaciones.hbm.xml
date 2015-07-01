@@ -22,14 +22,14 @@
     <property name="hasta" type="date">
       <column length="13" name="hasta"/>
     </property>
-    <property name="dedicacion" type="string">
-      <column name="dedicacion"/>
-    </property>
-    <property name="idComision" type="int">
-      <column name="id_comision"/>
-    </property>
     <property name="observaciones" type="string">
       <column name="observaciones"/>
+    </property>
+    <property name="idDesignacion" type="int">
+      <column name="id_designacion"/>
+    </property>
+    <property name="fecNorma" type="date">
+      <column length="13" name="fec_norma"/>
     </property>
     <set fetch="select" inverse="true" lazy="true" name="actividadDocenteses" table="actividad_docentes">
       <key>

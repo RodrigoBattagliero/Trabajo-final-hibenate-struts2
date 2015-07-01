@@ -13,105 +13,141 @@ public class ActividadDocentes  implements java.io.Serializable {
      private int id;
      private Designaciones designaciones;
      private Date fecha;
-     private String asignatura;
-     private Boolean visadoBedelia;
      private String observaciones;
-     private int idUnidadAcademica;
-     private String idMateria;
+     private Boolean visadoBedelia;
+     private int comision;
+     private String unidadAcademica;
+     private String nombreUnidadAcademica;
      private String carrera;
-     private int idComision;
+     private String nombreCarrera;
+     private String plan;
+     private String materia;
+     private String nombreMateria;
 
     public ActividadDocentes() {
     }
 
-	
-    public ActividadDocentes(Designaciones designaciones) {
+    public ActividadDocentes(int id, Designaciones designaciones, Date fecha, String observaciones, Boolean visadoBedelia, int Comision, String UnidadAcademica, String nombreUnidadAcademica, String carrera, String nombreCarrera, String plan, String materia, String nombreMateria) {
+        this.id = id;
         this.designaciones = designaciones;
+        this.fecha = fecha;
+        this.observaciones = observaciones;
+        this.visadoBedelia = visadoBedelia;
+        this.comision = Comision;
+        this.unidadAcademica = UnidadAcademica;
+        this.nombreUnidadAcademica = nombreUnidadAcademica;
+        this.carrera = carrera;
+        this.nombreCarrera = nombreCarrera;
+        this.plan = plan;
+        this.materia = materia;
+        this.nombreMateria = nombreMateria;
     }
-    public ActividadDocentes(Designaciones designaciones, Date fecha, String asignatura, Boolean visadoBedelia, String observaciones, int idUnidadAcademica, String idMateria, String carrera, int idComision) {
-       this.designaciones = designaciones;
-       this.fecha = fecha;
-       this.asignatura = asignatura;
-       this.visadoBedelia = visadoBedelia;
-       this.observaciones = observaciones;
-       this.idUnidadAcademica = idUnidadAcademica;
-       this.idMateria = idMateria;
-       this.carrera = carrera;
-       this.idComision = idComision;
-    }
-   
+
     public int getId() {
-        return this.id;
+        return id;
     }
-    
+
     public void setId(int id) {
         this.id = id;
     }
+
     public Designaciones getDesignaciones() {
-        return this.designaciones;
+        return designaciones;
     }
-    
+
     public void setDesignaciones(Designaciones designaciones) {
         this.designaciones = designaciones;
     }
+
     public Date getFecha() {
-        return this.fecha;
+        return fecha;
     }
-    
+
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    public String getAsignatura() {
-        return this.asignatura;
-    }
-    
-    public void setAsignatura(String asignatura) {
-        this.asignatura = asignatura;
-    }
-    public Boolean getVisadoBedelia() {
-        return this.visadoBedelia;
-    }
-    
-    public void setVisadoBedelia(Boolean visadoBedelia) {
-        this.visadoBedelia = visadoBedelia;
-    }
+
     public String getObservaciones() {
-        return this.observaciones;
+        return observaciones;
     }
-    
+
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    public int getIdUnidadAcademica() {
-        return this.idUnidadAcademica;
+
+    public Boolean getVisadoBedelia() {
+        return visadoBedelia;
     }
-    
-    public void setIdUnidadAcademica(int idUnidadAcademica) {
-        this.idUnidadAcademica = idUnidadAcademica;
+
+    public void setVisadoBedelia(Boolean visadoBedelia) {
+        this.visadoBedelia = visadoBedelia;
     }
-    public String getIdMateria() {
-        return this.idMateria;
+
+    public int getComision() {
+        return comision;
     }
-    
-    public void setIdMateria(String idMateria) {
-        this.idMateria = idMateria;
+
+    public void setComision(int Comision) {
+        this.comision = Comision;
     }
+
+    public String getUnidadAcademica() {
+        return unidadAcademica;
+    }
+
+    public void setUnidadAcademica(String UnidadAcademica) {
+        this.unidadAcademica = UnidadAcademica;
+    }
+
+    public String getNombreUnidadAcademica() {
+        return nombreUnidadAcademica;
+    }
+
+    public void setNombreUnidadAcademica(String nombreUnidadAcademica) {
+        this.nombreUnidadAcademica = nombreUnidadAcademica;
+    }
+
     public String getCarrera() {
-        return this.carrera;
+        return carrera;
     }
-    
+
     public void setCarrera(String carrera) {
         this.carrera = carrera;
     }
-    public int getIdComision() {
-        return this.idComision;
+
+    public String getNombreCarrera() {
+        return nombreCarrera;
     }
+
+    public void setNombreCarrera(String nombreCarrera) {
+        this.nombreCarrera = nombreCarrera;
+    }
+
+    public String getPlan() {
+        return plan;
+    }
+
+    public void setPlan(String plan) {
+        this.plan = plan;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
+
+    public String getNombreMateria() {
+        return nombreMateria;
+    }
+
+    public void setNombreMateria(String nombreMateria) {
+        this.nombreMateria = nombreMateria;
+    }
+     
     
-    public void setIdComision(int idComision) {
-        this.idComision = idComision;
-    }
-
-
 
 
 }

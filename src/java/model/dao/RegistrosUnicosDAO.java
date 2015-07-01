@@ -153,7 +153,7 @@ public class RegistrosUnicosDAO extends DAO {
         RegistrosUnicos reg = null;
         List<RegistrosUnicos> list = null;
         try{
-            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND es <> 4 AND ru.confirmado = FALSE AND s = d.solicitudes AND ru.solicitudes.sedes = "+ sede.getId();
+            String sql = "FROM "+tableName+" AS ru INNER JOIN ru.estados es INNER JOIN ru.solicitudes s INNER JOIN s.docenteses d WHERE ru.areas = "+area.getId()+" AND es <> 1 AND ru.confirmado = FALSE AND s = d.solicitudes AND ru.solicitudes.sedes = "+ sede.getId(); // AND es <> 4
             Query q = sesion.createQuery(sql);
             list = q.list();
         }catch(NullPointerException e){
@@ -271,7 +271,7 @@ public class RegistrosUnicosDAO extends DAO {
                     + "INNER JOIN FETCH ru.estados es "
                     + "INNER JOIN FETCH ru.solicitudes s "
                     + "INNER JOIN FETCH s.docenteses d "
-                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 4";
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 4 AND confirmado = TRUE";
             Query q = sesion.createQuery(sql);
             list1 = q.list();
         }catch(NullPointerException e){

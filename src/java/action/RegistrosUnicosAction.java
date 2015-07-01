@@ -6,23 +6,22 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import controller.ReSolConController;
+import controller.ReSolConDetallesController;
 import controller.RegistrosUnicosController;
 import controller.SolicitudesController;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import static javassist.bytecode.InstructionPrinter.print;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.entities.ReSolCon;
+import model.entities.ReSolConDetalles;
 import model.entities.RegistrosUnicos;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import org.apache.struts2.ServletActionContext;
+import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import reports.ConfirmarSolicitudesReporte;
+import resources.DateManager;
 import resources.SesionRemove;
 
 /**
@@ -62,16 +61,28 @@ public class RegistrosUnicosAction extends ActionSupport implements ServletReque
             }
         }
         
-            
-            ConfirmarSolicitudesReporte reporteDatos = new ConfirmarSolicitudesReporte();
-            reporteDatos.setListRegistros(registros);
-            
-                String ruta = ServletActionContext.getServletContext().getRealPath("/SolicitudesConfirmadas/solicitudes_confirmadas.jasper");
-                String ruta2 = ServletActionContext.getServletContext().getRealPath("/");
-                JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(reporte,null,reporteDatos);
-                JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2+"/SolicitudesConfirmadas/solicitud_confirmadas.pdf");
-
+        // Reportes
+        ReSolCon reporte = new ReSolCon();
+        reporte.setFecha(new Date());
+        reporte.setUsuarios((Usuarios) sesion.getAttribute("user"));
+        ReSolConController reportesController = new ReSolConController();
+        int idReporte;
+        reportesController.getDao().iniciaOperacion();
+        idReporte = reportesController.getDao().create(reporte);
+        reportesController.getDao().cerrarSession();
+        reportesController.selectOne(idReporte);
+        // Reportes detalles
+        if(idReporte > 0){
+            for(RegistrosUnicos re : registros){
+                ReSolConDetalles repo = new ReSolConDetalles();
+                repo.setReSolCon((ReSolCon) reportesController.getEntity());
+                repo.setRegistrosUnicos(re);
+                ReSolConDetallesController repoController = new ReSolConDetallesController();
+                repoController.getDao().iniciaOperacion();
+                repoController.getDao().create(repo);
+                repoController.getDao().cerrarSession();
+            }
+        }
             
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();

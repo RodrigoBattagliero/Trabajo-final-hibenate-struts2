@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 17, 2015 2:44:50 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class name="model.entities.ReSolCon" optimistic-lock="version" schema="public" table="re_sol_con">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="fecha" type="timestamp">
+      <column name="fecha"/>
+    </property>
+    <many-to-one class="model.entities.Usuarios" fetch="select" name="usuarios">
+      <column name="id_usuario" not-null="true"/>
+    </many-to-one>
+    
+    <set fetch="select" inverse="true" lazy="true" name="reSolConDetalleses" table="re_sol_con_detalles">
+      <key>
+        <column name="id_re_sol_con" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ReSolConDetalles"/>
+    </set>
+  </class>
+</hibernate-mapping>

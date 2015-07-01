@@ -28,5 +28,12 @@
     <property name="observaciones" type="string">
       <column name="observaciones"/>
     </property>
+    
+    <set fetch="select" inverse="true" lazy="true" name="reSolConDetalleses" table="re_sol_con_detalles">
+      <key>
+        <column name="id_registros_unicos" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ReSolConDetalles"/>
+    </set>
   </class>
 </hibernate-mapping>

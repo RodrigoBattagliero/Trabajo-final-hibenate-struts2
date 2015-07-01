@@ -24,6 +24,7 @@ public class OgagtdController extends ActionSupport {
     private String dni;
     private Date fecha;
     private int comision;
+    private int idDesignacion;
     
     public OgagtdController() {
         OgagtdDAO model = new OgagtdDAO();
@@ -52,6 +53,15 @@ public class OgagtdController extends ActionSupport {
     public void setComision(int comision) {
         this.comision = comision;
     }
+
+    public int getIdDesignacion() {
+        return idDesignacion;
+    }
+
+    public void setIdDesignacion(int idDesignacion) {
+        this.idDesignacion = idDesignacion;
+    }
+    
     
     @Override
     public String execute(){
@@ -64,6 +74,11 @@ public class OgagtdController extends ActionSupport {
         OgagtdDAO model = new OgagtdDAO();
         this.entities = model.selectParameter(this.dni, this.fecha,this.comision);
         return SUCCESS;
+    }
+    
+    public void selectFromDesignacion(){
+        OgagtdDAO model = new OgagtdDAO();
+        this.entities = model.selectFromDesignacion(idDesignacion);
     }
     
     public Object getModel(){

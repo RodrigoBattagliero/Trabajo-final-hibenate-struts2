@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import kakan.controller.OgagtdController;
 import kakan.entities.VOgagtd;
 import model.dao.ActividadDocentesDAO;
 import model.entities.ActividadDocentes;
+import model.entities.Designaciones;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
@@ -24,6 +26,95 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     private HttpServletRequest request;
     private HttpSession sesion;
     private int id;
+    private String[] unidadAcademica;
+    private String[] carrera;
+    private int[] comision;
+    private String[] materia;
+    private String[] nombreCarrera;
+    private String[] nombreMateria;
+    private String[] plan;
+    private String[] nombreUnidadAcademica;
+    private Date[] fecha;
+    private String[] observaciones;
+    private String[] visadoBedelia;
+    private int[] idDesignacion;
+
+    public void setUnidadAcademica(String[] unidadAcademica) {
+        this.unidadAcademica = unidadAcademica;
+    }
+
+    public void setCarrera(String[] carrera) {
+        this.carrera = carrera;
+    }
+
+    public void setMateria(String[] materia) {
+        this.materia = materia;
+    }
+
+    public void setNombreUnidadAcademica(String[] nombreUnidadAcademica) {
+        this.nombreUnidadAcademica = nombreUnidadAcademica;
+    }
+
+    public void setNombreCarrera(String[] nombreCarrera) {
+        this.nombreCarrera = nombreCarrera;
+    }
+
+    public void setNombreMateria(String[] nombreMateria) {
+        this.nombreMateria = nombreMateria;
+    }
+
+    public void setPlan(String[] plan) {
+        this.plan = plan;
+    }
+
+    public void setComision(int[] comision) {
+        this.comision = comision;
+    }
+
+    public void setFecha(Date[] fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setObservaciones(String[] observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public void setVisadoBedelia(String[] visadoBedelia) {
+        this.visadoBedelia = visadoBedelia;
+    }
+
+    public void setIdDesignacion(int[] idDesignacion) {
+        this.idDesignacion = idDesignacion;
+    }
+
+    public String procesar(){
+        int cant = materia.length;
+        this.entities = new ArrayList();
+        for(int i = 0; i < cant; i++){
+            if(fecha[i] != null && visadoBedelia[i].equals("si")){
+                entity = new ActividadDocentes();
+                entity.setCarrera(carrera[i]);
+                entity.setComision(comision[i]);
+                entity.setFecha(fecha[i]);
+                entity.setMateria(materia[i]);
+                entity.setNombreCarrera(nombreCarrera[i]);
+                entity.setNombreMateria(nombreMateria[i]);
+                entity.setNombreUnidadAcademica(nombreUnidadAcademica[i]);
+                entity.setObservaciones(observaciones[i]);
+                entity.setPlan(plan[i]);
+                entity.setUnidadAcademica(unidadAcademica[i]);
+                entity.setVisadoBedelia(Boolean.TRUE);
+                
+                DesignacionesController de = new DesignacionesController();
+                de.selectOne(idDesignacion[i]);
+                entity.setDesignaciones(de.getEntity());
+                
+                entities.add(entity);
+            }
+        }
+        this.sesion.setAttribute("ActividadDocenteForm", this.entities);
+        return SUCCESS;
+    }
     
     public ActividadDocentesController() {
         dao = (ActividadDocentesDAO) new ActividadDocentesDAO();
@@ -135,21 +226,21 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
         try{
             vO.setDni(docCon.getEntities().get(0).getDni());
             vO.setFecha(solCon.getEntity().getFechaAlta());
-            vO.setComision(desCon.getEntity().getIdComision());
+//            vO.setComision(desCon.getEntity().getIdComision());
             vO.selectFromComision();
         }catch(Exception e){
             
         }
         if(vO.getEntities().size() == 1){
             VOgagtd o = vO.getEntities().get(0);
-            this.entity.setAsignatura(o.getNombreMateria());
+//            this.entity.setAsignatura(o.getNombreMateria());
             this.entity.setCarrera(o.getCarrera());
             //this.entity.setDesignaciones();
             //this.entity.setFecha();
             //this.entity.setId();
-            this.entity.setIdComision(o.getComision());
-            this.entity.setIdMateria(o.getMateria());
-            this.entity.setIdUnidadAcademica(o.getIdUnidadAcademica());
+//            this.entity.setIdComision(o.getComision());
+//            this.entity.setIdMateria(o.getMateria());
+//            this.entity.setIdUnidadAcademica(o.getIdUnidadAcademica());
             //this.entity.setObservaciones();
             //this.entity.setVisadoBedelia();
         }else if(vO.getEntities().size() > 1){
@@ -193,4 +284,5 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
 //        }
         return b;
     }
+    
 }

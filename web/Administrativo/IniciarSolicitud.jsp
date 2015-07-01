@@ -12,6 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css" />
         <title>JSP Page</title>
     </head>
     <body>

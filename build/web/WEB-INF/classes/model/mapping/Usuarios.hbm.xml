@@ -22,5 +22,12 @@
     <property name="user" type="string">
       <column name="user"/>
     </property>
+    
+    <set fetch="select" inverse="true" lazy="true" name="reSolCones" table="re_sol_con">
+      <key>
+        <column name="id_usuarios" not-null="true"/>
+      </key>
+      <one-to-many class="model.entities.ReSolCon"/>
+    </set>
   </class>
 </hibernate-mapping>

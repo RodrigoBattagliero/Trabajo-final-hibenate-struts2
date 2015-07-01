@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -323,6 +324,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         return SUCCESS;
     }
     
+    // Solicituds para la OGAGTD, para que las mande al area correspondiente.
     public String setSolicitudesDevueltas(){
         
         // Eliminar datos de sesion

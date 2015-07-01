@@ -44,8 +44,10 @@ public class ActividadDocente extends ActionSupport implements ServletRequestAwa
         for(ActividadDocentes actDoc : actList){
             ActividadDocentesController actController = new ActividadDocentesController();
             actController.setEntity(actDoc);
+//            actController.getDao().iniciaOperacion();
             if(actController.save().equals("error"))
                 res = ERROR;
+//            actController.getDao().cerrarSession();
         }
         
         RegistrosUnicosController reg1 = new RegistrosUnicosController();

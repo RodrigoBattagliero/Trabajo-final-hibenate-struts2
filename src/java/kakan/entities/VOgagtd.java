@@ -74,6 +74,28 @@ public class VOgagtd  implements java.io.Serializable {
     public VOgagtd() {
     }
 
+    public VOgagtd(Integer id,String nombreCategoria, String nroResolucion, Date fecNorma, Date fechaInicio, Date fechaFin) {
+        this.id = id;
+        this.nombreCategoria = nombreCategoria;
+        this.nroResolucion = nroResolucion;
+        this.fecNorma = fecNorma;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+    }
+
+    public VOgagtd(Integer comision, String unidadAcademica, String nombreUnidadAcademica, String carrera, String nombreCarrera, String plan, String materia, String nombreMateria) {
+        this.comision = comision;
+        this.unidadAcademica = unidadAcademica;
+        this.nombreUnidadAcademica = nombreUnidadAcademica;
+        this.carrera = carrera;
+        this.nombreCarrera = nombreCarrera;
+        this.plan = plan;
+        this.materia = materia;
+        this.nombreMateria = nombreMateria;
+    }
+    
+   
+    
     public VOgagtd(String idCategoria, String estado, String categoriaInvestigacion, String idCaracterLiquidacion, Integer idPeriodo, Integer nro, Integer anioAcademico, String periodo, Integer comision, Integer id, Long idDocente, Short idDepartamento, String nombreDpto, Short idUnidadAcademica, String nombreSede, String apellido, String nombre, String dni, String tipoDocumento, String documento, String nombreCategoria, String cargo, String dedicacion, String resComp, String nombreCaracter, String unidadAcademica, String nombreUnidadAcademica, String carrera, String nombreCarrera, String plan, String nroResolucion, String materia, String nombreMateria, Integer anio, String periodoLectivo, String reg, String extension, String emisorNorma, String norma, Long nroNorma, Date fecNorma, String actExtension, String proyInvestigacion, String actGestion, String formRrhh, String observaciones, String descripcionProyectoInvestigacion, String descripcionProyectoExtencion, String descripcionActividadGestion, String descripcionRrhh, Date fechaInicio, Date fechaFin, Integer aumentoDedicacion, String tipoDedicacion, String info, String estadoActual, String instituto, String leyenda, String ambitoLaboral, String centroInvestigacion, String dptoMateria) {
        this.idCategoria = idCategoria;
        this.estado = estado;

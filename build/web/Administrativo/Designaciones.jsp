@@ -27,8 +27,8 @@
                             <td>Categoria</td>
                             <td>Desde</td>
                             <td>Hasta</td>
-                            <td>Dedicacion</td>
-                            <td>Comisión</td>
+                            <td>Id designación</td>
+                            <td>Fecha de norma</td>
                             <td>observaciones</td>
                             <td>Seleccionar</td>
                         </tr>
@@ -40,8 +40,8 @@
                             <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" /></td>
                             <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control"  /></td>
                             <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control"  /></td>
-                            <td><s:textfield name="dedicacion" value="%{#designacion.dedicacion}" label="Dedicacion" class="form-control" /></td>
-                            <td><s:textfield name="idComision" value="%{#designacion.idComision}" label="Comisión" class="form-control" /></td>
+                            <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" /></td>
+                            <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" /></td>
                             <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" /></td>
                             <td><s:select list="{'no','si'}" name="seleccionado" /></td>
                             </tr>

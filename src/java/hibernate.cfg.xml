@@ -25,5 +25,7 @@
     <mapping resource="model/mapping/Expedientes.hbm.xml"/>
     <mapping resource="model/mapping/Usuarios.hbm.xml"/>
     <mapping resource="model/mapping/ComprobantesComidaAlojamientos.hbm.xml"/>
+    <mapping resource="model/mapping/ReSolCon.hbm.xml"/>
+    <mapping resource="model/mapping/ReSolConDetalles.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

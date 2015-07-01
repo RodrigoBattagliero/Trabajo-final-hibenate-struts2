@@ -22,8 +22,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
-                        dirección académica administrativa:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
+                        administrador:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc;
+                        dirección académica administrativa:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -51,6 +51,10 @@ and open the template in the editor.
         <action name="DesignacionesActividadForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud" >
             <result>/Bedel/DesignacionesSolicitudForm.jsp</result>
         </action>
+        <action name="setActDoc" class="controller.ActividadDocentesController" method="procesar"  >
+            <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
+        </action>
+        <!--
         <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
             <result >/Bedel/ActividadEfectivaDocente.jsp</result>
         </action>
@@ -60,6 +64,7 @@ and open the template in the editor.
             <result name="error">/Bedel/ActividadEfectivaDocente.jsp</result>
             <result name="input">/Bedel/ActividadEfectivaDocente.jsp</result>
         </action>
+        -->
         <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
             <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
             <result name="input">/Bedel/AdministrarRegistroUnico.jsp</result>

@@ -18,27 +18,24 @@ public class Designaciones  implements java.io.Serializable {
      private String categoria;
      private Date desde;
      private Date hasta;
-     private String dedicacion;
      private String observaciones;
-     private int idComision;
+     private int idDesignacion;
+     private Date fecNorma;
      private Set actividadDocenteses = new HashSet(0);
 
     public Designaciones() {
     }
 
-	
-    public Designaciones(Solicitudes solicitudes) {
+    public Designaciones(int id, Solicitudes solicitudes, String numeroResolucion, String categoria, Date desde, Date hasta, String observaciones, int idDesignacion, Date fecNorma) {
+        this.id = id;
         this.solicitudes = solicitudes;
-    }
-    public Designaciones(Solicitudes solicitudes, String numeroResolucion, String categoria, Date desde, Date hasta, String dedicacion, String observaciones, Set actividadDocenteses) {
-       this.solicitudes = solicitudes;
-       this.numeroResolucion = numeroResolucion;
-       this.categoria = categoria;
-       this.desde = desde;
-       this.hasta = hasta;
-       this.dedicacion = dedicacion;
-       this.observaciones = observaciones;
-       this.actividadDocenteses = actividadDocenteses;
+        this.numeroResolucion = numeroResolucion;
+        this.categoria = categoria;
+        this.desde = desde;
+        this.hasta = hasta;
+        this.observaciones = observaciones;
+        this.idDesignacion = idDesignacion;
+        this.fecNorma = fecNorma;
     }
    
     public int getId() {
@@ -83,21 +80,6 @@ public class Designaciones  implements java.io.Serializable {
     public void setHasta(Date hasta) {
         this.hasta = hasta;
     }
-    public String getDedicacion() {
-        return this.dedicacion;
-    }
-    
-    public void setDedicacion(String dedicacion) {
-        this.dedicacion = dedicacion;
-    }
-
-    public int getIdComision() {
-        return idComision;
-    }
-
-    public void setIdComision(int idComision) {
-        this.idComision = idComision;
-    }
     
     public String getObservaciones() {
         return this.observaciones;
@@ -106,6 +88,23 @@ public class Designaciones  implements java.io.Serializable {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
+
+    public int getIdDesignacion() {
+        return idDesignacion;
+    }
+
+    public void setIdDesignacion(int idDesignacion) {
+        this.idDesignacion = idDesignacion;
+    }
+
+    public Date getFecNorma() {
+        return fecNorma;
+    }
+
+    public void setFecNorma(Date fecNorma) {
+        this.fecNorma = fecNorma;
+    }
+    
     public Set getActividadDocenteses() {
         return this.actividadDocenteses;
     }
@@ -114,7 +113,7 @@ public class Designaciones  implements java.io.Serializable {
         this.actividadDocenteses = actividadDocenteses;
     }
 
-
+    
 
 
 }

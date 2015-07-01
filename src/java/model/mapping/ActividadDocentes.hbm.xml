@@ -13,26 +13,36 @@
     <property name="fecha" type="date">
       <column length="13" name="fecha"/>
     </property>
-    <property name="asignatura" type="string">
-      <column name="asignatura"/>
-    </property>
     <property name="visadoBedelia" type="java.lang.Boolean">
       <column name="visado_bedelia"/>
     </property>
     <property name="observaciones" type="string">
       <column name="observaciones"/>
     </property>
-    <property name="idUnidadAcademica" type="int">
-      <column length="10" name="id_unidad_academica"/>
+    <property name="comision" type="int">
+      <column length="10" name="comision"/>
     </property>
-    <property name="idMateria" type="string">
-      <column length="10" name="id_materia"/>
+    <property name="unidadAcademica" type="string">
+      <column length="10" name="unidad_academica"/>
+    </property>
+    <property name="nombreUnidadAcademica" type="string">
+      <column length="100" name="nombre_unidad_academica"/>
     </property>
     <property name="carrera" type="string">
       <column length="100" name="carrera"/>
     </property>
-    <property name="idComision" type="int">
-      <column length="10" name="id_comision"/>
+    <property name="nombreCarrera" type="string">
+      <column length="100" name="nombre_carrera"/>
     </property>
+    <property name="plan" type="string">
+      <column length="10" name="plan"/>
+    </property>
+    <property name="materia" type="string">
+      <column length="10" name="materia"/>
+    </property>
+    <property name="nombreMateria" type="string">
+      <column length="100" name="nombre_materia"/>
+    </property>
+    
   </class>
 </hibernate-mapping>

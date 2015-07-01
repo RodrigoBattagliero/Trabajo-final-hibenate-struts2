@@ -1,6 +1,10 @@
 package model.entities;
 // Generated 12-Jun-2015 00:00:28 by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 
 /**
@@ -15,7 +19,8 @@ public class Usuarios  implements java.io.Serializable {
      private String nombre;
      private String password;
      private String user;
-
+     private Set reSolCones = new HashSet(0);
+     
     public Usuarios() {
     }
 
@@ -75,8 +80,15 @@ public class Usuarios  implements java.io.Serializable {
         this.user = user;
     }
 
+    public Set getReSolCones() {
+        return reSolCones;
+    }
 
-
+    public void setReSolCones(Set regSolCones) {
+        this.reSolCones = regSolCones;
+    }
+    
+    
 
 }
 

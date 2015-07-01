@@ -152,9 +152,9 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         constancia.setNumSolicitud(solicitud.getNumeroSolicitud());
         
         try{
-            String ruta = ServletActionContext.getServletContext().getRealPath("/ConstanciasDePresentacion/constancia_de_presentacion.jasper");
+            String ruta = ServletActionContext.getServletContext().getRealPath("/Reportes/ConstanciasDePresentacion/constancia_de_presentacion.jasper");
             String ruta2 = ServletActionContext.getServletContext().getRealPath("/");
-            ruta2 += "/ConstanciasDePresentacion/"+docente.getApellido()+"_"+docente.getNombre() +"_" + String.valueOf(solicitud.getNumeroSolicitud()) +"_" + solicitud.getFechaAlta() + ".pdf";
+            ruta2 += "/Reportes/ConstanciasDePresentacion/"+docente.getApellido()+"_"+docente.getNombre() +"_" + String.valueOf(solicitud.getNumeroSolicitud()) +"_" + solicitud.getFechaAlta() + ".pdf";
             JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
             JasperPrint jasperPrint = JasperFillManager.fillReport(reporte,null,constancia);
             JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2);

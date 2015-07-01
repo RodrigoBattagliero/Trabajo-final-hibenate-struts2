@@ -18,4 +18,6 @@
   <table-filter match-name="expedientes_solicitudes"/>
   <table-filter match-name="solicitudes"/>
   <table-filter match-name="designaciones"/>
+  <table-filter match-name="re_sol_con"/>
+  <table-filter match-name="re_sol_con_detalles"/>
 </hibernate-reverse-engineering>

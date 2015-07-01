@@ -23,11 +23,12 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <td>Número Resolución</td>
+                        <td>Número de Resolución</td>
                         <td>Categoria</td>
                         <td>Desde</td>
                         <td>Hasta</td>
-                        <td>Dedicación</td>
+                        <td>Id designación</td>
+                        <td>Fecha de normas</td>
                         <td>Observaciones</td>
                         <td>Acciones</td>
                     </tr>
@@ -39,7 +40,8 @@
                             <td><s:property value="#designacion.categoria" /></td>
                             <td><s:property value="#designacion.desde" /></td>
                             <td><s:property value="#designacion.hasta" /></td>
-                            <td><s:property value="#designacion.dedicacion" /></td>
+                            <td><s:property value="#designacion.idDesignacion" /></td>
+                            <td><s:property value="#designacion.fecNorma" /></td>
                             <td><s:property value="#designacion.observaciones" /></td>
                             <td>
                                 <s:url var="url1" action="DesignacionUpdateSelected">
@@ -65,7 +67,8 @@
                                 <td>Categoria</td>
                                 <td>Desde</td>
                                 <td>Hasta</td>
-                                <td>Dedicación</td>
+                                <td>Id designación</td>
+                                <td>Fecha de norma</td>
                                 <td>Observaciones</td>
                             </tr>
                         </thead>
@@ -76,7 +79,8 @@
                                     <td><s:textfield name="entity.categoria" class="form-control" /></td>
                                     <td><s:textfield name="entity.desde" class="fecha form-control" /></td>
                                     <td><s:textfield name="entity.hasta" class="fecha form-control" /></td>
-                                    <td><s:textfield name="entity.dedicacion" class="form-control" /></td>
+                                    <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" /></td>
+                                    <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" /></td>
                                     <td><s:textarea name="entity.observaciones" class="form-control" /></td>
                                 </tr>
                                 <tr>
