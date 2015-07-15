@@ -14,10 +14,11 @@
         <title>Dirección académica administrativa</title>
     </head>
     <body>
-        <div class="container">
-		
+        <div class="container">                
             <s:include value="partes/menu.jsp" />
-            
+            <ol class="breadcrumb">
+                <li class="active">Inicio</li>
+            </ol>
             <h1 class="page-header">Bienvenido</h1>
             
             

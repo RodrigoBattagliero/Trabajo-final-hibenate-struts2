@@ -103,9 +103,9 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
         SolicitudesDAO dao = new SolicitudesDAO();
         dao.iniciaOperacion();
         id = dao.selectMaxNumSol(user.getEntity().getSedes().getId());
+        dao.cerrarSession();
         this.sedesList = new ArrayList();
         this.sedesList.add(user.getEntity().getSedes());
-        dao.cerrarSession();
         this.entity.setNumeroSolicitud(++id);
         this.entity.setFechaAlta(new Date());
         return SUCCESS;

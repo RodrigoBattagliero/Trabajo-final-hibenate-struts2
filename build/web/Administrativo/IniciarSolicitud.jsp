@@ -10,14 +10,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css" />
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Iniciar solicitud</li>
+            </ol>
             <s:if test="entity.id" >
                 <h1 class="page-header">Editar solicitud</h1>
                 <s:set var="url">SolicitudUpdate</s:set>
@@ -51,7 +54,7 @@
                     <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <s:submit value="Guardar" class="btn btn-default" />
+                    <s:submit value="Guardar" class="btn btn-primary" />
                 </div>
             </s:form>
             <%@include file="partes/footer.jsp" %>

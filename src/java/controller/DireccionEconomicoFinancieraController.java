@@ -8,16 +8,18 @@ package controller;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.ExpedientesDAO;
+import model.entities.Docentes;
 import model.entities.Expedientes;
 import model.entities.ExpedientesSolicitudes;
+import model.entities.Liquidaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ServletRequestAware;
-import resources.SesionRemove;
 
 /**
  *
@@ -36,6 +38,7 @@ public class DireccionEconomicoFinancieraController extends ActionSupport implem
     private ExpedientesSolicitudesController expSolCon;
     private List<Expedientes> expedientes;
     private Expedientes expediente;
+    private List<Object> detalle;
 
 
     public List<Expedientes> getExpedientes() {
@@ -61,6 +64,10 @@ public class DireccionEconomicoFinancieraController extends ActionSupport implem
     public void setSolicitudes(List<ExpedientesSolicitudes> solicitudes) {
         this.solicitudes = solicitudes;
     }
+
+    public List<Object> getDetalle() {
+        return detalle;
+    }
     
     
     public String setExpedientes(){
@@ -79,6 +86,7 @@ public class DireccionEconomicoFinancieraController extends ActionSupport implem
     public String setExpediente(){
         String res = SUCCESS;
         int idExpediente;
+        this.detalle = new ArrayList();
         try{
             idExpediente = Integer.parseInt(String.valueOf(this.request.getParameter("idExpedienteSelected")));
             this.sesion.setAttribute("idExpedienteSelected", idExpediente);
@@ -89,6 +97,23 @@ public class DireccionEconomicoFinancieraController extends ActionSupport implem
         this.expSolCon.getDao().iniciaOperacion();
         this.solicitudes =   this.expSolCon.getDao().selectFromExpediente(idExpediente);
         this.expSolCon.getDao().cerrarSession();
+        for(ExpedientesSolicitudes ru : this.solicitudes){
+            Object a[][] = new Object[1][3];
+            a[0][0] = ru.getSolicitudes();
+            Iterator it = ru.getSolicitudes().getDocenteses().iterator();
+            Iterator it2 = ru.getSolicitudes().getLiquidacioneses().iterator();
+            Docentes d = new Docentes();
+            while(it.hasNext()){
+                d = (Docentes) it.next();
+            }
+            Liquidaciones liq = new Liquidaciones();
+            while(it2.hasNext()){
+                liq = (Liquidaciones) it2.next();
+            }
+            a[0][1] = d;
+            a[0][2] = liq;
+            this.detalle.add(a[0]);
+        }
         return res;
     }
     

@@ -19,7 +19,7 @@ public class Designaciones  implements java.io.Serializable {
      private Date desde;
      private Date hasta;
      private String observaciones;
-     private int idDesignacion;
+     private Integer idDesignacion;
      private Date fecNorma;
      private Set actividadDocenteses = new HashSet(0);
 
@@ -42,7 +42,7 @@ public class Designaciones  implements java.io.Serializable {
         return this.id;
     }
     
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public Solicitudes getSolicitudes() {
@@ -89,11 +89,11 @@ public class Designaciones  implements java.io.Serializable {
         this.observaciones = observaciones;
     }
 
-    public int getIdDesignacion() {
+    public Integer getIdDesignacion() {
         return idDesignacion;
     }
 
-    public void setIdDesignacion(int idDesignacion) {
+    public void setIdDesignacion(Integer idDesignacion) {
         this.idDesignacion = idDesignacion;
     }
 

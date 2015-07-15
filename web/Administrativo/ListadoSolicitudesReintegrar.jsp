@@ -16,14 +16,19 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes devueltas</a></li>
+                <li class="active">Solicitudes a reintegrar</li>
+            </ol>
             <h1 class="page-header">Seleccionar solicitud</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>N° Solicitud</td>
-                        <td>Docente</td>
-                        <td>Fecha de presentación</td>
-                        <td>Acciones</td>
+                    <tr class="success">
+                        <th>N° Solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha de presentación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,21 +38,17 @@
                             <td><s:property value="#solicitud.solicitudes.docenteses[0].nombre" /></td>
                             <td><s:property value="#solicitud.solicitudes.fechaAlta" /></td>
                             <td>
-                                <s:url var="url1" action="SolicitudesDevueltasAdministrar">
+                                <s:url var="url1" action="EditarForm">
                                     <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
                                 </s:url>
-                                <s:url var="url2" action="ConsultarDetalle">
-                                    <s:param name="idSolicitudSelected" value="%{#solicitud.solicitudes.id}"></s:param>
-                                </s:url>
-                                <s:a href="%{url1}" class="btn" >Administrar</s:a>
-                                <s:a href="%{url2}" class="btn" >Detalle</s:a>
+                                <s:a href="%{url1}" class="btn" >Completar</s:a>
                             </td>
                         </tr>
                     </s:iterator>
                 </tbody>
-             </table>
+            </table>
             
-            <%@include file="partes/footer.jsp" %>
+            <s:include value="partes/footer.jsp" />
         </div>
     </body>
 </html>

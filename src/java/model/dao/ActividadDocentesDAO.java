@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,14 +30,14 @@ public class ActividadDocentesDAO extends DAO {
     
     @Override
     public List<Object> selectRelated(Object key) {
-        List<Object> list = null;
-        String idStr = String.valueOf(key);
+        List<Object> list = new ArrayList();
+
         try{
 //            iniciaOperacion();
             String sql = "FROM " + tableName + " t WHERE t.designaciones = " + (int) key;
             list = sesion.createQuery(sql).list();
-        }finally{
-//            sesion.close();
+        }catch(Exception e){
+            list = new ArrayList();
         }
         return list;
     }

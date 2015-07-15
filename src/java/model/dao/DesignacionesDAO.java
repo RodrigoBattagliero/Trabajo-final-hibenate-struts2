@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import model.entities.Designaciones;
 
@@ -44,11 +45,27 @@ public class DesignacionesDAO extends DAO {
     public List<Designaciones> selectRelatedAll(Object key) {
         List<Designaciones> list;
         try{
-            String sql = "FROM " + tableName + " AS de INNER JOIN FETCH de.actividadDocenteses AS act WHERE de.solicitudes = " + (int) key;
+            String sql = "SELECT DISTINCT de FROM " + tableName + " AS de INNER JOIN FETCH de.actividadDocenteses AS act WHERE de.solicitudes = " + (int) key;
             list = sesion.createQuery(sql).list();
         }catch(Exception e){
             list = null;
         }
         return list;
+    }
+    
+    public List<Designaciones> selectRelatedAllSimple(Object key) {
+        List<Designaciones> list = new ArrayList();
+        try{
+            String sql = "FROM " + tableName + " AS de WHERE de.solicitudes = " + (int) key;
+            list = sesion.createQuery(sql).list();
+        }catch(Exception e){
+            list = null;
+        }
+        return list;
+    }
+    
+    public void deleteAll(int idSol){
+        this.sesion.createQuery("DELETE FROM " + tableName + " AS d WHERE  d.solicitudes = " + idSol);
+        tx.commit();
     }
 }

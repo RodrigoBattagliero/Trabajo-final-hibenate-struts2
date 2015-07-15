@@ -19,10 +19,12 @@
                   </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <li><s:a namespace="/Bedel" action="index" >Inicio</s:a></li>
                         <li><s:a namespace="/Bedel" action="SolicitudesActividadDocenteForm">Solcitudes a completar</s:a></li>
                         <li><s:a namespace="/Bedel" action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
                         <li><s:a namespace="/Bedel" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
                         <li><s:a namespace="/Bedel" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                        <li><s:a namespace="/Bedel" action="Reportes">Reportes</s:a></li>
                         <li><s:a namespace="/Bedel" action="logout">Salir</s:a></li>
                     </ul>
                 </div>

@@ -10,19 +10,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Dirección académica administrativa</title>
         <link rel="stylesheet" type="text/css" href="../css/style.css" />
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Historial de solicitudes procesadas</li>
+            </ol>
             <h1 class="page-header">Solicitudes</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <td>N solicitud</td>
-                    <td>Docente</td>
-                    <td>Fecha de presentación</td>
+                    <tr class="success">
+                        <th>N solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha de presentación</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <s:iterator value="entities" var="list">

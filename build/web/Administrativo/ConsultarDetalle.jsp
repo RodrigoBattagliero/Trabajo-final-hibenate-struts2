@@ -11,16 +11,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Consultar solicitudes</a></li>
+                <li class="active">Detalle</li>
+            </ol>
             <h1 class="page-header">Detalle</h1>
-            <h2>Solicitud</h2>
-            <table class="table table-striped">
+            <h4>Solicitud</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
+                    <tr class="success">
                         <th>N° de solicitud</th>
                         <th>Fecha de presentación</th>
                         <th>Sede</th>
@@ -35,16 +40,17 @@
                 </tbody>
             </table>
             <!-- Registro unico -->
-            <h2>Registro unico</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Registro unico</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <th>Fecha entrada</th>
-                    <th>Fecha salida</th>
-                    <th>Area</th>
-                    <th>Estado</th>
-                    <th>Confirmado</th>
-                    <th>Observaciones</th>
+                    <tr class="success">
+                        <th>Fecha entrada</th>
+                        <th>Fecha salida</th>
+                        <th>Area</th>
+                        <th>Estado</th>
+                        <th>Confirmado</th>
+                        <th>Observaciones</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <s:iterator value="#session.RegistroUnico" var="reg">
@@ -60,11 +66,10 @@
                 </tbody>
             </table>
             <!-- Docente -->
-            <h2>Docente</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Docente</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
+                    <tr class="success">
                         <th>Apellido y nombre</th>
                         <th>Depto academico</th>
                         <th>DNI</th>
@@ -78,6 +83,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <s:if test="#session.Docentes[0]">
                     <tr>
                         <td><s:property value="#session.Docentes[0].apellido" />, <s:property value="#session.Docentes[0].nombre" /></td>
                         <td><s:property value="#session.Docentes[0].departamentosAcademicos.nombre" /></td>
@@ -90,24 +96,33 @@
                         <td><s:property value="#session.Docentes[0].fechaFinalizacion" /></td>
                         <td><s:property value="#session.Docentes[0].observaciones" /></td>
                     </tr>
+                    </s:if>
+                    <s:else>
+                        <tr>
+                            <td colspan="10">No hay datos</td>
+                        </tr>
+                    </s:else>
                 </tbody>
             </table>
             <!-- Traslado -->
-            <h2>Traslado</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Traslado</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <th>Numero comprobante</th>
-                    <th>Importe</th>
-                    <th>Proveedor</th>
-                    <th>Desde</th>
-                    <th>Hasta</th>
-                    <th>Fecha y hora salida</th>
-                    <th>Fecha y hora de regreso</th>
-                    <th>Observaciones</th>
+                    <tr class="success">
+                        <th>Numero comprobante</th>
+                        <th>Importe</th>
+                        <th>Proveedor</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Fecha y hora salida</th>
+                        <th>Fecha y hora de regreso</th>
+                        <th>Observaciones</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <s:set name="b" value="0" />
                     <s:iterator value="#session.Traslados" var="tras">
+                        <s:set name="b" value="1" />
                         <tr>
                             <td><s:property value="#tras.comprobantes.numeroComprobante" /></td>
                             <td><s:property value="#tras.comprobantes.importe" /></td>
@@ -119,23 +134,32 @@
                             <td><s:property value="#tras.comprobantes.observaciones" /></td>
                         </tr>
                     </s:iterator>
+                    <s:if test="#b == 0">
+                        <tr>
+                            <td colspan="8">
+                                No hay datos.
+                            </td>
+                        </tr>
+                    </s:if>
                 </tbody>
             </table>
             <!-- Alojamiento -->
-            <h2>Alojamiento</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Alojamiento</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <th>Numero comprobante</th>
-                    <th>Importe</th>
-                    <th>Proveedor</th>
-                    <th>Tipo</th>
-                    <th>Descripción</th>
-                    <th>Observaciones</th>
+                    <tr class="success">
+                        <th>Numero comprobante</th>
+                        <th>Importe</th>
+                        <th>Proveedor</th>
+                        <th>Tipo</th>
+                        <th>Descripción</th>
+                        <th>Observaciones</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <s:set name="b" value="0" />
                     <s:iterator value="#session.Alojamientos" var="alo">
-                    <a href="index.jsp"></a>
+                        <s:set name="b" value="1" />
                         <tr>
                             <td><s:property value="#alo.comprobantes.numeroComprobante" /></td>
                             <td><s:property value="#alo.comprobantes.importe" /></td>
@@ -145,23 +169,33 @@
                             <td><s:property value="#alo.comprobantes.observaciones" /></td>
                         </tr>
                     </s:iterator>
+                    <s:if test="#b == 0">
+                        <tr>
+                            <td colspan="6">
+                                No hay datos.
+                            </td>
+                        </tr>
+                    </s:if>
                 </tbody>
             </table>
             <!-- Designaciones -->
-            <h2>Desiganciones</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Desiganciones</h4>
+            <table class="table table-striped table-hover">
                 <thead>
-                    <th>N° resolución</th>
-                    <th>Categoría</th>
-                    <th>Desde</th>
-                    <th>Hasta</th>
-                    <th>Dedicación</th>
-                    <th>Observaciones</th>
+                    <tr >
+                        <th>N° resolución</th>
+                        <th>Categoría</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Dedicación</th>
+                        <th>Observaciones</th>
+                    </tr>
                 </thead>
                 <tbody>
+                    <s:set name="b" value="0" />
                     <s:iterator value="#session.Designaciones" var="des">
-                        <tr>
+                        <s:set name="b" value="1" />
+                        <tr class="success">
                             <td><s:property value="#des.numeroResolucion" /></td>
                             <td><s:property value="#des.categoria" /></td>
                             <td><s:property value="#des.desde" /></td>
@@ -169,43 +203,58 @@
                             <td><s:property value="#des.dedicacion" /></td>
                             <td><s:property value="#des.descripcion" /></td>
                         </tr>
+                        <s:set name="b1" value="0" />
                         <s:iterator value="#des.actividadDocenteses" var="act" >
+                            <s:set name="b1" value="1" />
                             <tr>
-                        <table class="table table-striped">
-                            <thead>
-                                <th>Fecha</th>
-                                <th>Asignatura</th>
-                                <th>Unidad academica</th>
-                                <th>Materia</th>
-                                <th>Carrera</th>
-                                <th>Comision</th>
-                                <th>Visado bedelia</th>
-                                <th>Observaciones</th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><s:property value="#act.fecha" /></td>
-                                    <td><s:property value="#act.asignatura" /></td>
-                                    <td><s:property value="#act.idUnidadAcademica" /></td>
-                                    <td><s:property value="#act.idMateria" /></td>
-                                    <td><s:property value="#act.carrera" /></td>
-                                    <td><s:property value="#act.idComision" /></td>
-                                    <td><s:property value="#act.visadoBedelia" /></td>
-                                    <td><s:property value="#act.observaciones" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                <td colspan="7">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <th>Fecha</th>
+                                            <th>Asignatura</th>
+                                            <th>Unidad academica</th>
+                                            <th>Carrera</th>
+                                            <th>Comision</th>
+                                            <th>Plan</th>
+                                            <th>Observaciones</th>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><s:property value="#act.fecha" /></td>
+                                                <td><s:property value="#act.nombreMateria" /></td>
+                                                <td><s:property value="#act.nombreUnidadAcademica" /></td>
+                                                <td><s:property value="#act.nombreCarrera" /></td>
+                                                <td><s:property value="#act.comision" /></td>
+                                                <td><s:property value="#act.plan" /></td>
+                                                <td><s:property value="#act.observaciones" /></td>
+                                            </tr>
+                                            <s:if test="#b1 == 0">
+                                                <tr>
+                                                    <td colspan="7">
+                                                        No hay datos.
+                                                    </td>
+                                                </tr>
+                                            </s:if>
+                                        </tbody>
+                                    </table>
+                                </td>
                             </tr>
                         </s:iterator>
                     </s:iterator>
+                    <s:if test="#b == 0">
+                        <tr>
+                            <td colspan="6">
+                                 No hay datos.
+                            </td>
+                        </tr>
+                    </s:if>
                 </tbody>
             </table>
             <!-- Liquidaciones -->
-            <h2>Liquidaciones</h2>
-            <hr />
-            <table class="table table-striped">
+            <h4>Liquidaciones</h4>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
+                    <tr class="success">
                         <th>R. gasto comida</th>
                         <th>R. gasto alojamiento</th>
                         <th>R. gasto combustible</th>
@@ -216,6 +265,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <s:if test="#session.Liquidaciones[0]">
                     <tr>
                         <td><s:property value="#session.Liquidaciones[0].reconocimientoGastoComida" /></td>
                         <td><s:property value="#session.Liquidaciones[0].reconocimientoGastoAlojamiento.nombre" /></td>
@@ -225,6 +275,13 @@
                         <td><s:property value="#session.Liquidaciones[0].reconocimientoImporteTotal" /></td>
                         <td><s:property value="#session.Liquidaciones[0].observaciones" /></td>
                     </tr>
+                    </s:if>
+                    <s:else>
+                        <tr>
+                            <td colspan="7">No hay datos</td>
+                        </tr>
+                    </s:else>
+                    
                 </tbody>
             </table>
                     

@@ -10,32 +10,38 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="../css/style.css" />
+        <title></title>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap-theme.css" />
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1 class="page-header">Solicitudes</h1>
-            <table class="table table-striped">
-                <thead>
-                    <td>N solicitud</td>
-                    <td>Docente</td>
-                    <td>Fecha de presentación</td>
-                </thead>
-                <tbody>
-                    <s:iterator value="entities" var="list">
-                        <tr>
-                            <td><s:property value="#list[0].solicitudes.numeroSolicitud" /></td>
-                            <td><s:property value="#list[1].nombre" /></td>
-                            <td><s:property value="#list[0].solicitudes.fechaAlta" /></td>
-                        </tr>
-                    </s:iterator>
-                </tbody>
-            </table>
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Historial del solicitudes procesadas</li>
+            </ol>
+            <h1 class="page-header">Historial solicitudes procesadas</h1>
+            <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="success">
+                    <th>N solicitud</th>
+                    <th>Docente</th>
+                    <th>Fecha de presentación</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <s:iterator value="historial" var="list">
+                    <tr>
+                        <td><s:property value="#list[0].solicitudes.numeroSolicitud" /></td>
+                        <td><s:property value="#list[1].nombre" /></td>
+                        <td><s:property value="#list[0].solicitudes.fechaAlta" /></td>
+                    </tr>
+                </s:iterator>
+            </tbody>
+        </table>
             
-            <%@include file="partes/footer.jsp" %>
+        <%@include file="partes/footer.jsp" %>
         </div>
     </body>
 </html>

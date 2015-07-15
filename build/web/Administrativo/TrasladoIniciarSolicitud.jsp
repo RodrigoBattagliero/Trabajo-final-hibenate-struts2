@@ -17,7 +17,12 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-                <h1>Datos de traslado</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Iniciar solicitud</a></li>
+                <li class="active">Datos de traslado</li>
+            </ol>
+            <h1 class="page-header">Datos de traslado</h1>
                 <s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>
 
                    <s:fielderror />
@@ -50,16 +55,16 @@
                              </tr>
                                 -->
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td><button type="button" id="btnAgregar" class="btn btn-success">Agregar elemento</button></td>
+                                    <td><button type="button" id="btnEliminar" class="btn btn-danger">Eliminar último elemento</button></td>
+                                    <td colspan="2"><s:a action="RegistroUnicoForm" class="btn btn-warning">Continuar sin agregar datos de pasajes</s:a></td>
+                                    <td><s:submit value="Guardar" class="btn btn-primary" /></td>
+                                </tr>
+                            </tfoot>
                      </table>
-
-
-
-                    <s:submit value="Guardar" class="btn" />
-                    <s:a action="RegistroUnicoForm" class="btn">Continuar</s:a>
                 </s:form>
-                <button id="btnAgregar" class="btn">Agregar elemento</button>
-                <button id="btnEliminar" class="btn">Eliminar elemento</button>
-                    
                 <%@include file="partes/footer.jsp" %>
         </div>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>
@@ -71,7 +76,7 @@
                 {  
                     $("#btnAgregar").click(function() 
                     {   
-                        var tr = '<tr class="fila" ><td><input type="text" name="trasladoComprobantesImporte" value="" id="DatosTrasladoPreparar_trasladoComprobantesImporte" class="form-control"/></td><td><input type="text" name="trasadoComprobantesNumeroComprobante" value="" id="DatosTrasladoPreparar_trasadoComprobantesNumeroComprobante" class="form-control" /></td><td><input type="text" name="trasladoComprobantesProveedor" value="" id="DatosTrasladoPreparar_trasladoComprobantesProveedor" class="form-control" /></td><td><input type="text" name="trasladoDesde" value="" id="DatosTrasladoPreparar_trasladoDesde" class="form-control" /></td><td><input type="text" name="trasladoHasta" value="" id="DatosTrasladoPreparar_trasladoHasta" class="form-control" /></td><td><input type="text" name="trasladoFechaHoraSalida" value="" id="DatosTrasladoPreparar_trasladoFechaHoraSalida" class="form-control fecha" /></td><td><input type="text" name="trasladofechaHoraRegreso" value="" id="DatosTrasladoPreparar_trasladofechaHoraRegreso" class="form-control fecha" /></td><td><textarea name="trasladoComprobantesObservaciones" cols="" rows="" id="DatosTrasladoPreparar_trasladoComprobantesObservaciones" class="form-control" ></textarea></td></tr>';
+                        var tr = '<tr class="fila" ><td><div class="input-group"><div class="input-group-addon">$</div><input type="text" name="trasladoComprobantesImporte" value="" id="DatosTrasladoPreparar_trasladoComprobantesImporte" class="form-control"/></div></td><td><input type="text" name="trasadoComprobantesNumeroComprobante" value="" id="DatosTrasladoPreparar_trasadoComprobantesNumeroComprobante" class="form-control" /></td><td><input type="text" name="trasladoComprobantesProveedor" value="" id="DatosTrasladoPreparar_trasladoComprobantesProveedor" class="form-control" /></td><td><input type="text" name="trasladoDesde" value="" id="DatosTrasladoPreparar_trasladoDesde" class="form-control" /></td><td><input type="text" name="trasladoHasta" value="" id="DatosTrasladoPreparar_trasladoHasta" class="form-control" /></td><td><input type="text" name="trasladoFechaHoraSalida" value="" id="DatosTrasladoPreparar_trasladoFechaHoraSalida" class="form-control fecha" /></td><td><input type="text" name="trasladofechaHoraRegreso" value="" id="DatosTrasladoPreparar_trasladofechaHoraRegreso" class="form-control fecha" /></td><td><textarea name="trasladoComprobantesObservaciones" cols="" rows="" id="DatosTrasladoPreparar_trasladoComprobantesObservaciones" class="form-control" ></textarea></td></tr>';
                         $("tbody").append(tr);
                     });
                     $("#btnEliminar").click(function()

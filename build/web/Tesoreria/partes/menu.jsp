@@ -19,6 +19,7 @@
                   </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <li><s:a namespace="/Tesoreria" action="index">Inicio</s:a></li>
                         <li><s:a namespace="/Tesoreria" action="ExpedientesList">Solcitudes a completar</s:a></li>
                         <li><s:a namespace="/Tesoreria" action="logout">Salir</s:a></li>
                     </ul>

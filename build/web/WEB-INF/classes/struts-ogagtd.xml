@@ -43,12 +43,16 @@ and open the template in the editor.
         <!-- Expedientes -->
         <action name="GenerarExpedienteForm" class="controller.RegistrosUnicosController" method="setRegistrosExpediente">
             <result>/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
+            <result name="input">/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
+            <result name="error">/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
         </action>
         <action name="GenerarExpediente" class="controller.ExpedientesController" method="prepared">
             <result type="redirectAction">Guardar</result>
+            <result name="input">/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
+            <result name="error">/Administrativo/SedeCapital/GenerarExpediente.jsp</result>
         </action>
         <action name="Guardar" class="action.ExpedientesAction" >
-            <result type="redirectAction">/Administrativo/index</result>
+            <result type="redirectAction">ListarExpedientes</result>
         </action>
         
         <!-- Listar Expedientes -->

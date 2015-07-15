@@ -22,8 +22,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc;
-                        dirección académica administrativa:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc;
+                        administrador:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc,Reportes,ReporteDescargar,ReportesDetalle;
+                        dirección académica administrativa:index,logout,SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,setSolicitudSelected,SolicitudesDevueltasForm,DesignacionesUpdateForm,DesignacionesUpdateForm,ActividadDocenteUpdateForm,ActividadDocenteUpdate,setRegistroUnicoSolicitudesDevueltas,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,setActDoc,Reportes,ReporteDescargar,ReportesDetalle;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -54,17 +54,6 @@ and open the template in the editor.
         <action name="setActDoc" class="controller.ActividadDocentesController" method="procesar"  >
             <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
         </action>
-        <!--
-        <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
-            <result >/Bedel/ActividadEfectivaDocente.jsp</result>
-        </action>
-        <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
-            <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
-            <result name="back" type="redirectAction">DesignacionesActividadForm</result>
-            <result name="error">/Bedel/ActividadEfectivaDocente.jsp</result>
-            <result name="input">/Bedel/ActividadEfectivaDocente.jsp</result>
-        </action>
-        -->
         <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
             <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
             <result name="input">/Bedel/AdministrarRegistroUnico.jsp</result>
@@ -88,22 +77,39 @@ and open the template in the editor.
             <result name="input">/Bedel/ListadoSolicitudesAConfirmar.jsp</result>
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
-            <result type="redirectAction">index</result>
+            <result type="redirectAction">Reportes</result>
+        </action>
+        
+        <!-- Reportes -->
+        <action name="Reportes" class="controller.ReSolConController" method="select">
+            <result >/Bedel/ListadoReportes.jsp</result>
+        </action>        
+        <action name="ReporteDescargar" class="controller.ReSolConController" method="descargar">
+            <result type="stream" >
+                <param name="contentType">application/pdf</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+        </action>
+        <action name="ReportesDetalle" class="controller.ReSolConController" method="detalle" >
+            <result>/Bedel/ReporteDetalle.jsp</result>
         </action>
         
         <!-- Solicitud devuelta -->
         <action name="SolicitudesDevueltasForm" class="controller.RegistrosUnicosController" method="setSolicitudesDevueltasAreas">
             <result>/Bedel/ListadoSolicitudesDevueltas.jsp</result>
-        </action>
+        </action> 
         <action name="setSolicitudSelected" class="controller.RegistrosUnicosController" method="setSolicitudSelected">
             <result type="redirectAction">DesignacionesUpdateForm</result>
         </action>
-        <action name="DesignacionesUpdateForm" class="controller.DesignacionesController" method="setUpdate">
+        <action name="DesignacionesUpdateForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud">
             <result>/Bedel/DesignacionesUpdate.jsp</result>
         </action>
+        <!--
         <action name="ActividadDocenteUpdateForm" class="controller.ActividadDocentesController" method="updatePrepared">
             <result>/Bedel/ActividadDocenteUpdate.jsp</result>
         </action>
+        -->
         <action name="ActividadDocenteUpdate" class="controller.ActividadDocentesController" method="update">
             <result type="redirectAction">RegistroUnicoSolicitudDevuelta</result>
         </action>

@@ -12,25 +12,32 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes</a></li>
+                <li><a href="#">Solicitudes a completar</a></li>
+                <li class="active">Designaciones</li>
+            </ol>
+            <h1 class="page-header">Designaciones</h1>
             <s:fielderror />
             <s:actionerror />
             <s:form action="designacionPrepared" theme="simple">
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover table-striped">
                     <thead>
-                        <tr>
-                            <td>Número de resolución</td>
-                            <td>Categoria</td>
-                            <td>Desde</td>
-                            <td>Hasta</td>
-                            <td>Id designación</td>
-                            <td>Fecha de norma</td>
-                            <td>observaciones</td>
-                            <td>Seleccionar</td>
+                        <tr class="success">
+                            <th>Número de resolución</th>
+                            <th>Categoria</th>
+                            <th>Desde</th>
+                            <th>Hasta</th>
+                            <th>Id designación</th>
+                            <th>Fecha de norma</th>
+                            <th>observaciones</th>
+                            <th>Seleccionar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,10 +53,12 @@
                             <td><s:select list="{'no','si'}" name="seleccionado" /></td>
                             </tr>
                         </s:iterator>
-                            <tr>
-                                <td><s:submit value="Guardar" class="btn"/></td>
-                            </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="8"><s:submit value="Guardar" class="btn btn-primary"/></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </s:form>
             

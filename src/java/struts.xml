@@ -49,15 +49,14 @@ and open the template in the editor.
             <result name="input">/Login.jsp</result>
             <result name="error">/Login.jsp</result>
             <result name="login">/Login.jsp</result>
-            <result name="oficina de gestión de gasto de traslado docente" type="redirectAction">/Administrativo/index</result>
-            <result name="sede interior" type="redirectAction">/Administrativo/index</result>
-            <result name="dirección académica administrativa" type="redirectAction">/Bedel/index</result>
-            <result name="rendición de cuentas" type="redirectAction">/RendicionDeCuentas/index</result>
-            <result name="secretaría administrativo-financiera" type="redirectAction">/SecretariaAdministrativoFinanciera/index</result>
-            <result name="dirección económico-financiera" type="redirectAction">/DireccionEconomicoFinanciera/index</result>
-            <result name="liquidación de haberes" type="redirectAction">/LiquidacionDeHaberes/index</result>
-            <result name="tesorería" type="redirectAction">/Tesoreria/index</result>
-            <result name="administrador" type="redirectAction">pdf</result>
+            <result name="oficina de gestión de gasto de traslado docente" type="redirectAction">Administrativo/index</result>
+            <result name="sede interior" type="redirectAction">Administrativo/index</result>
+            <result name="dirección académica administrativa" type="redirectAction">Bedel/index</result>
+            <result name="rendición de cuentas" type="redirectAction">RendicionDeCuentas/index</result>
+            <result name="secretaría administrativo-financiera" type="redirectAction">SecretariaAdministrativoFinanciera/index</result>
+            <result name="dirección económico-financiera" type="redirectAction">DireccionEconomicoFinanciera/index</result>
+            <result name="liquidación de haberes" type="redirectAction">LiquidacionDeHaberes/index</result>
+            <result name="tesorería" type="redirectAction">Tesoreria/index</result>
         </action>
         
         <action name="menu">

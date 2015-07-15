@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnico,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
-                        sede interior:SolicitudesActividadDocenteForm,DesignacionesActividadForm,ActividadDocenteForm,ActividadDocentePrepared,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnico,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        administrador:SolicitudesActividadDocenteForm,DesignacionesActividadForm,setActDoc,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
+                        sede interior:SolicitudesActividadDocenteForm,DesignacionesActividadForm,setActDoc,administrarRegistroUnicoActividadForm,AdministrarRegistroUnicoActividadDocente,administrarRegistroUnicoActividad,ActividadDocenteGuardar,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -34,31 +34,24 @@ and open the template in the editor.
             <result name="authentication_required" type="redirect">/index</result>
             <result name="authorization_required" type="redirect">/index</result>
         </global-results>
-        
          <!-- Actividad docente -->
         <action name="SolicitudesActividadDocenteForm" class="controller.RegistrosUnicosController" method="setSolicitudesActividadDocente">
             <result>/Administrativo/SedeInterior/ListadoSolicitudesActividadDocente.jsp</result>
         </action>
         <action name="DesignacionesActividadForm" class="controller.DesignacionesController" method="setDesignacionesToSolicitud" >
-            <result>/Administrativo/DesignacionesSolicitudForm.jsp</result>
+            <result>/Administrativo/SedeInterior/DesignacionesSolicitudForm.jsp</result>
         </action>
-        <action name="ActividadDocenteForm" class="controller.ActividadDocentesController" method="setIdDesignacion" >
-            <result >/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
-        </action>
-        <action name="ActividadDocentePrepared" class="controller.ActividadDocentesController" method="prepared">
+        <action name="setActDoc" class="controller.ActividadDocentesController" method="procesar"  >
             <result type="redirectAction">administrarRegistroUnicoActividadForm</result>
-            <result name="back" type="redirectAction">DesignacionesActividadForm</result>
-            <result name="error">/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
-            <result name="input">/Administrativo/SedeInterior/ActividadEfectivaDocente.jsp</result>
         </action>
         <action name="administrarRegistroUnicoActividadForm" class="controller.RegistrosUnicosController" method="preparedActividadDocente">
             <result type="redirectAction">AdministrarRegistroUnicoActividadDocente</result>
             <result name="input">/Administrativo/AdministrarRegistroUnico.jsp</result>
         </action>
-        <action name="AdministrarRegistroUnicoActividadDocente" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoFormInterior">
-            <result>/Administrativo/AdministrarRegistroUnico.jsp</result>
+        <action name="AdministrarRegistroUnicoActividadDocente" class="controller.RegistrosUnicosController" method="setAdministrarRegistroUnicoActividadDocente">
+            <result>/Administrativo/SedeInterior/AdministrarRegistroUnico.jsp</result>
         </action>
-        <action name="administrarRegistroUnico" class="controller.RegistrosUnicosController" method="preparedActividadDocente" >
+        <action name="administrarRegistroUnicoActividad" class="controller.RegistrosUnicosController" method="preparedActividadDocente" >
             <result type="redirectAction">ActividadDocenteGuardar</result>
         </action>
         <action name="ActividadDocenteGuardar" class="action.ActividadDocente">

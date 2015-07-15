@@ -18,14 +18,18 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Iniciar solicitud</a></li>
+                <li class="active">Datos del docente</li>
+            </ol>
             <h1 class="page-header">Buscar docente</h1>
             <s:form action="BuscarDocente" theme="simple">
+                <label>DNI</label>
                 <div class="form-group input-group">
-                    <label>DNI</label>
-                    <s:textfield name="entity.dni" label="DNI" class="form-control" />
+                    <s:textfield name="entity.dni" label="DNI" class="form-control"  />
                     <span class="input-group-btn" >
-                        <button class="btn btn-default" type="button">
+                        <button class="btn btn-default" type="submit">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>

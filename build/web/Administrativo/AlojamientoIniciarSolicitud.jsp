@@ -16,7 +16,11 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Iniciar solicitud</a></li>
+                <li class="active">Datos de alojamiento / combustible / comida</li>
+            </ol>
             <h1 class="page-header">Datos de alojamiento / combustible / comida</h1>
             <s:form action="DatosAlojamientoPreparar" theme="simple">
                    <table class="table table-striped">
@@ -48,19 +52,26 @@
                             </tr>
                             -->
                         </tbody>
+                        
+                        <tfoot>
+                            <tr>
+                                <td><button type="button" id="btnAgregar" class="btn btn-success">Agregar Elemento</button></td>
+                                <td><button type="button" id="btnEliminar" class="btn btn-danger">Eliminar elemento</button></td>
+                                <td><s:a action="AlojamientoBack" cssClass="btn btn-warning" >Volver sin agregar datos</s:a></td>
+                                <td><s:submit value="Guardar" class="btn btn-primary" /></td>
+                            </tr>
+                        </tfoot>
                 </table>
-                <s:submit value="Guardar" class="btn" />
+                
             </s:form>
-            <s:a action="AlojamientoBack" cssClass="btn" >Volver</s:a>
-            <button id="btnAgregar" class="btn">Agregar Elemento</button>
-            <button id="btnEliminar" class="btn">Eliminar elemento</button>
+            
             <%@include file="partes/footer.jsp" %>
             <script>
                 $(document).ready(function () 
                     {
                         $("#btnAgregar").click(function() 
                         {
-                            var tr = '<tr class="fila" ><td><input type="text" name="alojamientoComprobantesImporte" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesImporte" class="form-control"/></td><td><input type="text" name="alojamientoComprobantesNumeroComprobante" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNumeroComprobante" class="form-control"/></td><td><input type="text" name="alojamientoComprobantesNroveedor" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNroveedor" class="form-control"/></td><td><select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo" class="form-control"><option value="1">Comida</option><option value="2">Combustible</option><option value="3">Alojamiemto</option></select></td><td><textarea name="alojamientoDescripcion" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoDescripcion" class="form-control"></textarea></td><td><textarea name="alojamientoComprobantesObservaciones" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoComprobantesObservaciones" class="form-control"></textarea></td></tr>';
+                            var tr = '<tr class="fila" ><td><div class="input-group"><div class="input-group-addon">$</div><input type="text" name="alojamientoComprobantesImporte" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesImporte" class="form-control"/></div></td><td><input type="text" name="alojamientoComprobantesNumeroComprobante" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNumeroComprobante" class="form-control"/></td><td><input type="text" name="alojamientoComprobantesNroveedor" value="" id="DatosAlojamientoPreparar_alojamientoComprobantesNroveedor" class="form-control"/></td><td><select name="alojamientoTipo" id="DatosAlojamientoPreparar_alojamientoTipo" class="form-control"><option value="1">Comida</option><option value="2">Combustible</option><option value="3">Alojamiemto</option></select></td><td><textarea name="alojamientoDescripcion" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoDescripcion" class="form-control"></textarea></td><td><textarea name="alojamientoComprobantesObservaciones" cols="" rows="" id="DatosAlojamientoPreparar_alojamientoComprobantesObservaciones" class="form-control"></textarea></td></tr>';
                             $("tbody").append(tr);
                         });
                         $("#btnEliminar").click(function()

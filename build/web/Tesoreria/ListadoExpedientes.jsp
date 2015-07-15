@@ -12,20 +12,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Tesorería</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Expedientes</li>
+            </ol>
             <h1 class="page-header">Expedientes</h1>
             <s:fielderror />
             <s:actionerror />
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>Fecha iniciada</td>
-                        <td>Número expediente</td>
-                        <td>Acciones</td>
+                    <tr class="success">
+                        <th>Fecha iniciada</th>
+                        <th>Número expediente</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -19,10 +19,17 @@
                   </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><s:a namespace="/Administrativo" action="IniciarSolicitudForm">Iniciar solicitud</s:a></li>
-                        <li><s:a namespace="/Administrativo" action="ConfirmarSolicitudesForm">Confirmar solicitudes</s:a></li>
-                        <li><s:a namespace="/Administrativo" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
-                        <li><s:a namespace="/Administrativo"  action="ConsultarForm">Consultar Registro unico</s:a></li>
+                        <li><s:a namespace="/Administrativo" action="index" >Inicio</s:a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Solicitudes <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><s:a namespace="/Administrativo" action="IniciarSolicitudForm">Iniciar solicitud</s:a></li>
+                                <li><s:a namespace="/Administrativo" action="DatosCompletarForm">Solicitudes a completar</s:a></li>
+                                <li><s:a namespace="/Administrativo" action="ConfirmarSolicitudesForm">Confirmar solicitudes</s:a></li>
+                                <li><s:a namespace="/Administrativo" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                            </ul>
+                        </li>
+                        <li><s:a namespace="/Administrativo"  action="ConsultarForm">Consultar solicitudes</s:a></li>
                         <s:if test="#session.user.areas.id == 1">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Expedientes <span class="caret"></span></a>
@@ -38,11 +45,18 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Actividad docente <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><s:a namespace="/Administrativo/SedeInterior" action="SolicitudesActividadDocenteForm">Completar actividad</s:a></li>
-                                    <li><s:a namespace="/Administrativo/SedeInterior" action="ConfirmarSolicitudesForm">Comfirmar actividades</s:a></li>
+                                    <li><s:a namespace="/Administrativo/SedeInterior" action="ConfirmarSolicitudesForm">Confirmar actividades</s:a></li>
                                 </ul>                            
                             </li>
                         </s:else>
-                        <li><s:a namespace="/Administrativo" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Soliciudes devueltas <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><s:a namespace="/Administrativo" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
+                                <li><s:a namespace="/Administrativo" action="setReintegrar">Reintegrar solicitudes</s:a></li>
+                            </ul>
+                        </li>
+                        <li><s:a namespace="/Administrativo" action="Reportes">Reportes</s:a></li>
                         <li><s:a namespace="/Administrativo" action="logout">Salir</s:a></li>
                     </ul>
                 </div>

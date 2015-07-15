@@ -12,16 +12,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <style>
-            .hide{
-                display:none;
-            }
-        </style>
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes a completar</a></li>
+                <li class="active">Completar actividad docente</li>
+            </ol>
             <h1 class="page-header">Designaciones</h1>
             <s:form action="setActDoc" theme="simple">
                     <s:iterator value="entities" var="designacion">
@@ -68,10 +68,10 @@
                                             <s:iterator value="#designacion.actividadDocenteses" var="act">
                                             <tr>
                                                 <td>
-                                                    <s:textfield name="idDesignacion" value="%{#designacion.id}" theme="simple" class="hide" />
-                                                    <s:textfield name="unidadAcademica" value="%{#act.unidadAcademica}" theme="simple" class="hide" />
-                                                    <s:textfield name="carrera" value="%{#act.carrera}" theme="simple" class="hide" />
-                                                    <s:textfield name="materia" value="%{#act.materia}" theme="simple" class="hide" />
+                                                    <s:hidden name="idDesignacion" value="%{#designacion.id}"/>
+                                                    <s:hidden name="unidadAcademica" value="%{#act.unidadAcademica}" />
+                                                    <s:hidden name="carrera" value="%{#act.carrera}"/>
+                                                    <s:hidden name="materia" value="%{#act.materia}"/>
                                                     <s:textfield name="nombreUnidadAcademica" value="%{#act.nombreUnidadAcademica}" readonly="true" theme="simple" class="form-control" /> 
                                                 </td>
                                                 <td><s:textfield name="nombreCarrera" value="%{#act.nombreCarrera}" readonly="true" theme="simple" class="form-control" /></td>
@@ -91,8 +91,8 @@
                         </table>
                         </div>
                     </s:iterator>
-                <s:submit value="Guardar" class="btn" />
-                    </s:form>
+                <s:submit value="Guardar" class="btn btn-primary" />
+            </s:form>
             
             <%@include file="partes/footer.jsp" %>
         </div>

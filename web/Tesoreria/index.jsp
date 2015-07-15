@@ -11,13 +11,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>Dirección académica administrativa</title>
+        <title>Tesorería</title>
     </head>
     <body>
         <div class="container">
 		
             <s:include value="partes/menu.jsp" />
-            
+            <ol class="breadcrumb">
+                <li class="active">Inicio</li>
+            </ol>
             <h1 class="page-header">Bienvenido</h1>
          
             

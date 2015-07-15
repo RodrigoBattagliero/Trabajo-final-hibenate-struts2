@@ -11,18 +11,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Reportes</li>
+            </ol>
             <h1 class="page-header">Reportes</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>N° Reporte</td>
-                        <td>Fecha</td>
-                        <td>Acciones</td>
+                    <tr class="success">
+                        <th>N° Reporte</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

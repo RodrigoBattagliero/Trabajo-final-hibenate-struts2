@@ -17,12 +17,18 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Historial del solicitudes procesadas</li>
+            </ol>
             <h1 class="page-header">Solicitudes</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <td>N solicitud</td>
-                    <td>Docente</td>
-                    <td>Fecha de presentación</td>
+                    <tr class="success">
+                        <th>N solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha de presentación</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <s:iterator value="entities" var="list">

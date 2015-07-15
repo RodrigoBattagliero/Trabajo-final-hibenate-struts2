@@ -12,12 +12,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1>Actividad docente</h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Actividad docente</a></li>
+                <li><a href="#">Solicitudes a completar</a></li>
+                <li class="active">Completar acividad</li>
+            </ol>
+            <h1 class="page-header">Actividad docente</h1>
             <s:fielderror />
             <s:actionerror />
             <s:form action="ActividadDocentePrepared">
@@ -30,7 +36,7 @@
                 <s:checkbox name="entity.visadoBedelia" label="visadoBedelia" />
                 <s:textarea name="entity.observaciones" label="observaciones" />
 
-                <s:submit value="Guardar" class="btn"/>
+                <s:submit value="Guardar" class="btn btn-primary"/>
             </s:form>
             
             <s:include value="../partes/footer.jsp" />

@@ -66,6 +66,8 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         Docentes docente = new Docentes();
         docente = (Docentes)sesion.getAttribute("DocentesForm");
         docente.setSolicitudes(solicitud);
+        docente.setNombre(docente.getNombre().toLowerCase());
+        docente.setApellido(docente.getApellido().toLowerCase());
         doc.setEntity(docente);
         if(doc.save().equals("error"))
             res = ERROR;
@@ -132,15 +134,19 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
             res = ERROR;
         reg1.getDao().cerrarSession();
         
-        RegistrosUnicosController reg2 = new RegistrosUnicosController();
-        RegistrosUnicos registroUnico2 = new RegistrosUnicos();
-        registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoProximo");
-        registroUnico2.setSolicitudes(solicitud);
-        reg2.setEntity(registroUnico2);
-        reg2.getDao().iniciaOperacion();
-        if(reg2.getDao().create(registroUnico2) == 0)
-            res = ERROR;
-        reg2.getDao().cerrarSession();
+        try{
+            RegistrosUnicosController reg2 = new RegistrosUnicosController();
+            RegistrosUnicos registroUnico2 = new RegistrosUnicos();
+            registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoProximo");
+            registroUnico2.setSolicitudes(solicitud);
+            reg2.setEntity(registroUnico2);
+            reg2.getDao().iniciaOperacion();
+            if(reg2.getDao().create(registroUnico2) == 0)
+                res = ERROR;
+            reg2.getDao().cerrarSession();
+        }catch(Exception e){
+            
+        }
         
         ConstanciaDePresentacion constancia = new ConstanciaDePresentacion();
         constancia.setApellido(docente.getApellido());

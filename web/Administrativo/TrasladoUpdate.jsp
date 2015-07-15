@@ -21,7 +21,7 @@
             <h1 class="page-header">Datos de traslado</h1>
             <s:actionerror />
             <s:fielderror />
-            <s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>
+            <!--<s:a action="AlojamientoForm" class="btn">Agregar datos de alojamiento/combustible</s:a>-->
 
                    <table class="table table-striped">
                         <thead>
@@ -66,8 +66,6 @@
                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <td>Id</td>
-                                <td>Id</td>
                                 <td>Importe</td>
                                 <td>Número de comprobante</td>
                                 <td>Proveedor</td>
@@ -81,9 +79,11 @@
                          </thead>
                         <tbody>
                             <tr>
-                                <td><s:textfield name="entity.comprobantes.id" label="Importe" disabled="disable" class="form-control" /></td>
-                               <td><s:textfield name="entity.id" label="Importe" disabled="disable"  class="form-control" /></td>
-                               <td><s:textfield name="entity.comprobantes.importe" label="Importe"  class="form-control" /></td>
+                               <td>
+                                   <s:hidden name="entity.comprobantes.id" label="Importe" disabled="disable" class="form-control" />
+                                   <s:hidden name="entity.id" label="Importe" disabled="disable"  class="form-control" />
+                                   <s:textfield name="entity.comprobantes.importe" label="Importe"  class="form-control" />
+                               </td>
                                <td><s:textfield name="entity.comprobantes.numeroComprobante" label="Número de comprobante"  class="form-control" /></td>
                                <td><s:textfield name="entity.comprobantes.proveedor" label="Proveedor"  class="form-control" /></td>
                                <td><s:textfield name="entity.desde" label="Desde" class="form-control" /></td>

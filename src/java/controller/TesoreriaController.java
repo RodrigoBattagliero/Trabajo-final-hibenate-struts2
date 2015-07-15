@@ -8,12 +8,15 @@ package controller;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.ExpedientesDAO;
+import model.entities.Docentes;
 import model.entities.Expedientes;
 import model.entities.ExpedientesSolicitudes;
+import model.entities.Liquidaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Usuarios;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -36,6 +39,7 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
     private ExpedientesSolicitudesController expSolCon;
     private List<Expedientes> expedientes;
     private Expedientes expediente;
+    private List<Object> detalle;
 
 
     public List<Expedientes> getExpedientes() {
@@ -48,6 +52,10 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
 
     public Expedientes getExpediente() {
         return expediente;
+    }
+
+    public List<Object> getDetalle() {
+        return detalle;
     }
 
     public void setExpediente(Expedientes expediente) {
@@ -78,6 +86,7 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
     
     public String setExpediente(){
         String res = SUCCESS;
+        this.detalle = new ArrayList();
         int idExpediente;
         try{
             idExpediente = Integer.parseInt(String.valueOf(this.request.getParameter("idExpedienteSelected")));
@@ -89,6 +98,23 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
         this.expSolCon.getDao().iniciaOperacion();
         this.solicitudes =   this.expSolCon.getDao().selectFromExpediente(idExpediente);
         this.expSolCon.getDao().cerrarSession();
+        for(ExpedientesSolicitudes ru : this.solicitudes){
+            Object a[][] = new Object[1][3];
+            a[0][0] = ru.getSolicitudes();
+            Iterator it = ru.getSolicitudes().getDocenteses().iterator();
+            Iterator it2 = ru.getSolicitudes().getLiquidacioneses().iterator();
+            Docentes d = new Docentes();
+            while(it.hasNext()){
+                d = (Docentes) it.next();
+            }
+            Liquidaciones liq = new Liquidaciones();
+            while(it2.hasNext()){
+                liq = (Liquidaciones) it2.next();
+            }
+            a[0][1] = d;
+            a[0][2] = liq;
+            this.detalle.add(a[0]);
+        }
         return res;
     }
     
@@ -120,7 +146,7 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
         this.areaCon.getDao().cerrarSession();
         
         this.estadoCon = new EstadosController();
-        this.estadoCon.selectOne(6);
+        this.estadoCon.selectOne(1);
         this.expediente.setEstados(this.estadoCon.getEntity());
         
         this.expDAO.iniciaOperacion();
@@ -146,7 +172,7 @@ public class TesoreriaController extends ActionSupport implements ServletRequest
         
         this.regUniCon = new RegistrosUnicosController();
         this.regUniCon.selectFromParametros(this.user.getAreas(), this.estadoCon.getEntity());
-        this.estadoCon.selectOne(6);
+        this.estadoCon.selectOne(1);
         for(RegistrosUnicos regUni : this.regUniCon.getEntities()){
             regUni.setFechaSalida(new Date());
             regUni.setConfirmado(true);

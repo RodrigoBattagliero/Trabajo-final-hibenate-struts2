@@ -85,7 +85,9 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
         if(cant > 0){
             expe = new Expedientes(0, numeroExpediente, fecha,areaController.getEntity(),estController.getEntity(), null);
         }
+        addActionError("Antes del for");
         for (String key : parametros.keySet()) {
+            addActionError("Dentro del for");
             String value[] = parametros.get(key);
             if(value[0].equals("true")){
                 solController = new SolicitudesController();
@@ -95,11 +97,14 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
                 listRegistros.add(reg);
             }
         }
+        addActionError("Antes de validar");
         if(this.validar()){
+            addActionError("Antes valido");
             this.sesion.setAttribute("ExpedienteForm", expe);
             this.sesion.setAttribute("ExpedientesSolicitudesForm", listExpSol);
             this.sesion.setAttribute("RegistrosUnicosForm", listRegistros);
         }else{
+            addActionError("No valido");
             res = INPUT;
         }    
         return res;
@@ -130,12 +135,12 @@ public class ExpedientesController extends Controller<Expedientes> implements Se
     }
     
     public boolean validar(){
-        boolean b = false;
-        if(this.entity.getFecha() == null){
+        boolean b = true;
+        if(getFecha() == null){
             addFieldError("fecha", "ERROR: Debe ingresar la fecha de expediente");
             b = false;
         }
-        if(this.entity.getNumeroExpediente().equals("")){
+        if(getNumeroExpediente().equals("")){
             addFieldError("numeroExpediente", "ERROR: Debe ingresar el número de expediente");
             b = false;
         }

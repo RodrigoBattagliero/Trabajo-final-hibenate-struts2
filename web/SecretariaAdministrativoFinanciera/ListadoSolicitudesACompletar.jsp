@@ -11,19 +11,23 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Dirección académica administrativa</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li class="active">Solicitudes a completar</li>
+            </ol>
             <h1 class="page-header">Seleccionar solicitud</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>N° Solicitud</td>
-                        <td>Docente</td>
-                        <td>Fecha de presentación</td>
-                        <td>Acciones</td>
+                    <tr class="success">
+                        <th>N° Solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha de presentación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,10 +37,14 @@
                             <td><s:property value="#solicitud[1].nombre" /></td>
                             <td><s:property value="#solicitud[0].fechaAlta" /></td>
                             <td>
-                                <s:url var="url" action="RegistroUnicoForm">
+                                <s:url var="url1" action="RegistroUnicoForm">
                                     <s:param name="idSolicitudSelected" value="%{#solicitud[0].id}"></s:param>
                                 </s:url>
-                                <s:a href="%{url}" class="btn" >Completar datos</s:a>
+                                <s:url var="url2" action="ConsultarDetalle">
+                                    <s:param name="idSolicitudSelected" value="%{#solicitud[0].id}"></s:param>
+                                </s:url>
+                                <s:a href="%{url1}" class="btn" >Completar datos</s:a>
+                                <s:a href="%{url2}" class="btn" >Detalle</s:a>
                             </td>
                         </tr>
                     </s:iterator>

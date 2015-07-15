@@ -16,16 +16,21 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes</a></li>
+                <li class="active">Solicitudes a confirmar</li>
+            </ol>
             <h1 class="page-header">Confirmar solicitudes</h1>
             <s:form action="ConfirmarSolicitudesPrepared" theme="simple" method="post">
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
             <thead>
-                <tr>
-                    <td>Numero de solicitud</td>
-                    <td>Docente</td>
-                    <td>Fecha de presentacion</td>
-                    <td>Estado</td>
-                    <td>Confirmado</td>
+                <tr class="success">
+                    <th>Numero de solicitud</th>
+                    <th>Docente</th>
+                    <th>Fecha de presentacion</th>
+                    <th>Estado</th>
+                    <th>Confirmado</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,10 +45,12 @@
                         </td>
                     </tr>
                 </s:iterator>
-                    <tr>
-                        <td colspan="5"><s:submit value="Confirmar" class="btn" /></td>
-                    </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="5"><s:submit value="Confirmar" class="btn btn-primary" /></td>
+                    </tr>
+                </tfoot>
                </table>
             </s:form>
             

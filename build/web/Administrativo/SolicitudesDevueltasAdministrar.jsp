@@ -19,7 +19,7 @@
             <s:include value="partes/menu.jsp" />
             <h1 class="page-header">Administrar registro único</h1>
 
-            <s:form action="PreparedRegistroUnico">
+            <s:form action="PreparedRegistroUnico" theme="simple">
                 <div class="form-group">
                     <label>Número de solicitud</label>
                     <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true" class="form-control" />
@@ -38,7 +38,7 @@
 		</div>
                 <div class="form-group">
                     <label>Estado</label>
-                    <s:select list="#@java.util.TreeMap@{'9':'Devuelta'}" name="idEstadoSelected" label="Estado" class="form-control" />
+                    <s:select list="#@java.util.TreeMap@{'8':'Reintegrar'}" name="idEstadoSelected" label="Estado" class="form-control" />
 		</div>
                 <div class="form-group">
                     <label>Observaciones</label>

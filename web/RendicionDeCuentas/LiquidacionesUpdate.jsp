@@ -16,6 +16,11 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes devueltas</a></li>
+                <li class="active">Rendición de cuentas</li>
+            </ol>
             <h1 class="page-header">Rendicion de cuentas</h1>
             <s:form action="LiquidacionesUpdate" theme="simple">
                 <div class="form-group">
@@ -51,7 +56,7 @@
                     <s:textarea name="entity.observaciones" label="observaciones" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <s:submit name="Guardar" value="Guardar" class="btn" /> 
+                    <s:submit name="Guardar" value="Guardar" class="btn btn-primary" /> 
                 </div>
             </s:form>
             

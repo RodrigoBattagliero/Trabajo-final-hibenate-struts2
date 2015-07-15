@@ -17,6 +17,11 @@
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Iniciar solicitud</a></li>
+                <li class="active">Crear registro único</li>
+            </ol>
             <h1 class="page-header">Registro único</h1>
             <s:actionerror />
             <s:fielderror />
@@ -42,7 +47,7 @@
                     <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <s:submit value="Guardar" class="btn" />
+                    <s:submit value="Guardar" class="btn btn-primary" />
                 </div>
             </s:form>
             

@@ -62,8 +62,8 @@ public abstract class DAO implements IQueries<Object>{
     public boolean delete(Object c) {
         boolean b = false;
         try{
-            iniciaOperacion();
-//            sesion.delete(c);
+//            iniciaOperacion();
+            sesion.delete(c);
             tx.commit();
             b = true;
         }catch(HibernateException he){

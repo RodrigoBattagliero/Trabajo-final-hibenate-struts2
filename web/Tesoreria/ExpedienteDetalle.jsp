@@ -12,38 +12,44 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Tesorería</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            
-            <table class="table table-striped">
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Expedientes</a></li>
+                <li class="active">Detalle</li>
+            </ol>
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>N° solicitud</td>
-                        <td>Docente</td>
-                        <td>Fecha inicio</td>
-                        <td>Importe declarado</td>
-                        <td>Importe reconocido</td>
+                    <tr class="success">
+                        <th>N° solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha inicio</th>
+                        <th>Importe declarado</th>
+                        <th>Importe reconocido</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <s:iterator value="solicitudes" var="sol">
+                    <s:iterator value="detalle" var="sol">
                         <tr>
-                            <td><s:property value="#sol.solicitudes.numeroSolicitud" /></td>
-                            <td><s:property value="#sol.solicitudes.docenteses[0].apellido" />,<s:property value="#sol.docenteses[0].nombre" /></td>
-                            <td><s:property value="#sol.solicitudes.fechaAlta" /></td>
-                            <td><s:property value="#sol.solicitudes.liquidacioneses[0]reconocimientoImporteDeclarado" /></td>
-                            <td><s:property value="#sol.solicitudes.liquidacioneses[0].reconocimientoImporteTotal" /></td>
+                            <td><s:property value="#sol[0].numeroSolicitud" /></td>
+                            <td><s:property value="#sol[1].apellido" />,<s:property value="#sol[1].nombre" /></td>
+                            <td><s:property value="#sol[0].fechaAlta" /></td>
+                            <td><s:property value="#sol[2].importeDeclarado" /></td>
+                            <td><s:property value="#sol[2].reconocimientoImporteTotal" /></td>
                         </tr>
                     </s:iterator>
-                        <tr>
-                            <td>
-                                <s:a action="ConfirmarTodos">Confirmar todos</s:a>
-                            </td>
-                        </tr>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <s:a action="ConfirmarTodos" class="btn btn-primary">Confirmar todos</s:a>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
             
             <s:include value="partes/footer.jsp" />

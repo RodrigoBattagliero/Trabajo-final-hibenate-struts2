@@ -44,7 +44,7 @@ public class ExpedientesSolicitudesDAO extends DAO {
         List<ExpedientesSolicitudes> list = null;
         try{
 //            iniciaOperacion();
-            String sql = "FROM " +tableName+" AS exSol "
+            String sql = "SELECT DISTINCT exSol FROM " +tableName+" AS exSol "
                     + " INNER JOIN FETCH exSol.solicitudes s "
                     + " INNER JOIN FETCH s.docenteses "
                     + " INNER JOIN FETCH s.comprobanteses "

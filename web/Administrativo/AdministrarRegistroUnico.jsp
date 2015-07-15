@@ -44,7 +44,7 @@
                     <s:textarea name="AdministrarObservaciones" label="Observaciones" class="form-control"  />
 		</div>
                 <div class="form-group">
-                    <s:submit value="Guardar" class="btn" />
+                    <s:submit value="Guardar" class="btn btn-primary" />
 		</div>
             </s:form>
             

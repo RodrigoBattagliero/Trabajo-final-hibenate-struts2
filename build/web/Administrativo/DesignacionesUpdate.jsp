@@ -20,43 +20,58 @@
             <h1 class="page-header">Designaciones</h1>
             <s:actionerror />
             <s:fielderror />
-            <table class="table table-striped">
+            <s:form action="DesignacionUpdate" theme="simple" >
+            <table class="table table-striped" > 
                 <thead>
                     <tr>
-                        <td>Número de Resolución</td>
-                        <td>Categoria</td>
-                        <td>Desde</td>
-                        <td>Hasta</td>
-                        <td>Id designación</td>
-                        <td>Fecha de normas</td>
-                        <td>Observaciones</td>
-                        <td>Acciones</td>
+                        <th>Número de Resolución</th>
+                        <th>Categoria</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Id designación</th>
+                        <th>Fecha de normas</th>
+                        <th>Observaciones</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    <s:iterator value="entities" var="designacion">
-                        <tr>
-                            <td><s:property value="#designacion.numeroResolucion" /></td>
-                            <td><s:property value="#designacion.categoria" /></td>
-                            <td><s:property value="#designacion.desde" /></td>
-                            <td><s:property value="#designacion.hasta" /></td>
-                            <td><s:property value="#designacion.idDesignacion" /></td>
-                            <td><s:property value="#designacion.fecNorma" /></td>
-                            <td><s:property value="#designacion.observaciones" /></td>
-                            <td>
-                                <s:url var="url1" action="DesignacionUpdateSelected">
-                                    <s:param name="idDesignacionSelected" value="#designacion.id"></s:param>
-                                </s:url>
-                                <s:url var="url2" action="ActividadDocenteUpdateForm">
-                                    <s:param name="idDesignacionSelected" value="#designacion.id"></s:param>
-                                </s:url>
-                                <s:a action="%{url1}" class="btn" >Editar Designación</s:a>
-                                <s:a action="%{url2}" class="btn" >Editar Actividad docente</s:a>
-                            </td>
-                        </tr>
-                    </s:iterator>
+                     <s:iterator value="update" var="designacion">
+                            <tr>
+                                <td>
+                                    <s:hidden name="id" value="%{#designacion.id}" />
+                                    <s:textfield name="numeroResolucion" value="%{#designacion.numeroResolucion}" label="Número de resolución" class="form-control" theme="simple" />
+                                </td>
+                                <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" theme="simple" /></td>
+                                <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control" theme="simple" /></td>
+                                <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control" theme="simple" /></td>
+                                <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" theme="simple" /></td>
+                                <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" theme="simple" /></td>
+                                <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" theme="simple" /></td>
+                                
+                            </tr>
+                        </s:iterator>
+                        <!--<s:iterator value="entities" var="designacion">
+                            <tr>
+                                <td><s:textfield name="numeroResolucion" value="%{#designacion.numeroResolucion}" label="Número de resolución" class="form-control" theme="simple" /></td>
+                                <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" theme="simple" /></td>
+                                <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control" theme="simple" /></td>
+                                <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control" theme="simple" /></td>
+                                <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" theme="simple" /></td>
+                                <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" theme="simple" /></td>
+                                <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" theme="simple" /></td>
+                                
+                            </tr>
+                        </s:iterator>-->
                 </tbody>
+                <tfooter>
+                    <tr>
+                        <td><s:submit value="Actualizar" class="btn btn-default" /></td>
+                        <td><s:a action="LiquidacionesUpdateForm" class="btn btn-default">Continuar</s:a></td>
+                    </tr>
+                </tfooter>
             </table>
+            </s:form>
+            <!--
             <s:if test="entity.id" >
                 <s:form action="DesignacionUpdate" theme="simple" >
                     <table class="table table-striped">
@@ -90,7 +105,8 @@
                     </table>
                 </s:form>
             </s:if>
-            <s:a action="LiquidacionesUpdateForm" class="btn">Continuar</s:a>
+            -->
+            
             
         <%@include file="partes/footer.jsp" %>
         <script src="../js/datetimepicker-master/jquery.datetimepicker.js"></script>

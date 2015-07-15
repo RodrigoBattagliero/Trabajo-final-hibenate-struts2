@@ -37,7 +37,7 @@ public class SolicitudesDAO extends DAO {
     public int selectMaxNumSol(int id) {
         int cant;
         try{
-            String sql = "SELECT max(s.numeroSolicitud) FROM "+tableName+ " AS s WHERE s.sedes = " + id;
+            String sql = "SELECT max(s.numeroSolicitud) FROM "+tableName+ " AS s WHERE year(s.fechaAlta) = year(now()) AND s.sedes = " + id;
             cant = (int) sesion.createQuery(sql).list().get(0);
         }catch(Exception e){
             cant = 0;

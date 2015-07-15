@@ -190,15 +190,40 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     
     @Override
     public String update(){
-        String idSolStr = String.valueOf(this.sesion.getAttribute("idDesignacionSelected"));
-        String idActStr = String.valueOf(this.sesion.getAttribute("idActividadDocente"));
-        DesignacionesController desCont = new DesignacionesController();
-        desCont.selectOne(Integer.parseInt(idSolStr));
-        this.entity.setDesignaciones(desCont.getEntity());
-        this.entity.setId(Integer.parseInt(idActStr));
-        this.dao.iniciaOperacion();
-        String res = super.update();
-        this.dao.cerrarSession();
+        String res = ERROR;
+        procesar();
+        String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+//        String idActStr = String.valueOf(this.sesion.getAttribute("idActividadDocente"));
+//        DesignacionesController desCont = new DesignacionesController();
+//        desCont.selectOne(Integer.parseInt(idSolStr));
+//        this.entity.setDesignaciones(desCont.getEntity());
+//        this.entity.setId(Integer.parseInt(idActStr));
+        DesignacionesController desCon = new DesignacionesController();
+        desCon.selectRelatedAllSimple(Integer.parseInt(idSolStr));
+        dao = new ActividadDocentesDAO();
+        if(desCon.getEntities() != null && desCon.getEntities().size() > 0){
+            for(Designaciones d : desCon.getEntities()){
+                dao.iniciaOperacion();
+                List<Object> aDoc = dao.selectRelated(d.getId());
+                dao.cerrarSession();
+                if(aDoc != null && aDoc.size() > 0){
+                    for(Object o : aDoc){
+                        dao.iniciaOperacion();
+                        dao.delete(o);
+                        dao.cerrarSession();
+                    }
+                }
+            }
+        }
+        
+        if(this.entities != null && this.entities.size() > 0){
+            for(ActividadDocentes aD : this.entities){
+                this.dao.iniciaOperacion();
+                if(dao.create(aD) > 0)
+                    res = SUCCESS;
+                this.dao.cerrarSession();
+            }
+        }
         return res;
     }
     

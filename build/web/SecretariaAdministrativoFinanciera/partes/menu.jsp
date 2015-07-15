@@ -19,9 +19,11 @@
                   </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
+                        <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="index" >Inicio</s:a></li>
                         <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="DatosCompletarForm">Solcitudes a completar</s:a></li>
                         <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
                         <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                        <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="Reportes">Reportes</s:a></li>
                         <li><s:a namespace="/SecretariaAdministrativoFinanciera" action="logout">Salir</s:a></li>
                     </ul>
                 </div>

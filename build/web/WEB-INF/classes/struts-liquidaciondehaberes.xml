@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
-                        liquidación de haberes:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
+                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente;
+                        liquidación de haberes:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -56,5 +56,16 @@ and open the template in the editor.
        <action name="Guardar" class="action.RegistrosUnicosAction" >
            <result type="redirectAction">index</result>
        </action>
+       
+       <!-- Listar expedientes Pendientes -->
+       <action name="ExpedientesListPendientes" class="controller.LiquidacionDeHaberesController" method="setExpedientesPendientes">
+           <result>/LiquidacionDeHaberes/ListadoPendientes.jsp</result>
+       </action>
+       <action name="ExpedienteDetallePendiente" class="controller.LiquidacionDeHaberesController" method="setExpediente">
+           <result >/LiquidacionDeHaberes/PendientesDetalle.jsp</result>
+       </action>
+       <action name="ConfirmarTodosPendientes" class="controller.LiquidacionDeHaberesController" method="confirmarTodosPendientes">
+           <result type="redirectAction">Guardar</result>
+       </action> 
     </package>
 </struts>

@@ -7,6 +7,7 @@ package model.dao;
 
 import java.util.List;
 import model.entities.ReSolCon;
+import model.entities.Usuarios;
 
 /**
  *
@@ -41,12 +42,11 @@ public class ReSolConDAO extends DAO {
         return a;
     }
     
-    @Override
-    public List<Object> selectAll() {
+    public List<Object> selectAll(Usuarios user) {
         List<Object> list = null;
         try{
 //            iniciaOperacion();
-            list = sesion.createQuery("FROM " + tableName + " AS a ORDER BY a.fecha DESC").list();
+            list = sesion.createQuery("FROM " + tableName + " AS a WHERE a.usuarios = "+user.getId()+" ORDER BY a.fecha DESC").list();
         }finally{
 //            sesion.close();
         }

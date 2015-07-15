@@ -20,6 +20,7 @@ import model.dao.ReSolConDAO;
 import model.entities.ReSolCon;
 import model.entities.ReSolConDetalles;
 import model.entities.RegistrosUnicos;
+import model.entities.Usuarios;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -65,6 +66,15 @@ public class ReSolConController extends Controller<ReSolCon> implements ServletR
         this.entity = new ReSolCon();
     }
     
+    @Override
+    public String select(){
+        String res = SUCCESS;
+        ReSolConDAO dao = new ReSolConDAO();
+        dao.iniciaOperacion();
+        entities = (List) dao.selectAll((Usuarios) this.sesion.getAttribute("user"));
+        dao.cerrarSession();
+        return res;
+    }
     
     public String descargar() throws Exception{
         String res = SUCCESS;

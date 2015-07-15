@@ -11,19 +11,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes</a></li>
+                <li class="active">Solicitudes a completar</li>
+            </ol>
             <h1 class="page-header">Seleccionar solicitud</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
-                    <tr>
-                        <td>N° Solicitud</td>
-                        <td>Docente</td>
-                        <td>Fecha de presentación</td>
-                        <td>Acciones</td>
+                    <tr class="success">
+                        <th>N° Solicitud</th>
+                        <th>Docente</th>
+                        <th>Fecha de presentación</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>

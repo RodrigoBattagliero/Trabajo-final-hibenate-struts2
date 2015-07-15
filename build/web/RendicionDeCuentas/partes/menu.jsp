@@ -24,6 +24,7 @@
                         <li><s:a namespace="/RendicionDeCuentas" action="ConfirmarSolicitudesForm">Confirmar lote de solicitudes</s:a></li>
                         <li><s:a namespace="/RendicionDeCuentas" action="SolicitudesDevueltasForm">Solicitudes devueltas</s:a></li>
                         <li><s:a namespace="/RendicionDeCuentas" action="HistorialSolicitudes">Historial solicitudes</s:a></li>
+                        <li><s:a namespace="/RendicionDeCuentas" action="Reportes">Reportes</s:a></li>
                         <li><s:a namespace="/RendicionDeCuentas" action="logout">Salir</s:a></li>
                     </ul>
                 </div>

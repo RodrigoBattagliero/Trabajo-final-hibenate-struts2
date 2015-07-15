@@ -16,13 +16,18 @@
     <body>
         <div class="container">
             <s:include value="../partes/menu.jsp" />
-            <h1>Expedientes</h1>
-            <hr />
+            <ol class="breadcrumb">
+                <li><a href="#">Expedientes</a></li>
+                <li class="active">Listado de expedientes</li>
+            </ol>
+            <h1 class="page-header">Expedientes</h1>
             <table class="table table-striped">
                 <thead>
-                    <td>N° expediente</td>
-                    <td>Fecha</td>
-                    <td>Acciones</td>
+                    <tr class="success">
+                        <th>N° expediente</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <s:iterator value="entities" var="exp">

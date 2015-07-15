@@ -12,11 +12,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
+            <ol class="breadcrumb">
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Solicitudes devueltas</li>
+                <li class="active">Registro unico</li>
+            </ol>
             <h1 class="page-header">Administrar registro único</h1>
             <s:form action="PreparedRegistroUnico" theme="simple">
                 <div class="form-group">
@@ -41,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label>Estado</label>
-                    <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado"  class="form-control" />
+                    <s:select list="#@java.util.TreeMap@{'2':'Aprobado','3':'Rechazado'}" name="idEstadoSelected" label="Estado" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label>Observaciones</label>
@@ -49,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label></label>
-                    <s:submit value="Guardar" class="btn"/>
+                    <s:submit value="Guardar" class="btn btn-primary"/>
                 </div>
             </s:form>
             

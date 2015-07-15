@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
-                        rendición de cuentas: index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes;
+                        administrador:index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle;
+                        rendición de cuentas: index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -60,7 +60,7 @@ and open the template in the editor.
             <result type="redirectAction">Liquidacion</result>
         </action>
         <action name="Liquidacion" class="action.LiquidacionesAction" >
-            <result>/RendicionDeCuentas/index.jsp</result>
+            <result type="redirectAction">RendicionDeCuentasForm</result>
         </action>
 
          <!-- Confirmar solicitudes -->
@@ -72,7 +72,22 @@ and open the template in the editor.
             <result name="input">/RendicionDeCuentas/ListadoSolicitudesAConfirmar.jsp</result>
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
-            <result type="redirectAction">index</result>
+            <result type="redirectAction">Reportes</result>
+        </action>
+        
+        <!-- Reportes -->
+        <action name="Reportes" class="controller.ReSolConController" method="select">
+            <result >/RendicionDeCuentas/ListadoReportes.jsp</result>
+        </action>        
+        <action name="ReporteDescargar" class="controller.ReSolConController" method="descargar">
+            <result type="stream" >
+                <param name="contentType">application/pdf</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+        </action>
+        <action name="ReportesDetalle" class="controller.ReSolConController" method="detalle" >
+            <result>/RendicionDeCuentas/ReporteDetalle.jsp</result>
         </action>
         
         <!-- Solicitud devuelta -->
@@ -94,6 +109,7 @@ and open the template in the editor.
         <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
             <result type="redirectAction">SolicitudesDevueltasForm</result>
         </action>
+        
         <!-- Historial de solicitudes -->
         <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
             <result >/RendicionDeCuentas/HistorialSolicitudes.jsp</result>
