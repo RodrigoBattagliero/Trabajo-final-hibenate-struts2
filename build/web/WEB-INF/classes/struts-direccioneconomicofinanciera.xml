@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
-                        dirección económico-financiera:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar;
+                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
+                        dirección económico-financiera:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -55,6 +55,38 @@ and open the template in the editor.
        </action> 
        <action name="Guardar" class="action.RegistrosUnicosAction" >
            <result type="redirectAction">index</result>
+           <result name="error">/DireccionEconomicoFinanciera/error.jsp</result>
+           <result name="input">/DireccionEconomicoFinanciera/error.jsp</result>
        </action>
+       
+       <!-- Descargar EXCEL -->
+       <action name="ReporteDescargarExcel" class="controller.ReSolConController" method="descargarExpedienteExcel">
+            <result type="stream" >
+                <param name="contentType">application/msexcel</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+        </action>
+       
+       <!-- Cambiar contraseña -->
+        <action name="newPasswordForm">
+            <result>/DireccionEconomicoFinanciera/newpassword.jsp</result>
+        </action>
+        <action name="newPassword" class="controller.UsuariosController" method="newPassword">
+            <result>/DireccionEconomicoFinanciera/newpassword.jsp</result>
+            <result name="input">/DireccionEconomicoFinanciera/newpassword.jsp</result>
+            <result name="error">/DireccionEconomicoFinanciera/newpassword.jsp</result>
+        </action>
+        
+        <!-- Consultar registro unico -->
+        <action name="ConsultarForm" >
+            <result>/DireccionEconomicoFinanciera/Consultar.jsp</result>
+        </action>
+        <action name="Consultar" class="controller.RegistrosUnicosController"  method="consultarRegistro">
+            <result>/DireccionEconomicoFinanciera/Consultar.jsp</result>
+        </action>
+        <action name="ConsultarDetalle" class="controller.RegistrosUnicosController" method="consultarDetalle">
+            <result>/DireccionEconomicoFinanciera/ConsultarDetalle.jsp</result>
+        </action>
     </package>
 </struts>

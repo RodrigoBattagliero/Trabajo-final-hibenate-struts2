@@ -22,8 +22,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-3">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
                     <s:form action="LoginAction" theme="simple" class="form-signin">
                         <h2 class="form-signin-heading">Ingresar</h2>
                         <div class="form-group">
@@ -37,7 +37,7 @@
                         <s:submit value="Ingresar" class="btn btn-lg btn-primary btn-block" />
                     </s:form>
                 </div>
-                <div class="col-sm-3"></div>
+                <div class="col-sm-4"></div>
             </div>
                   <s:if test="#session.test == 'back'">
                       <s:a action="menu">Continuar</s:a>

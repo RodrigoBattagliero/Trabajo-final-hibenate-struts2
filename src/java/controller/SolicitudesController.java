@@ -6,9 +6,11 @@
 package controller;
 
 
+import com.opensymphony.xwork2.ActionContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.DAO;
@@ -111,16 +113,32 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
         return SUCCESS;
     }   
     
-    public String prepared(){
+    public String preparedConFecha(){
         String res = SUCCESS;
         this.entity.setSedes(selectSedes(idSelectedSede));
         if(this.validar())
-            sesion.setAttribute("SolicitudesForm", this.entity);
+            if(this.validarCantidadDias())
+                sesion.setAttribute("SolicitudesForm", this.entity);
+            else
+                res = "fecha";
         else
             res = INPUT;
         return res;
     }
-    
+    public String prepared(){
+//        Locale locale = new Locale("fr");
+//        ActionContext.getContext().setLocale(locale);
+        String res = SUCCESS;
+        this.entity.setSedes(selectSedes(idSelectedSede));
+        if(this.validar()){
+            sesion.setAttribute("SolicitudesForm", this.entity);
+            if(!this.validarCantidadDias())
+                res = "fecha";
+        }else{
+            res = INPUT;
+        }
+        return res;
+    }
     public String updatePrepared(){
         
         // Eliminar datos de sesion
@@ -152,6 +170,7 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
     
     public boolean validar(){
         boolean b = true;
+        boolean validar;
         if(this.entity.getFechaAlta() == null){
             addFieldError("fechaAlta", "Debe ingresar la fecha de alta de la solicitud.");   
             b = false;
@@ -159,7 +178,26 @@ public class SolicitudesController extends Controller<Solicitudes> implements Se
         if(this.entity.getNumeroSolicitud() == 0){
             addFieldError("numeroSolicitud", "Debe ingresar el número de solicitud.");
             b = false;
+        }else{
+            UsuariosController user = new UsuariosController();
+            user.setEntity((Usuarios) this.sesion.getAttribute("user"));
+            SolicitudesDAO dao = new SolicitudesDAO();
+            dao.iniciaOperacion();
+            validar = dao.validarNumeroSolicitud(this.entity.getNumeroSolicitud(),user.getEntity().getSedes().getId());
+            dao.cerrarSession();
+            if(validar){
+                addFieldError("numeroSolicitud", "El número de solicitud ya etá registrado.");   
+            b = false;
+            }
         }
+        return b;
+    }
+    private boolean validarCantidadDias(){
+        boolean b = true;
+        long milSegundosPorDia = 24 * 60 * 60 * 1000;
+        long diferecia = (new Date().getTime() - this.entity.getFechaAlta().getTime() ) / milSegundosPorDia;
+        if(diferecia > 30)
+            b = false;
         return b;
     }
     

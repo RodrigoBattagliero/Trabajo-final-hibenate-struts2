@@ -9,6 +9,7 @@ import java.util.Date;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+import resources.DateManager;
 
 /**
  *
@@ -19,10 +20,11 @@ public class ConstanciaDePresentacion  implements JRDataSource {
     private String nombre;
     private String apellido;
     private int numSolicitud;
-    private Date fechaAlta;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private DateManager fechaAlta;
+    private DateManager fechaInicio;
+    private DateManager fechaFin;
     private int cantComprobantes;
+    private String texto;
     private int userIndex = -1;
 
     public void setNombre(String nombre) {
@@ -38,21 +40,24 @@ public class ConstanciaDePresentacion  implements JRDataSource {
     }
 
     public void setFechaAlta(Date fechaAlta) {
-        this.fechaAlta = fechaAlta;
+        this.fechaAlta = new DateManager(fechaAlta);
     }
 
     public void setFechaInicio(Date fechaInicio) {
-        this.fechaInicio = fechaInicio;
+        this.fechaInicio = new DateManager(fechaInicio);
     }
 
     public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+        this.fechaFin = new DateManager(fechaFin);
     }
 
     public void setCantComprobantes(int cantComprobantes) {
         this.cantComprobantes = cantComprobantes;
     }
     
+    public void setTexto(){
+        this.texto = "Recibí la cantidad de "+this.cantComprobantes+" comprobantes de pago correspondientes a lo declarado por el Docente Sr./a "+this.apellido+", "+this.nombre+" en concepto de reconocimiento de gastos, realizado entre los días "+this.fechaInicio.getFechaString()+" y "+this.fechaFin.getFechaString()+" de acuerdo a lo detallado en la solicitud N° "+this.numSolicitud+" de Reconocimiento de Gasto de Traslado.";
+    }
     
     @Override
     public boolean next() throws JRException {
@@ -62,19 +67,22 @@ public class ConstanciaDePresentacion  implements JRDataSource {
     @Override
     public Object getFieldValue(JRField jrf) throws JRException {
         Object valor = null;
+        setTexto();
+        if("texto".equals(jrf.getName()))
+            valor = this.texto;
         
-        if("docente".equals(jrf.getName()))
-            valor = this.apellido + ", " + this.nombre;
-        if("numeroSolicitud".equals(jrf.getName()))
-            valor = String.valueOf(this.numSolicitud);
+//        if("docente".equals(jrf.getName()))
+//            valor = this.apellido + ", " + this.nombre;
+//        if("numeroSolicitud".equals(jrf.getName()))
+//            valor = String.valueOf(this.numSolicitud);
         if("fechaAlta".equals(jrf.getName()))
-            valor = this.fechaAlta;
-        if("fechaInicio".equals(jrf.getName()))
-            valor = this.fechaInicio;
-        if("fechaFin".equals(jrf.getName()))
-            valor = this.fechaFin;
-        if("comprobantes".equals(jrf.getName()))
-            valor = this.cantComprobantes;
+            valor = this.fechaAlta.getFechaString();
+//        if("fechaInicio".equals(jrf.getName()))
+//            valor = this.fechaInicio;
+//        if("fechaFin".equals(jrf.getName()))
+//            valor = this.fechaFin;
+//        if("comprobantes".equals(jrf.getName()))
+//            valor = this.cantComprobantes;
         
         return valor;
     }

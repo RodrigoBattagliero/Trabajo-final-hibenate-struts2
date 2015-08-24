@@ -20,7 +20,11 @@
             <ol class="breadcrumb">
                 <li class="active">Inicio</li>
             </ol>
-            <h1 class="page-header">Bienvenido</h1>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">Bienvenido <em><s:property value="#session.user.areas.nombre" ></s:property></em></h1>
+                </div>
+            </div>
          
             
             <%@include file="partes/footer.jsp" %>

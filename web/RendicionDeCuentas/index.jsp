@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>Dirección académica administrativa</title>
+        <title>Rendición de cuentas</title>
     </head>
     <body>
         <div class="container">
@@ -19,23 +19,27 @@
             <ol class="breadcrumb">
                 <li class="active">Inicio</li>
             </ol>
-            <h1 class="page-header">Bienvenido</h1>
-            
-            <s:if test="cantidadSolicitudesCompletar != 0">
-                <div class="alert alert-warning" role="alert">
-                    <p>Tiene <s:property value="cantidadSolicitudesCompletar" /> <s:a action="RendicionDeCuentasForm">solicitudes para completar</s:a></p>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">Bienvenido <em><s:property value="#session.user.areas.nombre" ></s:property></em></h1>
+
+                    <s:if test="cantidadSolicitudesCompletar != 0">
+                        <div class="alert alert-warning" role="alert">
+                            <p>Tiene <s:property value="cantidadSolicitudesCompletar" /> <s:a action="RendicionDeCuentasForm">solicitudes para completar</s:a></p>
+                        </div>
+                    </s:if>
+                    <s:if test="cantidadSolicitudesDevueltas != 0">
+                        <div class="alert alert-warning" role="alert">
+                            <p>Tiene <s:property value="cantidadSolicitudesDevueltas" /> <s:a action="SolicitudesDevueltasForm">solicitudes devueltas</s:a></p>
+                        </div>
+                    </s:if>
+                    <s:if test="cantidadSolicitudesConfirmar != 0">
+                        <div class="alert alert-warning" role="alert">
+                            <p>Tiene <s:property value="cantidadSolicitudesConfirmar" /> <s:a action="ConfirmarSolicitudesForm">solicitudes para confirmar</s:a></p>
+                        </div>    
+                    </s:if>
                 </div>
-            </s:if>
-            <s:if test="cantidadSolicitudesDevueltas != 0">
-                <div class="alert alert-warning" role="alert">
-                    <p>Tiene <s:property value="cantidadSolicitudesDevueltas" /> <s:a action="SolicitudesDevueltasForm">solicitudes devueltas</s:a></p>
-                </div>
-            </s:if>
-            <s:if test="cantidadSolicitudesConfirmar != 0">
-                <div class="alert alert-warning" role="alert">
-                    <p>Tiene <s:property value="cantidadSolicitudesConfirmar" /> <s:a action="ConfirmarSolicitudesForm">solicitudes para confirmar</s:a></p>
-                </div>    
-            </s:if>
+            </div>
             
             <s:include value="partes/footer.jsp" />
         </div>

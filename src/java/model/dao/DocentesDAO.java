@@ -33,7 +33,7 @@ public class DocentesDAO extends DAO {
     public List<Docentes> selectRelatedWithDepto(Object key) {
         List<Docentes> list;
         try{
-            String sql = "FROM " + tableName + " t INNER JOIN FETCH t.departamentosAcademicos WHERE t.solicitudes = " + (int) key;
+            String sql = "FROM " + tableName + " t WHERE t.solicitudes = " + (int) key;
             list = sesion.createQuery(sql).list();
         }catch(Exception e){
             list = null;

@@ -22,35 +22,39 @@
                 <li><a href="#">Expedientes</a></li>
                 <li class="active">Detalle</li>
             </ol>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr class="success">
-                        <th>N° solicitud</th>
-                        <th>Docente</th>
-                        <th>Fecha inicio</th>
-                        <th>Importe declarado</th>
-                        <th>Importe reconocido</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <s:iterator value="detalle" var="sol">
-                        <tr>
-                            <td><s:property value="#sol[0].numeroSolicitud" /></td>
-                            <td><s:property value="#sol[1].apellido" />,<s:property value="#sol[1].nombre" /></td>
-                            <td><s:property value="#sol[0].fechaAlta" /></td>
-                            <td><s:property value="#sol[2].importeDeclarado" /></td>
-                            <td><s:property value="#sol[2].reconocimientoImporteTotal" /></td>
-                        </tr>
-                    </s:iterator>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td>
-                            <s:a action="ConfirmarTodos" class="btn btn-primary">Confirmar todos</s:a>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>N° solicitud</th>
+                                <th>Docente</th>
+                                <th>Fecha inicio</th>
+                                <th>Importe declarado</th>
+                                <th>Importe reconocido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <s:iterator value="detalle" var="sol">
+                                <tr>
+                                    <td><s:property value="#sol[0].numeroSolicitud" /></td>
+                                    <td><s:property value="#sol[1].apellido" />,<s:property value="#sol[1].nombre" /></td>
+                                    <td><s:property value="#sol[0].fechaAlta" /></td>
+                                    <td><s:property value="#sol[2].importeDeclarado" /></td>
+                                    <td><s:property value="#sol[2].reconocimientoImporteTotal" /></td>
+                                </tr>
+                            </s:iterator>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <s:a action="ConfirmarTodos" class="btn btn-primary">Confirmar todos</s:a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
             
             <s:include value="partes/footer.jsp" />
         </div>

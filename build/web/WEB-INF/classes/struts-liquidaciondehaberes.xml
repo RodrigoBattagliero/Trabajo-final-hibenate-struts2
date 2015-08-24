@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente;
-                        liquidación de haberes:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente;
+                        administrador:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
+                        liquidación de haberes:index,ExpedientesList,ExpedienteDetalle,ConfirmarTodos,Guardar,ExpedientesListPendientes,ConfirmarTodosPendientes,ExpedienteDetallePendiente,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -55,6 +55,8 @@ and open the template in the editor.
        </action> 
        <action name="Guardar" class="action.RegistrosUnicosAction" >
            <result type="redirectAction">index</result>
+           <result name="error">/LiquidacionDeHaberes/error.jsp</result>
+           <result name="input">/LiquidacionDeHaberes/error.jsp</result>
        </action>
        
        <!-- Listar expedientes Pendientes -->
@@ -66,6 +68,38 @@ and open the template in the editor.
        </action>
        <action name="ConfirmarTodosPendientes" class="controller.LiquidacionDeHaberesController" method="confirmarTodosPendientes">
            <result type="redirectAction">Guardar</result>
+           <result name="error">/LiquidacionDeHaberes/error.jsp</result>
+           <result name="input">/LiquidacionDeHaberes/error.jsp</result>
        </action> 
+       
+       <!-- Cambiar contraseña -->
+        <action name="newPasswordForm">
+            <result>/LiquidacionDeHaberes/newpassword.jsp</result>
+        </action>
+        <action name="newPassword" class="controller.UsuariosController" method="newPassword">
+            <result>/LiquidacionDeHaberes/newpassword.jsp</result>
+            <result name="input">/LiquidacionDeHaberes/newpassword.jsp</result>
+            <result name="error">/LiquidacionDeHaberes/newpassword.jsp</result>
+        </action>
+        
+         <!-- Consultar registro unico -->
+        <action name="ConsultarForm" >
+            <result>/LiquidacionDeHaberes/Consultar.jsp</result>
+        </action>
+        <action name="Consultar" class="controller.RegistrosUnicosController"  method="consultarRegistro">
+            <result>/LiquidacionDeHaberes/Consultar.jsp</result>
+        </action>
+        <action name="ConsultarDetalle" class="controller.RegistrosUnicosController" method="consultarDetalle">
+            <result>/LiquidacionDeHaberes/ConsultarDetalle.jsp</result>
+        </action>
+        
+        <!-- Descargar EXCEL -->
+       <action name="ReporteDescargarExcel" class="controller.ReSolConController" method="descargarExpedienteExcel">
+            <result type="stream" >
+                <param name="contentType">application/msexcel</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+        </action>
     </package>
 </struts>

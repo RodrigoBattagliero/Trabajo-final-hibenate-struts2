@@ -12,8 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -24,17 +23,23 @@
                 <li class="active">Datos del docente</li>
             </ol>
             <h1 class="page-header">Buscar docente</h1>
-            <s:form action="BuscarDocente" theme="simple">
-                <label>DNI</label>
-                <div class="form-group input-group">
-                    <s:textfield name="entity.dni" label="DNI" class="form-control"  />
-                    <span class="input-group-btn" >
-                        <button class="btn btn-default" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                <s:form action="BuscarDocente" theme="simple">
+                    <label>DNI</label>
+                    <div class="form-group input-group">
+                        <s:textfield name="entity.dni" label="DNI" class="form-control"  />
+                        <span class="input-group-btn" >
+                            <button class="btn btn-default" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </s:form>
                 </div>
-            </s:form>
+                <div class="col-sm-2"></div>
+            </div>
             
             <s:if test="entity.id" >
                 <h1 class="page-header">Datos docentes</h1>
@@ -47,57 +52,66 @@
                 
             <s:fielderror />
             <s:actionerror />
-            <s:form action="%{url}" theme="simple">
-                <div class="form-group">
-                    <label>Departamento acádemico</label>
-                    <s:select name="idDeptoAcademico" label="Departamento acádemico" list="listDeptosAcademicos" listKey="id" listValue="nombre" value="entity.departamentosAcademicos.id" class="form-control" />
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                <s:form action="%{url}" theme="simple">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <s:textfield name="entity.nombre" label="Nombre" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Apellido</label>
+                        <s:textfield name="entity.apellido" label="Apellido" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>DNI</label>
+                        <s:textfield name="entity.dni" label="DNI" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Cuil</label>
+                        <s:textfield name="entity.cuil" label="Cuil" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono fijo</label>
+                        <s:textfield name="entity.telefonoFijo" label="Telefono" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono cel</label>
+                        <s:textfield name="entity.telefonoCelular" label="Telefono" class="form-control"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <s:textfield name="entity.email" label="Email"  class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Lugar de residencia</label>
+                        <s:textfield name="entity.lugarResidencia" label="Lugar de residencia" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Motivo Comisión</label>
+                        <s:select name="entity.motivoComision" label="Motivo Comision" list="listMotivoComision" value="entity.motivoComision" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha de inicio</label>
+                        <s:textfield name="entity.fechaInicio" label="Fecha de inicio" class="form-control fecha"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha finalización</label>
+                        <s:textfield name="entity.fechaFinalizacion" label="Fecha finalización" class="form-control fecha" />
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                        <s:submit value="Guardar" class="btn btn-primary" />
+                    </div>
+                </s:form>
                 </div>
-                <div class="form-group">
-                    <label>Nombre</label>
-                    <s:textfield name="entity.nombre" label="Nombre" class="form-control"  />
-                </div>
-                <div class="form-group">
-                    <label>Apellido</label>
-                    <s:textfield name="entity.apellido" label="Apellido" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>DNI</label>
-                    <s:textfield name="entity.dni" label="DNI" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Telefono</label>
-                    <s:textfield name="entity.telefono" label="Telefono" class="form-control"  />
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <s:textfield name="entity.email" label="Email"  class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Lugar de residencia</label>
-                    <s:textfield name="entity.lugarResidencia" label="Lugar de residencia" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Motivo Comisión</label>
-                    <s:select name="entity.motivoComision" label="Motivo Comision" list="listMotivoComision" value="entity.motivoComision" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Fecha de inicio</label>
-                    <s:textfield name="entity.fechaInicio" label="Fecha de inicio" class="form-control fecha"  />
-                </div>
-                <div class="form-group">
-                    <label>Fecha finalización</label>
-                    <s:textfield name="entity.fechaFinalizacion" label="Fecha finalización" class="form-control fecha" />
-                </div>
-                <div class="form-group">
-                    <label>Observaciones</label>
-                    <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label></label>
-                    <s:submit value="Guardar" class="btn btn-primary" />
-                </div>
-            </s:form>
-            
+                <div class="col-sm-2"></div>
+            </div>
             <%@include file="partes/footer.jsp" %>
         </div>
             

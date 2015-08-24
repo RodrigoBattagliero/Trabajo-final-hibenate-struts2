@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.RegistrosUnicosDAO;
@@ -19,7 +20,6 @@ import model.entities.ComprobantesComidaAlojamientos;
 import model.entities.ComprobantesTraslados;
 import model.entities.Docentes;
 import model.entities.Estados;
-import model.entities.Liquidaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import model.entities.Usuarios;
@@ -335,6 +335,13 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity = this.dao.selectRegistroUnicoAdministrar(getAreaLogueada(),Integer.parseInt(idSol));
         this.entity.setFechaSalida(new Date());
         dao.cerrarSession();
+        try{
+            DocentesController docCon = new DocentesController();
+            docCon.selectRelated(Integer.parseInt(idSol));
+            this.sesion.setAttribute("DocentesForm", docCon.getEntities().get(0));
+        }catch(Exception e){
+            
+        }
         return SUCCESS;
     }
     
@@ -368,7 +375,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
     
     // Solicituds para la OGAGTD, para que las mande al area correspondiente.
     public String setSolicitudesDevueltas(){
-        
+        this.devueltas = new ArrayList();
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();
         sR.removeAllSession(this.sesion);
@@ -396,12 +403,24 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         SesionRemove sR = new SesionRemove();
         sR.removeAllSession(this.sesion);
         
+        this.devueltas = new ArrayList();
         setAreaLogueada();
         if(getAreaLogueada().getId() == 1)
             this.sesion.setAttribute("action","1");
         this.dao.iniciaOperacion();
-        this.entities = this.dao.selectDevueltasAreas(this.getAreaLogueada());
+        List<RegistrosUnicos> list = this.dao.selectDevueltasAreas(this.getAreaLogueada());
         this.dao.cerrarSession();
+        for(RegistrosUnicos ru : list){
+            Object a[][] = new Object[1][2];
+            a[0][0] = ru;
+            Iterator it = ru.getSolicitudes().getDocenteses().iterator();
+            Docentes d = new Docentes();
+            while(it.hasNext()){
+                 d = (Docentes) it.next();
+            }
+            a[0][1] = d;
+            this.devueltas.add(a[0]);
+        }
         
         return SUCCESS;
     }
@@ -485,6 +504,117 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.dao.iniciaOperacion();
         this.entities = this.dao.select(idSol);
         this.dao.cerrarSession();
+        // Datos para Grafico
+        Map gra = new TreeMap();
+        int cant = this.entities.size();
+        for (int i = 0; i < cant; i++) {
+            String color;
+            if(this.entities.get(i).getEstados().getId() == 1 || this.entities.get(i).getEstados().getId() == 6 || this.entities.get(i).getEstados().getId() == 10 || this.entities.get(i).getEstados().getId() == 9 )
+                color = "blue";
+            else if(this.entities.get(i).getEstados().getId() == 2 || this.entities.get(i).getEstados().getId() == 8 || this.entities.get(i).getEstados().getId() == 7)
+                color = "green";
+            else if(this.entities.get(i).getEstados().getId() == 3)
+                color = "red";
+            else
+                color = "gray";
+            gra.put(this.entities.get(i).getAreas().getNombre(), color);
+        }
+        List<String[][]> graficoAux = new ArrayList();
+        Iterator i = gra.keySet().iterator();
+        while(i.hasNext()){
+            Object id = i.next();
+            String area = String.valueOf(id);
+            String color = String.valueOf(gra.get(id));
+            String[][] fila = {{area},{color}};
+            graficoAux.add(fila);
+        }
+        Object[][][] grafico2 = new Object[8][1][1];
+        boolean docente = false;
+        boolean interior = false;
+        boolean capital = false;
+        boolean bedel = false;
+        boolean rendicion = false;
+        boolean saf = false;
+        boolean def = false;
+        boolean tesoreria = false;
+        boolean liquidacion = false;
+        for(String[][] fila : graficoAux){
+            if(fila[0][0].equals("Docente")){
+                grafico2[0] = fila;
+                docente = true;
+            }
+            else if(fila[0][0].equals("Sede interior")){
+                grafico2[1] = fila;
+                interior = true;
+            }
+            else if(fila[0][0].equals("Oficina de gestión de gasto de traslado docente")){
+                grafico2[1] = fila;
+                capital = true;
+            }
+            else if(fila[0][0].equals("Dirección académica administrativa")){
+                grafico2[2] = fila;
+                bedel = true;
+            }
+            else if(fila[0][0].equals("Rendición de cuentas")){
+                grafico2[3] = fila;
+                rendicion = true;
+            }
+            else if(fila[0][0].equals("Secretaría administrativo-Financiera")){
+                grafico2[4] = fila;
+                saf = true;
+            }
+            else if(fila[0][0].equals("Dirección Económico-financiera")){
+                grafico2[5] = fila;
+                def = true;
+            }
+            else if(fila[0][0].equals("Tesorería")){
+                grafico2[6] = fila;
+                tesoreria = true;
+            }
+            else if(fila[0][0].equals("Liquidación de haberes")){
+                grafico2[7] = fila;
+                liquidacion = true;
+            }
+        }
+        if(!docente){
+            String[][] fila = {{"Docente"},{"gray"}};
+            grafico2[0] = fila;
+        }
+        if(!capital && !interior){
+            String[][] fila = {{"Oficina de gestión de gasto de traslado docente"},{"gray"}};
+            grafico2[1] = fila;
+        }
+        if(!bedel){
+            String[][] fila = {{"Dirección académica administrativa"},{"gray"}};
+            grafico2[2] = fila;
+        }
+        if(!rendicion){
+            String[][] fila = {{"Rendición de cuentas"},{"gray"}};
+            grafico2[3] = fila;
+        }
+        if(!saf){
+            String[][] fila = {{"Secretaría administrativo-Financiera"},{"gray"}};
+            grafico2[4] = fila;
+        }
+        if(!def){
+            String[][] fila = {{"Dirección Económico-financiera"},{"gray"}};
+            grafico2[5] = fila;
+        }
+        if(!tesoreria){
+            String[][] fila = {{"Tesorería"},{"gray"}};
+            grafico2[6] = fila;
+        }
+        if(!liquidacion){
+            String[][] fila = {{"Liquidación de haberes"},{"gray"}};
+            grafico2[7] = fila;
+        }
+        boolean b = false;
+        for(int j = 0; j < 8; j++){
+            if(b)
+                grafico2[j][1][0] = "gray";
+            if(grafico2[j][1][0].equals("blue"))
+                b = true;
+        }
         // Docente
         DocentesController docController = new DocentesController();
         docController.selectRelatedWithDepto(idSol);
@@ -516,6 +646,11 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         // Liquidacion
         LiquidacionesController liqController = new LiquidacionesController();
         liqController.selectRelated(idSol);
+        // Areas
+        AreasController areasCon = new AreasController();
+        areasCon.select();
+        // Expediente
+        this.sesion.setAttribute("grafico",grafico2);
         this.sesion.setAttribute("Solicitudes", solController.getEntity());
         this.sesion.setAttribute("Sedes", sedController.getEntity());
         this.sesion.setAttribute("Docentes", docController.getEntities());
@@ -669,11 +804,12 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
         this.entity.setObservaciones(AdministrarObservaciones);
         this.entity.setId(Integer.parseInt(idRegStr));
         this.entity.setSolicitudes(solCont.getEntity());
-        RegistrosUnicosDAO dao = new RegistrosUnicosDAO();
-        dao.iniciaOperacion();
-        if(!dao.update(this.entity))
-            res = ERROR;
-        dao.cerrarSession();
+        this.sesion.setAttribute("registroUnico", this.entity);
+//        RegistrosUnicosDAO dao = new RegistrosUnicosDAO();
+//        dao.iniciaOperacion();
+//        if(!dao.update(this.entity))
+//            res = ERROR;
+//        dao.cerrarSession();
         return res;
     }
     
@@ -707,9 +843,10 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
                     this.entities.add(this.entity);
                     
                     this.idEstadoSelected = 1;
-                    this.idAreaSelected = 6;
+                    //this.idAreaSelected = 6;
                     RegistrosUnicos rNuevo = new RegistrosUnicos();
-                    rNuevo.setAreas(getArea());
+                    //rNuevo.setAreas(getArea());
+                    rNuevo.setAreas(getProximaArea());
                     rNuevo.setConfirmado(false);
                     rNuevo.setEstados(getEstado());
                     rNuevo.setFechaEntrada(new Date());
@@ -723,7 +860,7 @@ public class RegistrosUnicosController extends Controller<RegistrosUnicos> imple
                     this.idEstadoSelected = 8;
                     setAreaLogueada();
                     this.dao.iniciaOperacion();
-                    List<RegistrosUnicos> list = dao.selectFromParametros(this.entity.getSolicitudes(), areaLogueada, getEstado());
+                    List<RegistrosUnicos> list = dao.selectFromParametros(this.entity.getSolicitudes(), areaLogueada, getEstado(),1);
                     this.dao.cerrarSession();
                     if(list.size() > 0){
                         list.get(0).setConfirmado(true);

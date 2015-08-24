@@ -11,25 +11,27 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
             <s:include value="../partes/menu.jsp" />
                 <h1>Expediente detalle</h1>
                 <hr />
-                <table class="table table-striped">
+                <table class="table table-bordered table-hover">
                     <thead>
-                        <td>N solicitud</td>
-                        <td>Fecha presentacion</td>
-                        <td>Docente</td>
+                        <tr class="success">
+                            <th>N solicitud</th>
+                            <th>Fecha presentacion</th>
+                            <th>Docente</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <s:iterator value="entities" var="list">
                             <tr>
                                 <td><s:property value="#list[0].solicitudes.numeroSolicitud" /></td>
                                 <td><s:property value="#list[0].solicitudes.fechaAlta" /></td>
-                                <td><s:property value="#list[1].nombre" /></td>
+                                <td><s:property value="#list[1].apellido" />, <s:property value="#list[1].nombre" /></td>
                             </tr>
                         </s:iterator>
                     </tbody>

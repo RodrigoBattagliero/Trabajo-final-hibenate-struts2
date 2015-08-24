@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import model.dao.ComprobantesTrasladosDAO;
 import model.entities.Comprobantes;
 import model.entities.ComprobantesTraslados;
+import model.entities.Docentes;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import resources.DateManager;
 
@@ -31,7 +32,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     private String[] trasladoDesde;
     private String[] trasladoHasta;
     private Date[] trasladoFechaHoraSalida;
-    private Date[] trasladofechaHoraRegreso;
     private String[] trasladoComprobantesObservaciones;
     private int[] idComprobantes;
     private int[] idTraslados;
@@ -74,10 +74,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
         this.trasladoFechaHoraSalida = trasladoFechaHoraSalida;
     }
 
-    public void setTrasladofechaHoraRegreso(Date[] trasladofechaHoraRegreso) {
-        this.trasladofechaHoraRegreso = trasladofechaHoraRegreso;
-    }
-
     public void setTrasladoComprobantesObservaciones(String[] trasladoComprobantestrasladoComprobantesObservaciones) {
         this.trasladoComprobantesObservaciones = trasladoComprobantestrasladoComprobantesObservaciones;
     }
@@ -116,9 +112,8 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
     public String prepared(){
         String res = SUCCESS;
         setListComprobantes();
-        if(this.validar())
-            sesion.setAttribute("ComprobanteTraslado", this.listComprobantes);
-        else
+        sesion.setAttribute("ComprobanteTraslado", this.listComprobantes);
+        if(!this.validar())
             res = INPUT;
         return res;
     }
@@ -152,9 +147,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
         if(cant  < trasladoFechaHoraSalida.length)
             cant = trasladoFechaHoraSalida.length;
         
-        if(cant  < trasladofechaHoraRegreso.length)
-            cant = trasladofechaHoraRegreso.length;
-        
         if(cant  < trasladoComprobantesObservaciones.length)
             cant = trasladoComprobantesObservaciones.length;
         
@@ -176,7 +168,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
             //traslado.setId(idTraslados[i]);
             traslado.setDesde(trasladoDesde[i]);
             traslado.setHasta(trasladoHasta[i]);
-            traslado.setFechaHoraRegreso(trasladofechaHoraRegreso[i]);
             traslado.setFechaHoraSalida(trasladoFechaHoraSalida[i]);
             
             listComprobantes.add(traslado);
@@ -260,10 +251,6 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
                 addFieldError("desde", "Debe completar el lugar de salida");
                 b = false;
             }
-            if(com.getFechaHoraRegreso() == null){
-                addFieldError("fechaHoraRegreso", "Debe completar la fecha y hora de regreso");
-                b = false;
-            }
             if(com.getFechaHoraSalida()== null){
                 addFieldError("fechaHoraSalida", "Debe completar la fecha y hora de salida");
                 b = false;
@@ -271,6 +258,23 @@ public class ComprobantesTrasladosController extends Controller<ComprobantesTras
             if(com.getHasta().equals("")){
                 addFieldError("hasta", "Debe completar el lugar de llegada");
                 b = false;
+            }
+//            if(com.getFechaHoraRegreso().before(com.getFechaHoraSalida())){
+//                addFieldError("fechaHoraSalida", "La fecha de inicio debe ser posterior o igual a la fecha de finalización.");
+//                b = false;
+//            }
+            try{
+                Docentes doc = (Docentes) sesion.getAttribute("DocentesForm");
+                if(com.getFechaHoraSalida().before(doc.getFechaInicio())){
+                    addFieldError("fechaHoraSalida", "La fecha de salida y regreso debe estar entre fecha de inicio y finalización ingresadas en datos de docente.");
+                    b = false;
+                }
+//                if(doc.getFechaFinalizacion().before(com.getFechaHoraRegreso())){
+//                    addFieldError("fechaHoraSalida", "La fecha de salida y regreso debe estar entre fecha de inicio y finalización ingresadas en datos de docente.");
+//                    b = false;
+//                }
+            }catch(Exception e){
+                
             }
         }
         return b;

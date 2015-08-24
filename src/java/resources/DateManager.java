@@ -69,9 +69,12 @@ public class DateManager {
     }
 
     public String getFechaString() {
+        return dateToString(fechaDate);
+    }
+    
+    public String getTimeString() {
         return fechaString;
     }
-
     public void setFechaString(String fechaString) {
         this.fechaString = fechaString;
     }
@@ -100,6 +103,7 @@ public class DateManager {
         //System.out.println("Hora y fecha: "+formato.format(fecha));
         return formato.format(fecha);
     }
+
     
     public String toString(){
         if(this.fechaString != null)

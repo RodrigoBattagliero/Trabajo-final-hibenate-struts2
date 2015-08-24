@@ -95,6 +95,14 @@ public class LiquidacionesController extends Controller<Liquidaciones> implement
         entity.setReconocimientoGastoComida(gastoComida);
         entity.setReconocimientoGastoPasajes(gastoTraslado);
         entity.setReconocimientoImporteTotal(importeTotal);
+        
+        try{
+            DocentesController docCon = new DocentesController();
+            docCon.selectRelated(idSol);
+            this.sesion.setAttribute("DocentesForm", docCon.getEntities().get(0));
+        }catch(Exception e){
+            
+        }
         return res;
     }
     

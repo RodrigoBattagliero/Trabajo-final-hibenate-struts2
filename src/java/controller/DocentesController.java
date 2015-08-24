@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpSession;
 import kakan.controller.SpgDocentesController;
 import kakan.entities.SpgDocentes;
 import model.dao.DocentesDAO;
-import model.entities.DepartamentosAcademicos;
 import model.entities.Docentes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import resources.DateManager;
 
 /**
  *
@@ -24,7 +25,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 public class DocentesController extends Controller<Docentes> implements ServletRequestAware {
     
     private List<String> listMotivoComision;
-    private List<DepartamentosAcademicos> listDeptosAcademicos;
+//    private List<DepartamentosAcademicos> listDeptosAcademicos;
     private int idDeptoAcademico;
     private ServletContext application;
     private HttpServletRequest request;
@@ -34,9 +35,9 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         this.dao = (DocentesDAO) new DocentesDAO();
         entity = new Docentes();
         setMotivoComision();
-        setDeptosAcademicos();
+//        setDeptosAcademicos();
     }
-    
+
     @Override
     public DocentesDAO getDao() {
         return (DocentesDAO) dao;
@@ -50,13 +51,13 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         return this.listMotivoComision;
     }
     
-    public List<DepartamentosAcademicos> getListDeptosAcademicos() {
-        return listDeptosAcademicos;
-    }
+//    public List<DepartamentosAcademicos> getListDeptosAcademicos() {
+//        return listDeptosAcademicos;
+//    }
     
-    public void setIdDeptoAcademico(int id){
-        this.idDeptoAcademico = id;
-    }
+//    public void setIdDeptoAcademico(int id){
+//        this.idDeptoAcademico = id;
+//    }
     
     private void setMotivoComision(){
         listMotivoComision = new ArrayList();
@@ -66,21 +67,21 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         listMotivoComision.add("Otra");
     }
     
-    private void setDeptosAcademicos(){
-        DepartamentosAcademicosController deptoController = new DepartamentosAcademicosController();
-        deptoController.select();
-        listDeptosAcademicos = (List) deptoController.getEntities();
-    }
+//    private void setDeptosAcademicos(){
+//        DepartamentosAcademicosController deptoController = new DepartamentosAcademicosController();
+//        deptoController.select();
+//        listDeptosAcademicos = (List) deptoController.getEntities();
+//    }
     
-    private DepartamentosAcademicos deptoAcademico(){
-        DepartamentosAcademicosController deptoController = new DepartamentosAcademicosController();
-        deptoController.selectOne(idDeptoAcademico);
-        return deptoController.getEntity();
-    }
+//    private DepartamentosAcademicos deptoAcademico(){
+//        DepartamentosAcademicosController deptoController = new DepartamentosAcademicosController();
+//        deptoController.selectOne(idDeptoAcademico);
+//        return deptoController.getEntity();
+//    }
     
     public String prepared(){
         String res = SUCCESS;
-        entity.setDepartamentosAcademicos(deptoAcademico());
+//        entity.setDepartamentosAcademicos(deptoAcademico());
         if(this.validar())
             sesion.setAttribute("DocentesForm", this.entity);
         else
@@ -108,7 +109,7 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         solCont.selectOne(Integer.parseInt(idSolStr));
         this.entity.setSolicitudes(solCont.getEntity());
         this.entity.setId(Integer.parseInt(idDocStr));
-        this.entity.setDepartamentosAcademicos(deptoAcademico());
+//        this.entity.setDepartamentosAcademicos(deptoAcademico());
         this.dao.iniciaOperacion();
         String res = super.update();
         this.dao.cerrarSession();
@@ -140,11 +141,14 @@ public class DocentesController extends Controller<Docentes> implements ServletR
                 addActionError("Error: No se han encontrado datos.");
             }else{
                 SpgDocentes spgDoc = docKakan.getEntities().get(0);
-                this.entity.setApellido(spgDoc.getApellido());
-                this.entity.setNombre(spgDoc.getNombre());
+                this.entity.setApellido(spgDoc.getApellido().toUpperCase());
+                this.entity.setNombre(spgDoc.getNombre().toUpperCase());
                 this.entity.setDni(spgDoc.getDocumento());
                 this.entity.setLugarResidencia(spgDoc.getResidencia());
                 this.entity.setEmail(spgDoc.getMail());
+                this.entity.setTelefonoFijo(spgDoc.getTelefonoFijo());
+                this.entity.setTelefonoCelular(spgDoc.getTelefonoCelular());
+                this.entity.setCuil(spgDoc.getCuil());
             }
         }catch(Exception e){
             this.entity = null;
@@ -157,11 +161,13 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         if(this.entity.getApellido().equals("")){
             addFieldError("apellido", "Debe completar el apellido.");
             b = false;
+        }else{
+            this.entity.setApellido(this.entity.getApellido().toUpperCase());
         }
-        if(this.entity.getDepartamentosAcademicos() == null){
-            addFieldError("departamentosAcademicos", "Debe seleccionar el departamento acádemico.");
-            b = false;
-        }
+//        if(this.entity.getDepartamentosAcademicos() == null){
+//            addFieldError("departamentosAcademicos", "Debe seleccionar el departamento acádemico.");
+//            b = false;
+//        }
         if(this.entity.getDni().equals("")){
             addFieldError("dni", "Debe completar el DNI.");
             b = false;
@@ -189,11 +195,17 @@ public class DocentesController extends Controller<Docentes> implements ServletR
         if(this.entity.getNombre().equals("")){
             addFieldError("nombre", "Debe completar el nombre.");
             b = false;
+        }else{
+            this.entity.setNombre(this.entity.getNombre().toUpperCase());
         }
-        if(this.entity.getTelefono().equals("")){
-            addFieldError("telefono", "Debe completar el telefono.");
+        if(this.entity.getFechaFinalizacion().before(this.entity.getFechaInicio())){
+            addFieldError("entity.fechaInicio", "La fecha de inicio debe ser posterior o igual a la fecha de finalización.");
             b = false;
         }
+//        if(this.entity.getTelefonoFijo().equals("")){
+//            addFieldError("telefono", "Debe completar el telefono.");
+//            b = false;
+//        }
         return b;
     }
 }

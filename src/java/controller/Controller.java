@@ -53,7 +53,6 @@ public abstract class Controller<Object> extends ActionSupport {
         String res = ERROR;
         dao.iniciaOperacion();
         id = dao.create(entity);
-        dao.cerrarSession();
         if(id > 0)
             res = SUCCESS;
         return res; 
@@ -63,9 +62,7 @@ public abstract class Controller<Object> extends ActionSupport {
         String res = ERROR;
         boolean b = false;
         try{
-//            this.dao.iniciaOperacion();
             b = dao.update(entity);
-//            dao.cerrarSession();
         }catch(NullPointerException e){
             System.out.println(e);
         }
@@ -101,10 +98,6 @@ public abstract class Controller<Object> extends ActionSupport {
     public int getId(){
         return this.id;
     }
-
-//    public void setEntities(List<Object> entities) {
-//        this.entities = entities;
-//    }
     
     
     

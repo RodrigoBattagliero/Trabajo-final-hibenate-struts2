@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>Dirección académica administrativa</title>
+        <title>Dirección economico financiera</title>
     </head>
     <body>
         <div class="container">                
@@ -19,7 +19,11 @@
             <ol class="breadcrumb">
                 <li class="active">Inicio</li>
             </ol>
-            <h1 class="page-header">Bienvenido</h1>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">Bienvenido <em><s:property value="#session.user.areas.nombre" ></s:property></em></h1>
+                </div>
+            </div>
             
             
             

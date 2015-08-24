@@ -11,49 +11,49 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
             <ol class="breadcrumb">
                 <li><a href="#">Inicio</a></li>
-                <li><a href="#">Solicitudes devueltas</a></li>
-                <li class="active">Solicitudes a completar</li>
+                <li class="active">Solicitudes a reintegrar</li>
             </ol>
-            <h1 class="page-header">Seleccionar solicitud</h1>
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr class="success">
-                        <th>N° Solicitud</th>
-                        <th>Docente</th>
-                        <th>Observaciones</th>
-                        <th>Fecha de presentación</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <s:iterator value="devueltas" var="solicitud">
-                        <tr>
-                            <td><s:property value="#solicitud[0].solicitudes.numeroSolicitud" /></td>
-                            <td><s:property value="#solicitud[1].nombre" /></td>
-                            <td><s:property value="#solicitud[0].observaciones" /></td>
-                            <td><s:property value="#solicitud[0].solicitudes.fechaAlta" /></td>
-                            <td>
-                                <s:url var="url1" action="SolicitudesDevueltasAdministrar">
-                                    <s:param name="idSolicitudSelected" value="%{#solicitud[0].solicitudes.id}"></s:param>
-                                </s:url>
-                                <s:url var="url2" action="ConsultarDetalle">
-                                    <s:param name="idSolicitudSelected" value="%{#solicitud[0].solicitudes.id}"></s:param>
-                                </s:url>
-                                <s:a href="%{url1}" class="btn" >Administrar</s:a>
-                                <s:a href="%{url2}" class="btn" >Detalle</s:a>
-                            </td>
-                        </tr>
-                    </s:iterator>
-                </tbody>
-             </table>
-            
+            <div class="row">
+               <div class="col-sm-12">
+                    <h1 class="page-header">Solicitudes a reintegrar</h1>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>N° Solicitud</th>
+                                <th>Docente</th>
+                                <th>Fecha de presentación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <s:iterator value="devueltas" var="solicitud">
+                                <tr>
+                                    <td><s:property value="#solicitud[0].solicitudes.numeroSolicitud" /></td>
+                                    <td><s:property value="#solicitud[1].apellido" />, <s:property value="#solicitud[1].nombre" /></td>
+                                    <td><s:property value="#solicitud[0].solicitudes.fechaAlta" /></td>
+                                    <td>
+                                        <s:url var="url1" action="SolicitudesDevueltasAdministrar">
+                                            <s:param name="idSolicitudSelected" value="%{#solicitud[0].solicitudes.id}"></s:param>
+                                        </s:url>
+                                        <s:url var="url2" action="ConsultarDetalle">
+                                            <s:param name="idSolicitudSelected" value="%{#solicitud[0].solicitudes.id}"></s:param>
+                                        </s:url>
+                                        <s:a href="%{url1}" class="btn" >Administrar</s:a>
+                                        <s:a href="%{url2}" class="btn" >Detalle</s:a>
+                                    </td>
+                                </tr>
+                            </s:iterator>
+                        </tbody>
+                     </table>
+                </div>
+            </div>
             <%@include file="partes/footer.jsp" %>
         </div>
     </body>

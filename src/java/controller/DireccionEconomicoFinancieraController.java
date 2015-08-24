@@ -116,6 +116,31 @@ public class DireccionEconomicoFinancieraController extends ActionSupport implem
         }
         return res;
     }
+    public List<Object> setExpedienteToPrint(int idExpediente){
+        this.detalle = new ArrayList();
+        this.expSolCon = new ExpedientesSolicitudesController();
+        this.expSolCon.getDao().iniciaOperacion();
+        this.solicitudes =   this.expSolCon.getDao().selectFromExpediente(idExpediente);
+        this.expSolCon.getDao().cerrarSession();
+        for(ExpedientesSolicitudes ru : this.solicitudes){
+            Object a[][] = new Object[1][3];
+            a[0][0] = ru.getSolicitudes();
+            Iterator it = ru.getSolicitudes().getDocenteses().iterator();
+            Iterator it2 = ru.getSolicitudes().getLiquidacioneses().iterator();
+            Docentes d = new Docentes();
+            while(it.hasNext()){
+                d = (Docentes) it.next();
+            }
+            Liquidaciones liq = new Liquidaciones();
+            while(it2.hasNext()){
+                liq = (Liquidaciones) it2.next();
+            }
+            a[0][1] = d;
+            a[0][2] = liq;
+            this.detalle.add(a[0]);
+        }
+        return this.detalle;
+    }
     
     public String confirmarTodos(){
         String res = ERROR;

@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -21,7 +21,7 @@
                 <li class="active">Listado de expedientes</li>
             </ol>
             <h1 class="page-header">Expedientes</h1>
-            <table class="table table-striped">
+            <table class="table table-bordered table-hover">
                 <thead>
                     <tr class="success">
                         <th>N° expediente</th>

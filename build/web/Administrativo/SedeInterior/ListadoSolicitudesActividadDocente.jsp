@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -21,7 +21,7 @@
                 <li><a href="#">Actividad docente</a></li>
                 <li class="active">Solicitudes a completar</li>
             </ol>
-            <h1 class="page-header">Seleccionar solicitud</h1>
+            <h1 class="page-header">Solicitudes para confirmar actividad docente</h1>
             <table class="table table-bordered table-hover">
                 <thead>
                     <tr class="success">
@@ -35,7 +35,7 @@
                     <s:iterator value="listSolicitudesACompletar" var="solicitud">
                         <tr>
                             <td><s:property value="#solicitud[0].numeroSolicitud" /></td>
-                            <td><s:property value="#solicitud[1].nombre" /></td>
+                            <td><s:property value="#solicitud[1].apellido" />, <s:property value="#solicitud[1].nombre" /></td>
                             <td><s:property value="#solicitud[0].fechaAlta" /></td>
                             <td>
                                 <s:url var="url" action="DesignacionesActividadForm">

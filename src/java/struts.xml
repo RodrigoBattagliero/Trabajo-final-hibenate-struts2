@@ -11,6 +11,7 @@ and open the template in the editor.
 <struts>
     <constant name="struts.devMode" value="true" />
     <constant name="struts.configuration.xml.reload" value="true" />
+    <constant name="struts.locale" value="es_AR" />
     
     <package name="tesis" extends="struts-default" >
         
@@ -57,31 +58,14 @@ and open the template in the editor.
             <result name="dirección económico-financiera" type="redirectAction">DireccionEconomicoFinanciera/index</result>
             <result name="liquidación de haberes" type="redirectAction">LiquidacionDeHaberes/index</result>
             <result name="tesorería" type="redirectAction">Tesoreria/index</result>
+            <result name="administrador" type="redirectAction">SuperUser/index</result>
         </action>
         
         <action name="menu">
             <result>/menu.jsp</result>
         </action>
         
-        <action name="ogagtd" class="kakan.controller.OgagtdController">
-            <result>/ogagtd.jsp</result>
-        </action>
-        
-        <action name="docentes" class="kakan.controller.SpgDocentesController">
-            <result>/docentes.jsp</result>
-        </action>
-        
-        
-        <action name="pdf" class="reports.Reportes">
-            <result type="stream" >
-                <param name="contentType">application/pdf</param>
-                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
-                <param name="contentLength">${tamanoArchivo}</param>
-            </result>
-            <result name="back" type="redirectAction">
-                menu
-            </result>
-        </action>
+
         
     </package>
     
@@ -94,4 +78,5 @@ and open the template in the editor.
     <include file="struts-direccioneconomicofinanciera.xml" />
     <include file="struts-liquidaciondehaberes.xml" />
     <include file="struts-tesoreria.xml" />
+    <include file="struts-superuser.xml" />
 </struts>

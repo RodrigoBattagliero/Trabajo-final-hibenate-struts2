@@ -50,11 +50,15 @@ public class SpgDocentes  implements java.io.Serializable {
         this.id = id;
     }
 
-    public SpgDocentes(String apellido, String nombre, String documento, String residencia) {
+    public SpgDocentes(String apellido, String nombre, String documento, String residencia,String mail, String telF, String telC, String cuil) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.documento = documento;
         this.residencia = residencia;
+        this.mail = mail;
+        this.telefonoCelular = telC;
+        this.telefonoFijo = telF;
+        this.cuil = cuil;
     }
     
     public SpgDocentes(int id, Integer nroLegajo, String apellido, String nombre, String tipoDocumento, String documento, String cuil, String sexo, Date fechaAlta, String idProvincia, BigDecimal idCiudad, String barrio, String calle, String numero, String piso, String depto, String telefonoFijo, String telefonoCelular, String mail, String estado, Integer concursoCargo, Date fechaPrimerConcurso, Integer antiguedad, String nivelEstudio, String actividades, Date fechaNacim, Integer edad, Integer puntajeExterno, Date fechaIngreso) {

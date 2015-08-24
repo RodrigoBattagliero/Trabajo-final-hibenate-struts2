@@ -21,9 +21,12 @@ import kakan.entities.SpgDocentes;
  */
 public class SpgDocentesDAO {
     
-    private final String SELECT_DOCENTE="SELECT apellido,nombre,documento,kakan.get_residencia(id) as residencia "
+    private final String SELECT_DOCENTE="SELECT apellido,nombre,documento,kakan.get_residencia(id) as residencia,mail,telefono_fijo,telefono_celular,kakan.formatear_cuil(cuil) as cuil "
                     + "FROM kakan.sgp_docentes "
                     + "WHERE documento = ?";
+//    private final String SELECT_DOCENTE="SELECT apellido,nombre,documento,kakan.get_residencia(id) as residencia "
+//                    + "FROM kakan.sgp_docentes "
+//                    + "WHERE documento = ?";
     private static final ConexionKakan conex = ConexionKakan.estado();
     
     public SpgDocentesDAO() {   
@@ -38,7 +41,8 @@ public class SpgDocentesDAO {
             ps.setString(1, dni);
             res = ps.executeQuery();
             while(res.next()){
-                spgDocentesList.add(new SpgDocentes(res.getString(1),res.getString(2),res.getString(3),res.getString(4)));
+                //spgDocentesList.add(new SpgDocentes(res.getString(1),res.getString(2),res.getString(3),res.getString(4),"","",""));
+                spgDocentesList.add(new SpgDocentes(res.getString(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5),res.getString(6),res.getString(7),res.getString(8)));
             }
             return spgDocentesList;
         } catch (SQLException ex) {

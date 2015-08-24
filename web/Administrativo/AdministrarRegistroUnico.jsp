@@ -12,41 +12,47 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1 class="page-header">Administrar regitro único</h1>
-            <s:form action="administrarRegistroUnico" theme="simple">
-                <div class="form-group">
-                    <label>Número de solicitud</label>
-                    <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true" class="form-control" />
-		</div>
-                <div class="form-group">
-                    <label>Area</label>
-                    <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" class="form-control" />
+            <h1 class="page-header">Administrar regitro único de solicitud</h1>
+            <div class="row">
+               <div class="col-sm-2"></div>
+               <div class="col-sm-8">
+                <s:form action="administrarRegistroUnico" theme="simple">
+                    <div class="form-group">
+                        <label>Número de solicitud</label>
+                        <s:textfield name="" value="%{entity.solicitudes.numeroSolicitud}" label="Número de solicitud" disabled="true" class="form-control" />
+            </div>
+                    <div class="form-group">
+                        <label>Area</label>
+                        <s:textfield name="idAreaSelected" label="Area" value="%{areaLogueada.nombre}" disabled="true" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha entrada</label>
+                        <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true" class="form-control fecha"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha Salida</label>
+                        <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" class="form-control fecha"  />
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
+            </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <s:textarea name="AdministrarObservaciones" label="Observaciones" class="form-control"  />
+            </div>
+                    <div class="form-group">
+                        <s:submit value="Guardar" class="btn btn-primary" />
+            </div>
+                </s:form>
                 </div>
-                <div class="form-group">
-                    <label>Fecha entrada</label>
-                    <s:textfield name="entity.fechaEntrada" value="%{entity.fechaEntrada}" label="Fecha entrada" disabled="true" class="form-control fecha"  />
-                </div>
-                <div class="form-group">
-                    <label>Fecha Salida</label>
-                    <s:textfield name="entity.fechaSalida" value="%{entity.fechaSalida}" label="Fecha Salida" class="form-control fecha"  />
-                </div>
-                <div class="form-group">
-                    <label>Estado</label>
-                    <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
-		</div>
-                <div class="form-group">
-                    <label>Observaciones</label>
-                    <s:textarea name="AdministrarObservaciones" label="Observaciones" class="form-control"  />
-		</div>
-                <div class="form-group">
-                    <s:submit value="Guardar" class="btn btn-primary" />
-		</div>
-            </s:form>
+                <div class="col-sm-2"></div>
+            </div>
             
             <%@include file="partes/footer.jsp" %>
         </div>

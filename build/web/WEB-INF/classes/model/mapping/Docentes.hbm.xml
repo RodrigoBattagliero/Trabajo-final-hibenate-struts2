@@ -7,9 +7,11 @@
       <column name="id"/>
       <generator class="identity"/>
     </id>
+    <!--
     <many-to-one class="model.entities.DepartamentosAcademicos" fetch="select" name="departamentosAcademicos">
       <column name="id_departamento_academico" not-null="true"/>
     </many-to-one>
+    -->
     <many-to-one class="model.entities.Solicitudes" fetch="select" name="solicitudes">
       <column name="id_solicitud" not-null="true"/>
     </many-to-one>
@@ -22,8 +24,11 @@
     <property name="dni" type="string">
       <column name="dni"/>
     </property>
-    <property name="telefono" type="string">
-      <column name="telefono"/>
+    <property name="telefonoFijo" type="string">
+      <column name="telefono_fijo"/>
+    </property>
+    <property name="telefonoCelular" type="string">
+      <column name="telefono_celular"/>
     </property>
     <property name="email" type="string">
       <column name="email"/>
@@ -42,6 +47,9 @@
     </property>
     <property name="observaciones" type="string">
       <column name="observaciones"/>
+    </property>
+    <property name="cuil" type="string">
+      <column name="cuil"/>
     </property>
   </class>
 </hibernate-mapping>

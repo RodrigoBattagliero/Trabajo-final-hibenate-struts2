@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -20,9 +20,9 @@
             <ol class="breadcrumb">
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Solicitudes a completar</a></li>
-                <li class="active">Registro único</li>
+                <li class="active">Registro único de solicitud</li>
             </ol>
-            <h1 class="page-header">Administrar registro único</h1>
+            <h1 class="page-header">Administrar registro único de solicitud</h1>
             <s:form action="administrarRegistroUnicoActividad" theme="simple">
                 <div class="form-group">
                     <label>Número de solicitud</label>

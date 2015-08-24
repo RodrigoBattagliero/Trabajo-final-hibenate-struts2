@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -20,37 +20,42 @@
             <ol class="breadcrumb">
                 <li><a href="#">Inicio</a></li>
                 <li><a href="#">Iniciar solicitud</a></li>
-                <li class="active">Crear registro único</li>
+                <li class="active">Crear registro único de solicitud</li>
             </ol>
-            <h1 class="page-header">Registro único</h1>
+            <h1 class="page-header">Registro único de solicitud</h1>
             <s:actionerror />
             <s:fielderror />
-            <s:form action="RegistroUnicoPrepare" theme="simple">
-                <div class="form-group">
-                    <label>Fecha de entrada</label>
-                    <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" class="form-control fecha" />
+            <div class="row">
+               <div class="col-sm-2"></div>
+               <div class="col-sm-8">
+                <s:form action="RegistroUnicoPrepare" theme="simple">
+                    <div class="form-group">
+                        <label>Fecha de entrada</label>
+                        <s:textfield name="entity.fechaEntrada" label="Fecha de entrada" class="form-control fecha" />
+                    </div>
+                    <div class="form-group">
+                        <label>Area</label>
+                        <s:select list="#@java.util.TreeMap@{'2':'Profesor'}" label="Area" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Estado</label>
+                        <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmado</label>
+                        <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones</label>
+                        <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <s:submit value="Guardar" class="btn btn-primary" />
+                    </div>
+                </s:form>
                 </div>
-                <div class="form-group">
-                    <label>Area</label>
-                    <s:select list="#@java.util.TreeMap@{'2':'Profesor'}" label="Area" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Estado</label>
-                    <s:select list="listEstados" listKey="id" listValue="nombre" name="idEstadoSelected" label="Estado" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Confirmado</label>
-                    <s:checkbox name="entity.confirmado" label="Confirmado" value="true" disabled="true" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Observaciones</label>
-                    <s:textarea name="entity.observaciones" label="Observaciones" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <s:submit value="Guardar" class="btn btn-primary" />
-                </div>
-            </s:form>
-            
+                <div class="col-sm-2"></div>
+            </div>
             <%@include file="partes/footer.jsp" %>
         </div>
             

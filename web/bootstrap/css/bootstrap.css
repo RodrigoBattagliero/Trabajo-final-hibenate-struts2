@@ -5,6 +5,7 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+@import url("../../css/font-awesome.min.css");
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -4919,7 +4920,7 @@ a.thumbnail.active {
   padding: 9px;
   color: #333;
 }
-.alert,.errorMessage {
+.alert,.errorMessage,.actionMessage {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -4950,7 +4951,7 @@ a.thumbnail.active {
   right: -21px;
   color: inherit;
 }
-.alert-success {
+.alert-success,.actionMessage {
   color: #3c763d;
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -6581,3 +6582,33 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/* Estilos propios */
+.row .col-sm-8{
+    background: #F5F5F5;
+    padding: 10px;
+}
+#grafico-estados{
+    width: 100%;
+}
+#grafico-estados li{
+    list-style: none;
+    float: left;
+    margin-left: 10px;
+}
+.estado{
+    background: #EF0BD8;
+    border-radius: 2em;
+    -moz-border-radius: 2em;
+    -webkit-border-radius: 2em;
+    color: #ffffff;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 3.6em;
+    margin-right: 15px;
+    text-align: center;
+    width: 3.6em; 
+}
+#searchSolicitud input{
+    width: 120px;
+}

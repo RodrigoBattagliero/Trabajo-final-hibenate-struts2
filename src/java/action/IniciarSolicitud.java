@@ -17,6 +17,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.dao.ComprobantesTrasladosDAO;
+import model.dao.DAO;
 import model.entities.Comprobantes;
 import model.entities.ComprobantesComidaAlojamientos;
 import model.entities.ComprobantesTraslados;
@@ -30,6 +31,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.hibernate.HibernateException;
 import reports.ConfirmarSolicitudesReporte;
 import reports.ConstanciaDePresentacion;
 import resources.SesionRemove;
@@ -48,6 +50,106 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
     
     @Override
     public String execute(){
+        
+        String res = SUCCESS;
+        DAO dao = new DAO();
+        try{
+            dao.iniciaOperacion();
+            int cantidadComprobantes = 0;
+            int idSol = 0;
+//            SolicitudesController sol = new SolicitudesController();
+            Solicitudes solicitud = new Solicitudes();
+            solicitud = (Solicitudes)sesion.getAttribute("SolicitudesForm");
+//            sol.setEntity(solicitud);
+            idSol = Integer.parseInt(String.valueOf(dao.getSesion().save(solicitud)));
+
+    //        solicitud.setId(idSol);
+            
+//            DocentesController doc = new DocentesController();
+            Docentes docente = new Docentes();
+            docente = (Docentes)sesion.getAttribute("DocentesForm");
+            docente.setSolicitudes(solicitud);
+            docente.setNombre(docente.getNombre().toUpperCase());
+            docente.setApellido(docente.getApellido().toUpperCase());
+//            doc.setEntity(docente);
+            dao.getSesion().save(docente);
+
+
+//            ComprobantesTrasladosController tras = new ComprobantesTrasladosController();
+            List<ComprobantesTraslados> listTraslado = (List) sesion.getAttribute("ComprobanteTraslado");
+            if(listTraslado != null){
+                for(ComprobantesTraslados traslado : listTraslado){
+
+                    cantidadComprobantes++;
+
+//                    ComprobantesController com = new ComprobantesController();
+                    Comprobantes comprobantes = new Comprobantes();
+                    comprobantes = (Comprobantes)traslado.getComprobantes();
+                    comprobantes.setSolicitudes(solicitud);
+//                    com.setEntity(comprobantes);
+                    dao.getSesion().save(comprobantes);
+
+                    traslado.setComprobantes(comprobantes);
+                    dao.getSesion().save(traslado);
+                }
+
+            }
+
+//            ComprobantesComidaAlojamientoController aloj = new ComprobantesComidaAlojamientoController();
+            List<ComprobantesComidaAlojamientos> listAlojamiento = (List) sesion.getAttribute("ComprobanteAlojamiento");
+            if(listAlojamiento != null){
+                for(ComprobantesComidaAlojamientos alojamiento : listAlojamiento){
+
+                    cantidadComprobantes++;
+
+//                    ComprobantesController com = new ComprobantesController();
+                    Comprobantes comprobantes = new Comprobantes();
+                    comprobantes = (Comprobantes)alojamiento.getComprobantes();
+                    comprobantes.setSolicitudes(solicitud);
+//                    com.setEntity(comprobantes);
+                    dao.getSesion().save(comprobantes);
+
+                    alojamiento.setComprobantes(comprobantes);
+                    dao.getSesion().save(alojamiento);
+                }
+            }
+
+
+//            RegistrosUnicosController reg1 = new RegistrosUnicosController();
+            RegistrosUnicos registroUnico1 = new RegistrosUnicos();
+            registroUnico1 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoForm");
+            registroUnico1.setSolicitudes(solicitud);
+//            reg1.setEntity(registroUnico1);
+            dao.getSesion().save(registroUnico1);
+
+//            RegistrosUnicosController reg2 = new RegistrosUnicosController();
+            RegistrosUnicos registroUnico2 = new RegistrosUnicos();
+            registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoProximo");
+            registroUnico2.setSolicitudes(solicitud);
+//            reg2.setEntity(registroUnico2);
+            dao.getSesion().save(registroUnico2);
+        
+            dao.commit();
+        }catch(HibernateException he){
+            dao.abordar();
+            addActionError("Error al iniciar solicitud:");
+            addActionError("Detalle: "+he);
+            res = ERROR;
+        }catch(Exception e){
+            addActionError("Error: ");
+            addActionError("Detalle: "+e);
+            res = ERROR;
+        }finally{
+            dao.cerrarSession();
+        }
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
+        return res;
+    }
+    
+    public String executeAux(){
         
         String res = SUCCESS;
         int cantidadComprobantes = 0;
@@ -147,28 +249,7 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         }catch(Exception e){
             
         }
-        
-        ConstanciaDePresentacion constancia = new ConstanciaDePresentacion();
-        constancia.setApellido(docente.getApellido());
-        constancia.setCantComprobantes(cantidadComprobantes);
-        constancia.setFechaAlta(solicitud.getFechaAlta());
-        constancia.setFechaFin(docente.getFechaFinalizacion());
-        constancia.setFechaInicio(docente.getFechaInicio());
-        constancia.setNombre(docente.getNombre());
-        constancia.setNumSolicitud(solicitud.getNumeroSolicitud());
-        
-        try{
-            String ruta = ServletActionContext.getServletContext().getRealPath("/Reportes/ConstanciasDePresentacion/constancia_de_presentacion.jasper");
-            String ruta2 = ServletActionContext.getServletContext().getRealPath("/");
-            ruta2 += "/Reportes/ConstanciasDePresentacion/"+docente.getApellido()+"_"+docente.getNombre() +"_" + String.valueOf(solicitud.getNumeroSolicitud()) +"_" + solicitud.getFechaAlta() + ".pdf";
-            JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);
-            JasperPrint jasperPrint = JasperFillManager.fillReport(reporte,null,constancia);
-            JasperExportManager.exportReportToPdfFile(jasperPrint,ruta2);
-        }catch(Exception e){
-            
-        
-        }
-        
+
         
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();
@@ -176,7 +257,7 @@ public class IniciarSolicitud extends ActionSupport implements ServletRequestAwa
         
         return res;
     }
-
+    
     @Override
     public void setServletRequest(HttpServletRequest hsr) {
         this.request = hsr;

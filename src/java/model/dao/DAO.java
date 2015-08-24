@@ -19,7 +19,7 @@ import org.hibernate.Transaction;
  * @author rodrigo
  * @param <TipoObject>
  */
-public abstract class DAO implements IQueries<Object>{
+public class DAO implements IQueries<Object>{
     protected Session sesion;
     protected Transaction tx;
     protected String tableName = "";
@@ -29,9 +29,21 @@ public abstract class DAO implements IQueries<Object>{
     public void iniciaOperacion() throws HibernateException{
         sesion = HibernateUtil.getSessionFactory().openSession();
         tx = sesion.beginTransaction();
+        
     }
-    
-    protected void manejaExcepcion(HibernateException he) throws HibernateException{
+    public Session getSesion(){
+        return this.sesion;
+    }
+    public void iniciarTransaccion(){
+        tx = sesion.beginTransaction();
+    }
+    public void commit(){
+        tx.commit();
+    }
+    public void abordar(){
+        tx.rollback();
+    }
+    public void manejaExcepcion(HibernateException he) throws HibernateException{
         tx.rollback();
         throw new HibernateException("Ocurrió un error en la capa de acceso a datos", he);
     }

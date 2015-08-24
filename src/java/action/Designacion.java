@@ -13,10 +13,12 @@ import controller.SolicitudesController;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.dao.DAO;
 import model.entities.Designaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.hibernate.HibernateException;
 import resources.SesionRemove;
 
 /**
@@ -30,6 +32,49 @@ public class Designacion extends ActionSupport implements ServletRequestAware {
     
     @Override
     public String execute(){
+        String res = SUCCESS;
+        DAO dao = new DAO();
+        try{
+            dao.iniciaOperacion();
+            int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
+            SolicitudesController solContr = new SolicitudesController();
+            solContr.selectOne(idSol);
+            Solicitudes solicitud = solContr.getEntity();
+
+            List<Designaciones> designaciones = (List<Designaciones>) sesion.getAttribute("DesignacionesForm");
+            DesignacionesController degContr;
+            for(Designaciones desig : designaciones){
+                desig.setSolicitudes(solicitud);
+                dao.getSesion().save(desig);
+            }
+            RegistrosUnicos registroUnico1 = new RegistrosUnicos();
+            registroUnico1 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoForm");
+            registroUnico1.setSolicitudes(solicitud);
+            dao.getSesion().update(registroUnico1);
+            
+            dao.commit();
+            
+        }catch(HibernateException he){
+            dao.abordar();
+            addActionError("Error al iniciar solicitud:");
+            addActionError("Detalle: "+he);
+            res = ERROR;
+        }catch(Exception e){
+            addActionError("Error: ");
+            addActionError("Detalle: "+e);
+            res = ERROR;
+        }finally{
+            dao.cerrarSession();
+        }
+        
+        // Eliminar datos de sesion
+        SesionRemove sR = new SesionRemove();
+        sR.removeAllSession(this.sesion);
+        
+        return res;
+    }
+    
+    public String executeAux(){
         String res = SUCCESS;
         
         int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
@@ -57,20 +102,7 @@ public class Designacion extends ActionSupport implements ServletRequestAware {
         if(!reg1.getDao().update(registroUnico1))
             res = ERROR;
         reg1.getDao().cerrarSession();
-//        
-//        RegistrosUnicosController reg2 = new RegistrosUnicosController();
-//        RegistrosUnicos registroUnico2 = new RegistrosUnicos();
-//        registroUnico2 = (RegistrosUnicos)sesion.getAttribute("RegistrosNuevosForm");
-//        registroUnico2.setSolicitudes(solicitud);
-//        reg2.setEntity(registroUnico2);
-//        try{
-//            reg2.getDao().iniciaOperacion();
-//            int id = reg2.getDao().create(registroUnico2);
-//            if(id == 0)
-//                res = ERROR;
-//        }catch(Exception e){
-//            System.out.println(e);
-//        }
+
         
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();

@@ -21,8 +21,8 @@ and open the template in the editor.
                 </interceptor-ref>
                 <interceptor-ref name="rolesInterceptor">
                     <param name="roleActions">
-                        administrador:index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle;
-                        rendición de cuentas: index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle;
+                        administrador:index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
+                        rendición de cuentas: index,logout,RendicionDeCuentasForm,RendicionDeCuentasSolicitudForm,LiquidacionesPrepared,AdministrarRegistroUnicoForm,administrarRegistroUnicoLiquidacion,Liquidacion,ConfirmarSolicitudesForm,ConfirmarSolicitudesPrepared,ConfirmarSolicitudesAction,SolicitudesDevueltasForm,setSolicitudSelected,LiquidacionesUpdateForm,LiquidacionesUpdate,RegistroUnicoSolicitudDevuelta,PreparedRegistroUnico,HistorialSolicitudes,Reportes,ReporteDescargar,ReportesDetalle,newPasswordForm,newPassword,ConsultarForm,Consultar,ConsultarDetalle,ReporteDescargarExcel;
                     </param>
                 </interceptor-ref>
             </interceptor-stack>
@@ -61,6 +61,8 @@ and open the template in the editor.
         </action>
         <action name="Liquidacion" class="action.LiquidacionesAction" >
             <result type="redirectAction">RendicionDeCuentasForm</result>
+            <result name="error">/RendicionDeCuentas/error.jsp</result>
+           <result name="input">/RendicionDeCuentas/error.jsp</result>
         </action>
 
          <!-- Confirmar solicitudes -->
@@ -73,6 +75,8 @@ and open the template in the editor.
         </action>
         <action name="ConfirmarSolicitudesAction" class="action.RegistrosUnicosAction">
             <result type="redirectAction">Reportes</result>
+            <result name="error">/RendicionDeCuentas/error.jsp</result>
+           <result name="input">/RendicionDeCuentas/error.jsp</result>
         </action>
         
         <!-- Reportes -->
@@ -82,6 +86,14 @@ and open the template in the editor.
         <action name="ReporteDescargar" class="controller.ReSolConController" method="descargar">
             <result type="stream" >
                 <param name="contentType">application/pdf</param>
+                <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
+                <param name="contentLength">${tamanoArchivo}</param>
+            </result>
+        </action>
+         <!-- Descargar EXCEL -->
+       <action name="ReporteDescargarExcel" class="controller.ReSolConController" method="descargarExcel">
+            <result type="stream" >
+                <param name="contentType">application/msexcel</param>
                 <param name="contentDisposition">attachment;filename="${nombreArchivo}"</param>
                 <param name="contentLength">${tamanoArchivo}</param>
             </result>
@@ -108,11 +120,34 @@ and open the template in the editor.
         </action>
         <action name="PreparedRegistroUnico" class="controller.RegistrosUnicosController" method="UpdateDevuelta">
             <result type="redirectAction">SolicitudesDevueltasForm</result>
+            <result name="error">/RendicionDeCuentas/error.jsp</result>
+            <result name="input">/RendicionDeCuentas/error.jsp</result>
         </action>
         
         <!-- Historial de solicitudes -->
         <action name="HistorialSolicitudes" class="controller.RegistrosUnicosController" method="setHistorialSolicutdes">
             <result >/RendicionDeCuentas/HistorialSolicitudes.jsp</result>
+        </action>
+        
+        <!-- Cambiar contraseña -->
+        <action name="newPasswordForm">
+            <result>/RendicionDeCuentas/newpassword.jsp</result>
+        </action>
+        <action name="newPassword" class="controller.UsuariosController" method="newPassword">
+            <result>/RendicionDeCuentas/newpassword.jsp</result>
+            <result name="input">/RendicionDeCuentas/newpassword.jsp</result>
+            <result name="error">/RendicionDeCuentas/newpassword.jsp</result>
+        </action>
+        
+         <!-- Consultar registro unico -->
+        <action name="ConsultarForm" >
+            <result>/RendicionDeCuentas/Consultar.jsp</result>
+        </action>
+        <action name="Consultar" class="controller.RegistrosUnicosController"  method="consultarRegistro">
+            <result>/RendicionDeCuentas/Consultar.jsp</result>
+        </action>
+        <action name="ConsultarDetalle" class="controller.RegistrosUnicosController" method="consultarDetalle">
+            <result>/RendicionDeCuentas/ConsultarDetalle.jsp</result>
         </action>
     </package>
 </struts>

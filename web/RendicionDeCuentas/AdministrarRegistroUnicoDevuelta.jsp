@@ -12,12 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Rendición de cuentas</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
-            <h1 class="page-header">Administrar registro único</h1>
+            <h1 class="page-header">Administrar registro único de solicitud</h1>
             <s:form action="PreparedRegistroUnico" theme="simple">
                 <div class="form-group">
                     <label>Id</label>

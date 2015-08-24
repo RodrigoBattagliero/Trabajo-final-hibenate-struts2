@@ -20,7 +20,7 @@
       <column name="password"/>
     </property>
     <property name="user" type="string">
-      <column name="user"/>
+      <column name="nameuser"/>
     </property>
     
     <set fetch="select" inverse="true" lazy="true" name="reSolCones" table="re_sol_con">

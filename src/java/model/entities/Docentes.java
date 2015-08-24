@@ -11,40 +11,41 @@ public class Docentes  implements java.io.Serializable {
 
 
      private int id;
-     private DepartamentosAcademicos departamentosAcademicos;
      private Solicitudes solicitudes;
      private String nombre;
      private String apellido;
      private String dni;
-     private String telefono;
+     private String telefonoFijo;
+     private String telefonoCelular;
      private String email;
      private String lugarResidencia;
      private String motivoComision;
      private Date fechaInicio;
      private Date fechaFinalizacion;
      private String observaciones;
+     private String cuil;
 
     public Docentes() {
     }
 
 	
-    public Docentes(DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes) {
-        this.departamentosAcademicos = departamentosAcademicos;
+    public Docentes(Solicitudes solicitudes) {
         this.solicitudes = solicitudes;
     }
-    public Docentes(DepartamentosAcademicos departamentosAcademicos, Solicitudes solicitudes, String nombre, String apellido, String dni, String telefono, String email, String lugarResidencia, String motivoComision, Date fechaInicio, Date fechaFinalizacion, String observaciones) {
-       this.departamentosAcademicos = departamentosAcademicos;
+    public Docentes(Solicitudes solicitudes, String nombre, String apellido, String dni, String telefonoF,String telefonoC, String email, String lugarResidencia, String motivoComision, Date fechaInicio, Date fechaFinalizacion, String observaciones,String cuil) {
        this.solicitudes = solicitudes;
        this.nombre = nombre;
        this.apellido = apellido;
        this.dni = dni;
-       this.telefono = telefono;
+       this.telefonoFijo = telefonoF;
+       this.telefonoCelular = telefonoC;
        this.email = email;
        this.lugarResidencia = lugarResidencia;
        this.motivoComision = motivoComision;
        this.fechaInicio = fechaInicio;
        this.fechaFinalizacion = fechaFinalizacion;
        this.observaciones = observaciones;
+       this.cuil = cuil;
     }
    
     public int getId() {
@@ -53,13 +54,6 @@ public class Docentes  implements java.io.Serializable {
     
     public void setId(int id) {
         this.id = id;
-    }
-    public DepartamentosAcademicos getDepartamentosAcademicos() {
-        return this.departamentosAcademicos;
-    }
-    
-    public void setDepartamentosAcademicos(DepartamentosAcademicos departamentosAcademicos) {
-        this.departamentosAcademicos = departamentosAcademicos;
     }
     public Solicitudes getSolicitudes() {
         return this.solicitudes;
@@ -89,13 +83,22 @@ public class Docentes  implements java.io.Serializable {
     public void setDni(String dni) {
         this.dni = dni;
     }
-    public String getTelefono() {
-        return this.telefono;
+    public String getTelefonoFijo() {
+        return this.telefonoFijo;
     }
     
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTelefonoFijo(String telefono) {
+        this.telefonoFijo = telefono;
     }
+
+    public String getTelefonoCelular() {
+        return telefonoCelular;
+    }
+
+    public void setTelefonoCelular(String telefonoCelular) {
+        this.telefonoCelular = telefonoCelular;
+    }
+    
     public String getEmail() {
         return this.email;
     }
@@ -139,8 +142,13 @@ public class Docentes  implements java.io.Serializable {
         this.observaciones = observaciones;
     }
 
+    public String getCuil() {
+        return cuil;
+    }
 
-
+    public void setCuil(String cuil) {
+        this.cuil = cuil;
+    }
 
 }
 

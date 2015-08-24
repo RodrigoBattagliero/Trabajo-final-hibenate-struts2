@@ -14,11 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import kakan.controller.OgagtdController;
 import kakan.entities.VOgagtd;
+import model.dao.DAO;
 import model.dao.DesignacionesDAO;
 import model.entities.ActividadDocentes;
 import model.entities.Designaciones;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.hibernate.HibernateException;
 
 /**
  *
@@ -204,6 +206,13 @@ public class DesignacionesController extends Controller<Designaciones> implement
         if(idSol.equals("null")){
             idSol = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
         }
+        try{
+            DocentesController docCon = new DocentesController();
+            docCon.selectRelated(Integer.parseInt(idSol));
+            this.sesion.setAttribute("DocentesForm", docCon.getEntities().get(0));
+        }catch(Exception e){
+            
+        }
         this.sesion.setAttribute("idSolicitudSelected",idSol );
         this.dao.iniciaOperacion();
         List<Designaciones> list = new ArrayList();
@@ -277,48 +286,36 @@ public class DesignacionesController extends Controller<Designaciones> implement
     
     @Override
     public String update(){
-        String res = ERROR;
-        DesignacionesDAO dao = new DesignacionesDAO();
-        boolean b = false;
+        String res = SUCCESS;
+        DAO d = new DAO();
         try{
-            String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
+            int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
+            this.selectRelated(idSol);
             SolicitudesController solCon = new SolicitudesController();
-            solCon.selectOne(Integer.parseInt(idSolStr));
-            setDesignacionesUpdate();
-            for(Designaciones d : this.entities){
-                d.setSolicitudes(solCon.getEntity());
-                dao.iniciaOperacion();
-                b = dao.update(d);
-                dao.cerrarSession();
+            solCon.selectOne(idSol);
+            int cant = this.entities.size();
+            d.iniciaOperacion();
+            for (int i = 0; i < cant; i++) {
+                this.entities.get(i).setSolicitudes(solCon.getEntity());
+                d.getSesion().delete(this.entities.get(i));
             }
-//            this.prepared();
-//            List<Designaciones> designaciones = this.entities;
-//            int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
-//            SolicitudesController solContr = new SolicitudesController();
-//            solContr.selectOne(idSol);
-//            Solicitudes solicitud = solContr.getEntity();
-//
-//            // Eliminar designaciones y actividades docentes existentes.
-//            this.selectRelatedAllSimple(idSol);
-//            for(Designaciones desig : this.entities){
-//                dao.iniciaOperacion();
-//                dao.delete(desig);
-//                dao.cerrarSession();
-//            }
-//
-//            for(Designaciones desig : designaciones){
-//                desig.setSolicitudes(solicitud);
-//                this.setEntity(desig);
-//                if(!this.save().equals("error"))
-//                        res = SUCCESS;
-//            }
-
-        }catch(NullPointerException e){
-            System.out.println(e);
+            d.commit();
+        }catch(HibernateException he){
+            d.abordar();
+            addActionError("Error al iniciar solicitud:");
+            addActionError("Detalle: "+he);
+            res = ERROR;
+        }catch(Exception e){
+            d.abordar();
+            addActionError("Error1: ");
+            addActionError("Detalle: "+e);
+            res = ERROR;
+        }finally{
+            d.cerrarSession();
         }
-        if(b)
-            res = SUCCESS;
-        return res; 
+        prepared();
+        return res;
+        
     }
     
     public Set<ActividadDocentes> MateriasFromKakan(int idDesignacion){
@@ -375,6 +372,7 @@ public class DesignacionesController extends Controller<Designaciones> implement
                 desig.setSolicitudes(solCon.getEntity());
                 this.entities.add(desig);
             }   
+            this.sesion.setAttribute("DocentesForm", docCon.getEntities().get(0));
         }catch(Exception e){
             this.entities = new ArrayList();
         }

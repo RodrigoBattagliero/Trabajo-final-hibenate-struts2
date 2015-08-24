@@ -13,10 +13,12 @@ import controller.RegistrosUnicosController;
 import controller.SolicitudesController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import model.dao.DAO;
 import model.entities.Liquidaciones;
 import model.entities.RegistrosUnicos;
 import model.entities.Solicitudes;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.hibernate.HibernateException;
 import resources.SesionRemove;
 
 /**
@@ -31,29 +33,50 @@ public class LiquidacionesAction extends ActionSupport implements ServletRequest
     @Override
     public String execute(){
         String res = SUCCESS;
-        
-        int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
-        SolicitudesController solContr = new SolicitudesController();
-        solContr.selectOne(idSol);
-        Solicitudes solicitud = solContr.getEntity();
-        
-        LiquidacionesController controller = new LiquidacionesController();
-        Liquidaciones liquidacion = new Liquidaciones();
-        liquidacion = (Liquidaciones) sesion.getAttribute("LiquidacionesForm");
-        liquidacion.setSolicitudes(solicitud);
-        controller.setEntity(liquidacion);
-        if(controller.save().equals("error"))
+        DAO dao = new DAO();
+        try{
+            dao.iniciaOperacion();
+            
+            int idSol = Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected")));
+            SolicitudesController solContr = new SolicitudesController();
+            solContr.selectOne(idSol);
+            Solicitudes solicitud = solContr.getEntity();
+
+//            LiquidacionesController controller = new LiquidacionesController();
+            Liquidaciones liquidacion = new Liquidaciones();
+            liquidacion = (Liquidaciones) sesion.getAttribute("LiquidacionesForm");
+            liquidacion.setSolicitudes(solicitud);
+            dao.getSesion().save(liquidacion);
+//            controller.setEntity(liquidacion);
+//            if(controller.save().equals("error"))
+//                res = ERROR;
+
+//            RegistrosUnicosController reg1 = new RegistrosUnicosController();
+            RegistrosUnicos registroUnico1 = new RegistrosUnicos();
+            registroUnico1 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoForm");
+            registroUnico1.setSolicitudes(solicitud);
+            dao.getSesion().update(registroUnico1);
+//            reg1.setEntity(registroUnico1);
+//            reg1.getDao().iniciaOperacion();
+//            if(!reg1.getDao().update(registroUnico1))
+//                res = ERROR;
+//            reg1.getDao().cerrarSession();
+            
+            dao.commit();
+            
+        }catch(HibernateException he){
+            dao.abordar();
+            addActionError("Error al iniciar solicitud:");
+            addActionError("Detalle: "+he);
             res = ERROR;
-        
-        RegistrosUnicosController reg1 = new RegistrosUnicosController();
-        RegistrosUnicos registroUnico1 = new RegistrosUnicos();
-        registroUnico1 = (RegistrosUnicos)sesion.getAttribute("RegistroUnicoForm");
-        registroUnico1.setSolicitudes(solicitud);
-        reg1.setEntity(registroUnico1);
-        reg1.getDao().iniciaOperacion();
-        if(!reg1.getDao().update(registroUnico1))
+        }catch(Exception e){
+            addActionError("Error: ");
+            addActionError("Detalle: "+e);
             res = ERROR;
-        reg1.getDao().cerrarSession();
+        }finally{
+            dao.cerrarSession();
+        }
+        
         
         // Eliminar datos de sesion
         SesionRemove sR = new SesionRemove();

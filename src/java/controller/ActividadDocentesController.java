@@ -14,7 +14,9 @@ import kakan.controller.OgagtdController;
 import kakan.entities.VOgagtd;
 import model.dao.ActividadDocentesDAO;
 import model.entities.ActividadDocentes;
+import model.entities.Comprobantes;
 import model.entities.Designaciones;
+import model.entities.Docentes;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 /**
@@ -88,6 +90,7 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     }
 
     public String procesar(){
+        String res = SUCCESS;
         int cant = materia.length;
         this.entities = new ArrayList();
         for(int i = 0; i < cant; i++){
@@ -108,12 +111,15 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
                 DesignacionesController de = new DesignacionesController();
                 de.selectOne(idDesignacion[i]);
                 entity.setDesignaciones(de.getEntity());
-                
-                entities.add(entity);
+                if(validar()){
+                    entities.add(entity);
+                }else{
+                    return INPUT;
+                }
             }
         }
         this.sesion.setAttribute("ActividadDocenteForm", this.entities);
-        return SUCCESS;
+        return res;
     }
     
     public ActividadDocentesController() {
@@ -193,11 +199,6 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
         String res = ERROR;
         procesar();
         String idSolStr = String.valueOf(this.sesion.getAttribute("idSolicitudSelected"));
-//        String idActStr = String.valueOf(this.sesion.getAttribute("idActividadDocente"));
-//        DesignacionesController desCont = new DesignacionesController();
-//        desCont.selectOne(Integer.parseInt(idSolStr));
-//        this.entity.setDesignaciones(desCont.getEntity());
-//        this.entity.setId(Integer.parseInt(idActStr));
         DesignacionesController desCon = new DesignacionesController();
         desCon.selectRelatedAllSimple(Integer.parseInt(idSolStr));
         dao = new ActividadDocentesDAO();
@@ -278,6 +279,21 @@ public class ActividadDocentesController extends Controller<ActividadDocentes> i
     
     public boolean validar(){
         boolean b = true;
+        try{
+            DocentesController docCon = new DocentesController();
+            docCon.selectRelated(Integer.parseInt(String.valueOf(sesion.getAttribute("idSolicitudSelected"))));
+            Docentes doc = docCon.getEntities().get(0);
+            if(doc.getFechaFinalizacion().before(this.entity.getFecha()) && !doc.getFechaFinalizacion().equals(this.entity.getFecha())){
+                addActionError("La fecha debe ser anterior a la fecha de finalización declarado por el docente.");
+                b = false;
+            }
+            if(this.entity.getFecha().before(doc.getFechaInicio())){
+                addActionError("La fecha debe ser posterior a la fecha de inicio declarado por el docente.");
+                b = false;
+            }
+        }catch(Exception e){
+            
+        }
 //        if(this.entity.getAsignatura().equals("")){
 //            addFieldError("asignatura", "ERROR: Debe ingresar una asignatura");
 //            b = false;

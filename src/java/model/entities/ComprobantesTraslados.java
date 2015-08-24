@@ -15,7 +15,6 @@ public class ComprobantesTraslados  implements java.io.Serializable {
      private String desde;
      private String hasta;
      private Date fechaHoraSalida;
-     private Date fechaHoraRegreso;
 
     public ComprobantesTraslados() {
     }
@@ -24,12 +23,11 @@ public class ComprobantesTraslados  implements java.io.Serializable {
     public ComprobantesTraslados(Comprobantes comprobantes) {
         this.comprobantes = comprobantes;
     }
-    public ComprobantesTraslados(Comprobantes comprobantes, String desde, String hasta, Date fechaHoraSalida, Date fechaHoraRegreso) {
+    public ComprobantesTraslados(Comprobantes comprobantes, String desde, String hasta, Date fechaHoraSalida) {
        this.comprobantes = comprobantes;
        this.desde = desde;
        this.hasta = hasta;
        this.fechaHoraSalida = fechaHoraSalida;
-       this.fechaHoraRegreso = fechaHoraRegreso;
     }
    
     public int getId() {
@@ -67,16 +65,6 @@ public class ComprobantesTraslados  implements java.io.Serializable {
     public void setFechaHoraSalida(Date fechaHoraSalida) {
         this.fechaHoraSalida = fechaHoraSalida;
     }
-    public Date getFechaHoraRegreso() {
-        return this.fechaHoraRegreso;
-    }
-    
-    public void setFechaHoraRegreso(Date fechaHoraRegreso) {
-        this.fechaHoraRegreso = fechaHoraRegreso;
-    }
-
-
-
 
 }
 

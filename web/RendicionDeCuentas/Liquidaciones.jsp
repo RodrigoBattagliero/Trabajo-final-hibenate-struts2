@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Rendición de cuentas</title>
     </head>
     <body>
         <div class="container">
@@ -22,39 +22,75 @@
                 <li class="active">Rendición de cuentas</li>
             </ol>
             <h1 class="page-header">Rendicion de cuentas</h1>
-            <s:form action="LiquidacionesPrepared" theme="simple">
-                <div class="form-group">
-                    <label>Reconocimiento gasto comida</label>
-                    <s:textfield name="entity.reconocimientoGastoComida" label="reconocimientoGastoComida" class="form-control" />
+            <table class="table table-bordered  table-hover">
+                <thead>
+                    <tr class="success">
+                        <th>Apellido y nombre</th>
+                        <th>DNI</th>
+                        <th>Telefono fijo</th>
+                        <th>Telefono celular</th>
+                        <th>Email</th>
+                        <th>Lugar de residencia</th>
+                        <th>Motivo de comisión</th>
+                        <th>Fecha de inicio</th>
+                        <th>Fecha de finalización</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><s:property value="#session.DocentesForm.apellido" />, <s:property value="#session.DocentesForm.nombre" /></td>
+                        <td><s:property value="#session.DocentesForm.dni" /></td>
+                        <td><s:property value="#session.DocentesForm.telefonoFijo" /></td>
+                        <td><s:property value="#session.DocentesForm.telefonoCelular" /></td>
+                        <td><s:property value="#session.DocentesForm.email" /></td>
+                        <td><s:property value="#session.DocentesForm.lugarResidencia" /></td>
+                        <td><s:property value="#session.DocentesForm.motivoComision" /></td>
+                        <td><s:property value="#session.DocentesForm.fechaInicio" /></td>
+                        <td><s:property value="#session.DocentesForm.fechaFinalizacion" /></td>
+                        <td><s:property value="#session.DocentesForm.observaciones" /></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+               <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <s:form action="LiquidacionesPrepared" theme="simple">
+                        <div class="form-group">
+                            <label>Reconocimiento gasto comida</label>
+                            <s:textfield name="entity.reconocimientoGastoComida" label="reconocimientoGastoComida" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Reconocimiento gasto alojamiento</label>
+                            <s:textfield name="entity.reconocimientoGastoAlojamiento" label="reconocimientoGastoAlojamiento" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Reconocimiento gasto combustible</label>
+                            <s:textfield name="entity.reconocimientoGastoCombustible" label="reconocimientoGastoCombustible" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Reconocimiento gasto pasajes</label>
+                            <s:textfield name="entity.reconocimientoGastoPasajes" label="reconocimientoGastoPasajes" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Importe declarado</label>
+                            <s:textfield name="entity.importeDeclarado" label="importeDeclarado" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Reconocimiento importe total</label>
+                            <s:textfield name="entity.reconocimientoImporteTotal" label="reconocimientoImporteTotal" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Observaciones</label>
+                            <s:textarea name="entity.observaciones" label="observaciones" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <s:submit name="Guardar" value="Guardar" class="btn btn-primary" /> 
+                        </div>
+                    </s:form>
                 </div>
-                <div class="form-group">
-                    <label>Reconocimiento gasto alojamiento</label>
-                    <s:textfield name="entity.reconocimientoGastoAlojamiento" label="reconocimientoGastoAlojamiento" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Reconocimiento gasto combustible</label>
-                    <s:textfield name="entity.reconocimientoGastoCombustible" label="reconocimientoGastoCombustible" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Reconocimiento gasto pasajes</label>
-                    <s:textfield name="entity.reconocimientoGastoPasajes" label="reconocimientoGastoPasajes" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Importe declarado</label>
-                    <s:textfield name="entity.importeDeclarado" label="importeDeclarado" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Reconocimiento importe total</label>
-                    <s:textfield name="entity.reconocimientoImporteTotal" label="reconocimientoImporteTotal" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label>Observaciones</label>
-                    <s:textarea name="entity.observaciones" label="observaciones" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <s:submit name="Guardar" value="Guardar" class="btn btn-primary" /> 
-                </div>
-            </s:form>
+                <div class="col-sm-2"></div>
+            </div>
             
             <s:include value="partes/footer.jsp" />
         </div>

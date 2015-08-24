@@ -19,8 +19,5 @@
     <property name="fechaHoraSalida" type="timestamp">
       <column length="29" name="fecha_hora_salida"/>
     </property>
-    <property name="fechaHoraRegreso" type="timestamp">
-      <column length="29" name="fecha_hora_regreso"/>
-    </property>
   </class>
 </hibernate-mapping>

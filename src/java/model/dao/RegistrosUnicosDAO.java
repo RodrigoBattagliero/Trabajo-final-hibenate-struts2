@@ -87,9 +87,9 @@ public class RegistrosUnicosDAO extends DAO {
 //            iniciaOperacion();
             String sql;
             if(sede.getId() == 2 || sede.getId() == 3 || sede.getId() == 4)
-                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.solicitudes.sedes = "+ sede.getId();
+                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.solicitudes.sedes = "+ sede.getId() + " ORDER BY ru.solicitudes.fechaAlta ASC, ru.solicitudes.numeroSolicitud ASC";
             else
-                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1";
+                sql = "SELECT ru.solicitudes AS s,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 ORDER BY ru.solicitudes.fechaAlta ASC, ru.solicitudes.numeroSolicitud ASC";
             list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();
@@ -129,10 +129,8 @@ public class RegistrosUnicosDAO extends DAO {
         List<Solicitudes> list = null;
         try{
 //            iniciaOperacion();
-            
-            list = sesion.createQuery(
-                    "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = 4 AND ru.estados = 1 AND ru.solicitudes.tipo = 2 AND ru.solicitudes.sedes = " + sede.getId()
-                ).list();
+            String sql = "SELECT ru.solicitudes,ru.solicitudes.docenteses FROM " + tableName + " AS ru WHERE ru.areas = 4 AND ru.estados = 1 AND ru.solicitudes.tipo = 2 AND ru.solicitudes.sedes = " + sede.getId();
+            list = sesion.createQuery(sql).list();
         }finally{
 //            sesion.close();
         }
@@ -143,6 +141,7 @@ public class RegistrosUnicosDAO extends DAO {
         RegistrosUnicos reg = null;
         List<RegistrosUnicos> list = null;
         try{
+            //String sql = "FROM " + tableName + " AS ru INNER JOIN FETCH ru.solicitudes WHERE ru.areas = " + area.getId() +" AND ((ru.estados = 1 AND ru.confirmado = FALSE) or (ru.estados = 8 AND ru.confirmado = TRUE))  AND ru.solicitudes = " + idSolicitud;
             String sql = "FROM " + tableName + " AS ru INNER JOIN FETCH ru.solicitudes WHERE ru.areas = " + area.getId() +" AND ru.estados = 1 AND ru.confirmado = FALSE AND ru.solicitudes = " + idSolicitud;
             Query q = sesion.createQuery(sql);
             list = q.list();
@@ -203,29 +202,15 @@ public class RegistrosUnicosDAO extends DAO {
     public List<RegistrosUnicos> selectHistorial(Areas area,Sedes sede) {
         List<RegistrosUnicos> list = new ArrayList();
         try{
-            String sql = ""
+            String sql = " SELECT DISTINCT ru"
                     + " FROM " + tableName + " AS ru "
                     + " INNER JOIN FETCH ru.solicitudes AS sol"
                     + " INNER JOIN sol.docenteses"
                     + " WHERE "
                         + " ru.areas = " + area.getId()
-                        + " AND ru.solicitudes.sedes = "+ sede.getId();
-
-            List<Object[]> aux =  sesion.createQuery(sql).list();
-            int cant1 = aux.size();
-            for (int i = 0; i < cant1; i++) {
-                Object[] a = aux.get(i);
-                RegistrosUnicos as = (RegistrosUnicos) a[0];
-                int idSol = as.getSolicitudes().getId();
-                boolean b = true;
-                int cant2 = list.size();
-                for (int j = 0; j < cant2; j++) {
-                    if( (idSol == list.get(j).getSolicitudes().getId()))
-                        b = false;
-                }
-                if(b)
-                    list.add(as);
-            }
+                        + " AND ru.solicitudes.sedes = "+ sede.getId()
+                    + " ORDER BY sol.fechaAlta DESC,sol.id DESC";
+                  list = sesion.createQuery(sql).list();
             
         }catch(Exception e){
             list = null;
@@ -242,9 +227,9 @@ public class RegistrosUnicosDAO extends DAO {
                     + " INNER JOIN sol.docenteses AS doc "
                     + " WHERE 1 = 1 ";
             if(nombreDocente != null && !nombreDocente.equals(""))
-                sql += " AND doc.nombre LIKE '%"+nombreDocente+"%'";
+                sql += " AND doc.nombre LIKE '%"+nombreDocente.toUpperCase()+"%'";
             if(apellidoDocente != null && !apellidoDocente.equals(""))
-                sql += " AND doc.apellido LIKE '%"+apellidoDocente+"%'";
+                sql += " AND doc.apellido LIKE '%"+apellidoDocente.toUpperCase()+"%'";
             if(fechaDePresentacion != null)
                 sql += " AND sol.fechaAlta = '"+fechaDePresentacion+"' ";
             if(dni != null && !dni.equals(""))
@@ -340,7 +325,7 @@ public class RegistrosUnicosDAO extends DAO {
                     + "INNER JOIN FETCH ru.estados es "
                     + "INNER JOIN FETCH ru.solicitudes s "
                     + "INNER JOIN FETCH s.docenteses d "
-                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 8 AND confirmado = TRUE";
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 8 AND confirmado = TRUE AND ru.fechaSalida = NULL";
             Query q = sesion.createQuery(sql);
             list1 = q.list();
         }catch(NullPointerException e){
@@ -357,7 +342,7 @@ public class RegistrosUnicosDAO extends DAO {
                     + "INNER JOIN FETCH ru.estados es "
                     + "INNER JOIN FETCH ru.solicitudes s "
                     + "INNER JOIN FETCH s.docenteses d "
-                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = 8 AND s = " + idSol;
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.fechaSalida = NULL AND ru.estados = 8 AND s = " + idSol;
             Query q = sesion.createQuery(sql);
             a = (RegistrosUnicos) q.list().get(0);
         }catch(Exception e){
@@ -403,6 +388,21 @@ public class RegistrosUnicosDAO extends DAO {
                     + "INNER JOIN FETCH ru.estados es "
                     + "INNER JOIN FETCH ru.solicitudes s "
                     + "WHERE ru.areas = "+area.getId()+" AND ru.estados = " + estado.getId() + " AND ru.solicitudes = " + sol.getId();
+            Query q = sesion.createQuery(sql);
+            list1 = q.list();
+        }catch(NullPointerException e){
+            list1 = null;
+        }
+        return list1;
+    }
+    public List<RegistrosUnicos> selectFromParametros(Solicitudes sol, Areas area,Estados estado,int i) {
+        List<RegistrosUnicos> list1;
+        try{
+            String sql = "FROM " + tableName + " AS ru "
+                    + "INNER JOIN FETCH ru.estados es "
+                    + "INNER JOIN FETCH ru.solicitudes s "
+                    + "WHERE ru.areas = "+area.getId()+" AND ru.estados = " + estado.getId() + " AND ru.solicitudes = " + sol.getId()+" AND ru.fechaSalida = NULL "
+                    + " ORDER BY ru DESC";
             Query q = sesion.createQuery(sql);
             list1 = q.list();
         }catch(NullPointerException e){

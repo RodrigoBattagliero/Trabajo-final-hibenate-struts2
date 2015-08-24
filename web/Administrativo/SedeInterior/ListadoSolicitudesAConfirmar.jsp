@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../../bootstrap/css/bootstrap.css" />
-        <title></title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
@@ -21,7 +21,7 @@
                 <li><a href="#">Actividad docente</a></li>
                 <li class="active">Solicitudes a confirmar</li>
             </ol>
-            <h1 class="page-header">Confirmar solicitudes</h1>
+            <h1 class="page-header">Solicitudes a confirmar</h1>
             <s:form action="ConfirmarSolicitudesPrepared" theme="simple" method="post">
             <table class="table table-bordered table-hover">
             <thead>

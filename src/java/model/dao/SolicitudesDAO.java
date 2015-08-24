@@ -5,6 +5,7 @@
  */
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 import model.entities.Solicitudes;
 
@@ -43,6 +44,19 @@ public class SolicitudesDAO extends DAO {
             cant = 0;
         }
         return cant;
+    }
+    
+    public boolean validarNumeroSolicitud(int numeroSolicitud,int id){
+        boolean b = false;
+        try{
+            String sql = "FROM "+tableName+" t WHERE year(t.fechaAlta) = year(now()) AND t.numeroSolicitud  = "+numeroSolicitud+"  AND t.sedes = " + id;
+            List<Solicitudes> sol = sesion.createQuery(sql).list();
+            if(sol.size() > 0)
+                b = true;
+        }catch(Exception e){
+            b = false;
+        }
+        return b;
     }
     
 }

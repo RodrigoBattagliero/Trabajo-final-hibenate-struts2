@@ -21,32 +21,36 @@
                 <li><a href="#">Inicio</a></li>
                 <li class="active">Expedientes pendientes de pago</li>
             </ol>
-            <h1 class="page-header">Expedientes</h1>
-            <s:fielderror />
-            <s:actionerror />
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr class="success">
-                        <th>Fecha iniciada</th>
-                        <th>Número expediente</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <s:iterator value="expedientes" var="exp">
-                        <tr>
-                            <td><s:property value="#exp.fecha" /></td>
-                            <td><s:property value="#exp.numeroExpediente" /></td>
-                            <td>
-                                    <s:url var="url" action="ExpedienteDetallePendiente">
-                                        <s:param name="idExpedienteSelected" value="%{#exp.id}"></s:param>
-                                    </s:url>
-                                    <s:a href="%{url}" class="btn" >Solicitudes</s:a>
-                                </td>
-                        </tr>
-                    </s:iterator>
-                </tbody>
-            </table>
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="page-header">Expedientes</h1>
+                    <s:fielderror />
+                    <s:actionerror />
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr class="success">
+                                <th>Fecha iniciada</th>
+                                <th>Número expediente</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <s:iterator value="expedientes" var="exp">
+                                <tr>
+                                    <td><s:property value="#exp.fecha" /></td>
+                                    <td><s:property value="#exp.numeroExpediente" /></td>
+                                    <td>
+                                            <s:url var="url" action="ExpedienteDetallePendiente">
+                                                <s:param name="idExpedienteSelected" value="%{#exp.id}"></s:param>
+                                            </s:url>
+                                            <s:a href="%{url}" class="btn" >Solicitudes</s:a>
+                                        </td>
+                                </tr>
+                            </s:iterator>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             
             <%@include file="partes/footer.jsp" %>
         </div>

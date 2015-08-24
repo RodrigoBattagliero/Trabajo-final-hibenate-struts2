@@ -12,100 +12,53 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="../js/datetimepicker-master/jquery.datetimepicker.css"/>
         <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css" />
-        <title>JSP Page</title>
+        <title>Administrativo</title>
     </head>
     <body>
         <div class="container">
             <s:include value="partes/menu.jsp" />
             <h1 class="page-header">Designaciones</h1>
+             <s:fielderror />
             <s:actionerror />
-            <s:fielderror />
-            <s:form action="DesignacionUpdate" theme="simple" >
-            <table class="table table-striped" > 
-                <thead>
-                    <tr>
-                        <th>Número de Resolución</th>
-                        <th>Categoria</th>
-                        <th>Desde</th>
-                        <th>Hasta</th>
-                        <th>Id designación</th>
-                        <th>Fecha de normas</th>
-                        <th>Observaciones</th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                     <s:iterator value="update" var="designacion">
-                            <tr>
-                                <td>
-                                    <s:hidden name="id" value="%{#designacion.id}" />
-                                    <s:textfield name="numeroResolucion" value="%{#designacion.numeroResolucion}" label="Número de resolución" class="form-control" theme="simple" />
-                                </td>
-                                <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" theme="simple" /></td>
-                                <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control" theme="simple" /></td>
-                                <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control" theme="simple" /></td>
-                                <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" theme="simple" /></td>
-                                <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" theme="simple" /></td>
-                                <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" theme="simple" /></td>
-                                
-                            </tr>
-                        </s:iterator>
-                        <!--<s:iterator value="entities" var="designacion">
-                            <tr>
-                                <td><s:textfield name="numeroResolucion" value="%{#designacion.numeroResolucion}" label="Número de resolución" class="form-control" theme="simple" /></td>
-                                <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" theme="simple" /></td>
-                                <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control" theme="simple" /></td>
-                                <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control" theme="simple" /></td>
-                                <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" theme="simple" /></td>
-                                <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" theme="simple" /></td>
-                                <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" theme="simple" /></td>
-                                
-                            </tr>
-                        </s:iterator>-->
-                </tbody>
-                <tfooter>
-                    <tr>
-                        <td><s:submit value="Actualizar" class="btn btn-default" /></td>
-                        <td><s:a action="LiquidacionesUpdateForm" class="btn btn-default">Continuar</s:a></td>
-                    </tr>
-                </tfooter>
-            </table>
-            </s:form>
-            <!--
-            <s:if test="entity.id" >
-                <s:form action="DesignacionUpdate" theme="simple" >
-                    <table class="table table-striped">
+            <div class="row">
+               <div class="col-sm-12">
+                <s:form action="DesignacionUpdate" theme="simple">
+                <table class="table table-bordered table-hover table-striped">
                         <thead>
-                            <tr>
-                                <td>Id</td>
-                                <td>Número Resolución</td>
-                                <td>Categoria</td>
-                                <td>Desde</td>
-                                <td>Hasta</td>
-                                <td>Id designación</td>
-                                <td>Fecha de norma</td>
-                                <td>Observaciones</td>
+                            <tr class="success">
+                                <th>Número de resolución</th>
+                                <th>Categoria</th>
+                                <th>Desde</th>
+                                <th>Hasta</th>
+                                <th>Id designación</th>
+                                <th>Fecha de norma</th>
+                                <th>observaciones</th>
+                                <th>Seleccionar</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <s:iterator value="entities" var="designacion">
                                 <tr>
-                                    <td><s:textfield name="entity.id" class="form-control" /></td>
-                                    <td><s:textfield name="entity.numeroResolucion" class="form-control" /></td>
-                                    <td><s:textfield name="entity.categoria" class="form-control" /></td>
-                                    <td><s:textfield name="entity.desde" class="fecha form-control" /></td>
-                                    <td><s:textfield name="entity.hasta" class="fecha form-control" /></td>
-                                    <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" /></td>
-                                    <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" /></td>
-                                    <td><s:textarea name="entity.observaciones" class="form-control" /></td>
+                                <td><s:textfield name="numeroResolucion" value="%{#designacion.numeroResolucion}" label="Número de resolución" class="form-control" readonly="true" /></td>
+                                <td><s:textfield name="categoria" value="%{#designacion.categoria}" label="Categoria" class="form-control" readonly="true" /></td>
+                                <td><s:textfield name="desde" value="%{#designacion.desde}" label="Desde" class="fecha form-control" readonly="true" /></td>
+                                <td><s:textfield name="hasta" value="%{#designacion.hasta}" label="Hasta" class="fecha form-control" readonly="true"  /></td>
+                                <td><s:textfield name="idDesignacion" value="%{#designacion.idDesignacion}" label="Id designacion" class="form-control" readonly="true" /></td>
+                                <td><s:textfield name="fecNorma" value="%{#designacion.fecNorma}" label="Comisión" class="form-control" readonly="true" /></td>
+                                <td><s:textarea name="observaciones" value="%{#designacion.observaciones}" label="observaciones" class="form-control" /></td>
+                                <td><s:select list="{'no','si'}" name="seleccionado" /></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="7"><s:submit value="Modificar" class="btn" /></td>
-                                </tr>
+                            </s:iterator>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="8"><s:submit value="Guardar" class="btn btn-primary"/></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </s:form>
-            </s:if>
-            -->
+                </div>
+            </div>
             
             
         <%@include file="partes/footer.jsp" %>

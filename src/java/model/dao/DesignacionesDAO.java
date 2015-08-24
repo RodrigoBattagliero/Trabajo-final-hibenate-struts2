@@ -45,7 +45,7 @@ public class DesignacionesDAO extends DAO {
     public List<Designaciones> selectRelatedAll(Object key) {
         List<Designaciones> list;
         try{
-            String sql = "SELECT DISTINCT de FROM " + tableName + " AS de INNER JOIN FETCH de.actividadDocenteses AS act WHERE de.solicitudes = " + (int) key;
+            String sql = "SELECT DISTINCT de FROM " + tableName + " AS de Left Outer Join de.actividadDocenteses AS act WHERE de.solicitudes = " + (int) key;
             list = sesion.createQuery(sql).list();
         }catch(Exception e){
             list = null;
